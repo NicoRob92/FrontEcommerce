@@ -1,0 +1,26 @@
+.Market {
+  display: flex;
+  height: auto;
+  justify-content: flex-start;
+  flex-wrap: row wrap;
+  width: 100vw;
+  background-color: white;
+}
+
+.categories{
+  position: fixed;
+  top: 11vh;
+  left: 2vw;
+}
+
+.Paginate {
+  display: flex;
+  height: auto;
+  width: auto;
+  justify-content: center;
+  flex-flow: row wrap;
+  margin-top: 50px;
+  bottom: 50px;
+  background-color: tomato;
+  padding: 10px;
+}

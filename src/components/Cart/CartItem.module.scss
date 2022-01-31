@@ -1,0 +1,17 @@
+.item {
+  border: 1px solid black;
+  padding: 20px 0;
+  display: flex;
+  flex-direction: row;
+  gap: 40px;
+  justify-content: space-around;
+  box-shadow: black 1px 1px 5px;
+}
+.item span {
+  margin: 0 10px;
+}
+.item button {
+  background-color: transparent;
+  border: 1px solid black;
+  border-radius: 100%;
+}

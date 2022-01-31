@@ -1,0 +1,19 @@
+.purchase_info {
+
+  width: 400px;
+  height: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+
+  .purchase_button {
+      display: flex;
+      flex-direction: column;
+      .purchase_quantity {
+          display: flex;
+          justify-content: center;
+          margin: 1rem;
+      }
+  }
+}

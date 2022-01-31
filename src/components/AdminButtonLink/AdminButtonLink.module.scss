@@ -1,0 +1,17 @@
+.button div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 15vw;
+    height: 5vh;
+    background-color: rgb(219, 219, 219);
+    border-radius: 15px;
+    text-align: center;
+    font-size: 1.2rem;
+
+    color: black;
+    font-weight: bold;
+}
+.button{
+    text-decoration: none;
+}

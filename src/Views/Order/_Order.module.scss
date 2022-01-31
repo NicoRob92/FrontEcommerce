@@ -1,0 +1,43 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+   
+}
+
+.card_body{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+    section{
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+    }
+}
+
+.order_detail_container{
+    margin: 10px;
+}
+
+.product{
+    justify-content: center;
+    align-items: center;
+    margin: 10px;
+}
+
+.detail_container{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    
+}
+
+
+.title_product{
+    margin-left: 10px;
+}

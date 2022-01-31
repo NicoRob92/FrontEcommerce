@@ -1,0 +1,74 @@
+@import "../../sass/variables.scss";
+.product_content {
+  padding: 2rem 1rem;
+  .product_title {
+      font-size: 3rem;
+      text-transform: capitalize;
+      font-weight: 700;
+      position: relative;
+      margin: 1rem 0;
+
+      &::after {
+          content: "";
+          position: absolute;
+          left: 0;
+          bottom: 0;
+          height: 4px;
+          width: 80px;
+          background: $CFifth;
+      }
+  }
+}
+
+.product_rating {
+  span {
+      font-weight: 600;
+      color: $CPrimary;
+  }
+}
+
+
+.product_price {
+  margin: 1rem 0;
+  font-size: 1rem;
+  font-weight: 700;
+
+  span {
+      font-weight: 400;
+  }
+
+  .last_price {
+      span {
+          color: $CThird;
+          text-decoration: line-through;
+      }
+  }
+
+  .new_price {
+      span {
+          color: #256eff;
+      }
+  }
+}
+
+.product_detail {
+  h3 {
+      text-transform: capitalize;
+      color: $CPrimary;
+      padding-bottom: 0.6rem;
+  }
+
+  ul {
+      margin: 1rem 0;
+      font-size: 0.9rem;
+      li {
+          margin: 0.4rem 0;
+          font-weight: 600;
+          opacity: 0.9;
+      }
+  }
+
+  span {
+      font-weight: 400;
+  }
+}
