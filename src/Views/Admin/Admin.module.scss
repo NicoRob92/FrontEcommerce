@@ -1,6 +1,7 @@
 .container {
   display: flex;
   flex-direction: row;
+  width: 100%;
   aside {
     width: 20vw;
     height: 100vh;
@@ -8,4 +9,8 @@
     display: flex;
     flex-direction: column;
   }
+}
+
+.containerRight{
+  width: 100%;
 }

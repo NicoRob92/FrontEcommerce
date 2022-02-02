@@ -27,6 +27,8 @@ export function resetLogin() {
   localStorage.removeItem('rol');
   localStorage.removeItem('username');
   localStorage.removeItem('logged');
+  localStorage.removeItem('userId');
+
 }
 
 export function isLoggedIn() {

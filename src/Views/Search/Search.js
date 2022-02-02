@@ -21,7 +21,7 @@ const Search = () => {
 
   const getPostByName= async () => {
     const arr = await axios.get(
-      `https://api-ec.herokuapp.com/api/post?name=${name}`
+      `http://localhost:4000/api/post?name=${name}`
     );
     let array = arr.data;
     array.forEach((e) => {
