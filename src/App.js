@@ -11,6 +11,7 @@ import FormNewPost from "./components/FormNewPost/FormNewPost";
 import Order from "./Views/Order/Order";
 import Checkout from "./Views/Checkout/Checkout";
 import FormUpdatePost  from "./components/EditPost/FormUpdatePost"
+import ProfileView from "./Views/ProfileView/ProfileView";
 
 import * as actionCreators from "./ducks/actions/actionCreators";
 
@@ -56,6 +57,9 @@ const App = () => {
         </Route>      
         <Route exact path="/editpost/:id">
           <FormUpdatePost/>
+        </Route>
+        <Route exact path="/profile/:id">
+          <ProfileView/>
         </Route>
       </Switch>
     </>

@@ -1,15 +1,15 @@
 import * as actionTypes from "../actions/actionTypes";
 
 const initialState = {
-  reviews: []
+  user: []
 };
 
-export default function reviewReducer(state = initialState, action) {
+export default function userReducer(state = initialState, action) {
   switch (action.type) {
-    case actionTypes.GET_REVIEW:
+    case actionTypes.GET_USER_BY_ID:
       return{
         ...state,
-        reviews: action.payload
+        user: action.payload
       }  
     default:
       return state;
