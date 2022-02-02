@@ -88,8 +88,13 @@ export default function FormUpdatePost() {
 
   // Handle field changes
   const handleChange = (e) => {
+
     setInput((input) => {
       const { name, value } = e.target;
+      setErrors(validate({
+        ...input,
+        [name]: value,
+      }))
       return {
         ...input,
         [name]: value,
@@ -99,27 +104,34 @@ export default function FormUpdatePost() {
   const deleteMultiOption = (name, value) => {
     console.log(value);
     setInput((input) => {
-      return {
+      let temInput= {
         ...input,
         [name]: input[name].filter((e) => e != value),
-      };
+      }
+      setErrors(validate(temInput))
+      return temInput;
     });
   };
   // Handle multioptio like images or categories
   const handleMultiOption = (e) => {
     setInput((input) => {
       const { name, value } = e.target;
-      return {
+      let temInput = {
         ...input,
         [name]: [...input[name], value],
-      };
+      }
+      setErrors(validate(temInput))
+      return temInput;
     });
   };
   const addImage = (link) => {
-    setInput({
+
+    let temInput = {
       ...input,
       Images: [...input.Images, link],
-    });
+    }
+    setErrors(validate(temInput))
+    setInput(temInput);
   };
 
   // Handle errors by blur event
@@ -149,6 +161,7 @@ export default function FormUpdatePost() {
           Images={input.Images}
           deleteMultiOption={deleteMultiOption}
           handleChange={handleChange}
+          errors={errors}
         />
       );
     case 2:
@@ -162,6 +175,7 @@ export default function FormUpdatePost() {
           handleBlur={handleBlur}
           input={input}
           allCategories={allCategories}
+          errors={errors}
         />
       );
     case 3:
@@ -171,6 +185,8 @@ export default function FormUpdatePost() {
           prevStep={prevStep}
           input={input}
           handleSubmit={handleSubmit}
+          errors={errors}
+          allCategories={allCategories}
         />
       );
     case 4:

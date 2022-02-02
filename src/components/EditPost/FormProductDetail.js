@@ -11,6 +11,7 @@ const FormProductDetail = ({
   handleBlur,
   deleteMultiOption,
   handleChange,
+  errors
 }) => {
   const [uploadValue, setUploadValue] = useState(1);
   const continues = (e) => {
@@ -44,7 +45,7 @@ const FormProductDetail = ({
   return (
     <div className="container">
       <div className="mb-3">
-        <label className="form-label">Title</label>
+        <label className="form-label">Titulo</label>
         <input
           type="text"
           className="form-control"
@@ -54,9 +55,13 @@ const FormProductDetail = ({
         />
 
         <div className="form-text">
-          This will be the title, please indicate product, brand and model, ex.
-          Google Pixel 6 Pro 128GB white
+          Indica por favor nombre, marca y modelo
         </div>
+
+          {errors.title?
+            <div className="sm alert alert-danger">{errors.title}</div>
+            :null}
+
       </div>
       <progress value={uploadValue} max="100"></progress>
       <div className="col mb-3">
@@ -73,6 +78,9 @@ const FormProductDetail = ({
 
 
         <div className="d-flex flex-wrap justify-content-center">
+        {errors.Images?
+          <div className="sm alert alert-danger">{errors.Images}</div>
+          :null}
           {Images?.map((link, i) => {
             return (
               <div
@@ -82,7 +90,6 @@ const FormProductDetail = ({
                 <img height={260} src={link} />
                 <div
                   type="button"
-                  name="Categories"
                   className="bg-danger"
                   value={i}
                   onClick={() => deleteMultiOption("Images", link)}
@@ -95,7 +102,7 @@ const FormProductDetail = ({
         </div>
       </div>
       <button className="btn btn-primary" onClick={continues}>
-        Continue
+        Siguiente
       </button>
     </div>
   );
