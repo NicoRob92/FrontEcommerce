@@ -3,7 +3,7 @@ import AdminButtonLink from "../../components/AdminButtonLink/AdminButtonLink";
 import styles from "./Admin.module.scss";
 import DashBoard from "../../Views/AdminViews/DashBoard/DashBoard";
 import AdminCategory from "../../Views/AdminViews/CreateCategory/AdminCategory";
-
+import {OrderHistoryAdmin} from '../../containers/OrderHistoryAdmin/OrderHistoryAdmin'
 export default function Admin() {
   return (
     <div className={styles.container}>
@@ -15,7 +15,7 @@ export default function Admin() {
         <NavLink to="/admin/orders"> Ordenes</NavLink>
         <NavLink to="/admin/post"> Post</NavLink>
       </aside>
-      <div>
+      <div className={styles.containerRight}>
         <Switch>
           <Route path="/admin/category">
             <AdminCategory />
@@ -36,7 +36,8 @@ export default function Admin() {
             <p> User for id </p>
           </Route>
           <Route exact path="/admin/orders">
-            <p> ordenes</p>
+
+          <OrderHistoryAdmin/>
           </Route>
           <Route exact path="/admin/orders/:id">
             <p> ordenes for id</p>
