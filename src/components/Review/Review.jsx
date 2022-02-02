@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { createTheme, responsiveFontSizes, ThemeProvider } from "@mui/material/styles";
 import Typography from "@mui/material/Typography";
@@ -6,27 +6,19 @@ import ReviewBar from './ReviewBar';
 import ReviewCard from './ReviewCard';
 import st from './_Review.module.scss'
 import ReviewForm from './ReviewForm';
-import {getReview} from '../../ducks/actions/actionCreators'
+import {getReview, getUsers} from '../../ducks/actions/actionCreators'
+
 const Review = ({ProductId}) => {
     const dispatch = useDispatch()
-    // const reviews = useSelector((state) => state.reviews)
-    const reviews = [{
-        "id": 20,
-        "name": "Pez Globo",
-        "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer molestie felis eget purus sagittis sodales quis id eros.",
-        "price": "629",
-        "stock": 5,
-        "ratingProm": "2",
-        "status": true,
-        "createdAt": "2022-01-28T23:39:43.965Z",
-        "updatedAt": "2022-01-29T16:20:08.250Z",
-        "UserId": 1
-    }]
+    const reviews = useSelector((state) => state.review.reviews)
+
     let theme = createTheme();
     theme = responsiveFontSizes(theme);
+    let token = localStorage.getItem('token')
 
     useEffect(() => {
-        dispatch(getReview(ProductId))
+        dispatch(getReview(ProductId, token))
+        dispatch(getUsers(token))
     }, [dispatch])
 
     return (
@@ -39,10 +31,10 @@ const Review = ({ProductId}) => {
             <div className={st.btns}>
                 <ReviewBar />
             </div>
-            <div className={st.card}>
+            <div>
                 {reviews ? (
-                    reviews?.map((e) => {
-                        return <ReviewCard description={e.description} ratingProm={e.ratingProm}/>;
+                    reviews.Reviews?.map((e) => {
+                        return <ReviewCard key={e.id}   description={e.description} rating={e.rating} name={e.author}/>;
                     })
                 ) : (
                     <div className={st.cardB}>
@@ -61,7 +53,7 @@ const Review = ({ProductId}) => {
                 )}
             </div>
             <div className={st.submitReview}>
-                <ReviewForm ProductId={ProductId} />
+                <ReviewForm key={ProductId} ProductId={ProductId} token={token} />
             </div>
         </div>
     )
