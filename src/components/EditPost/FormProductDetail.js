@@ -1,8 +1,13 @@
 import { useState } from "react/cjs/react.development";
 import firebase from "firebase";
+import ConfirmDeletion  from './ConfirmDeletion'
+
+
 firebase.initializeApp({
   storageBucket: "gs://ecstorage-72e4f.appspot.com",
 });
+
+
 const FormProductDetail = ({
   nextStep,
   addImage,
@@ -11,7 +16,8 @@ const FormProductDetail = ({
   handleBlur,
   deleteMultiOption,
   handleChange,
-  errors
+  errors,
+  deletePost
 }) => {
   const [uploadValue, setUploadValue] = useState(1);
   const continues = (e) => {
@@ -42,10 +48,11 @@ const FormProductDetail = ({
       }
     );
   }
+
   return (
     <div className="container">
       <div className="mb-3">
-        <label className="form-label">Titulo</label>
+        <label className="form-label"><h2>Titulo</h2></label>
         <input
           type="text"
           className="form-control"
@@ -87,10 +94,11 @@ const FormProductDetail = ({
                 key={i}
                 className=" card  flex-column justify-content-between"
               >
-                <img height={260} src={link} />
+                <img className="rounded" height={260} src={link} />
                 <div
+
                   type="button"
-                  className="bg-danger"
+                  className="btn rounded text-danger "
                   value={i}
                   onClick={() => deleteMultiOption("Images", link)}
                 >
@@ -100,10 +108,15 @@ const FormProductDetail = ({
             );
           })}
         </div>
-      </div>
-      <button className="btn btn-primary" onClick={continues}>
+      </div  >
+      <div className="">
+      <button className="btn btn-primary m-3" onClick={continues}>
         Siguiente
       </button>
+
+      <ConfirmDeletion deletePost={deletePost} input={input}/>
+      </div>
+
     </div>
   );
 };

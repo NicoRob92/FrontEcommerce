@@ -9,6 +9,20 @@ import {getPostByIdUrl,getCategoriesUrl,api}  from '../../ducks/actions/actionCr
 
 import { useParams,Redirect } from "react-router-dom";
 
+function removePost(id) {
+  fetch(api+"admin/post/" + id, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+      "token": localStorage.getItem("token")
+
+
+    }
+  })
+    .then((res) => res.text()) // or res.json()
+    .then((res) => alert(res.msg));
+}
+
 
 function updatePost(post) {
   async function putData(url = "", data = {}) {
@@ -51,6 +65,7 @@ export default function FormUpdatePost() {
     price: "",
     Images: [],
   });
+  const [deletion , setdeletion]= useState()
   let dispatch = useDispatch();
   useEffect(() => {
 
@@ -143,6 +158,11 @@ export default function FormUpdatePost() {
     e.preventDefault();
     dispatch(updatePost({ ...input, name: input.title }));
   };
+  function deletePost() {
+    setdeletion(true)
+    setStep(4)
+    removePost(id)
+  }
 
   switch (step) {
     case 0:
@@ -162,6 +182,7 @@ export default function FormUpdatePost() {
           deleteMultiOption={deleteMultiOption}
           handleChange={handleChange}
           errors={errors}
+          deletePost={deletePost}
         />
       );
     case 2:
@@ -190,7 +211,7 @@ export default function FormUpdatePost() {
         />
       );
     case 4:
-      return <Success />;
+      return <Success id={id} deletion={deletion} />;
     default:
       return null;
   }
