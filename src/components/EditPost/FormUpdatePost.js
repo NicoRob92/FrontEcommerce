@@ -9,6 +9,20 @@ import {getPostByIdUrl,getCategoriesUrl,api}  from '../../ducks/actions/actionCr
 
 import { useParams,Redirect } from "react-router-dom";
 
+function removePost(id) {
+  fetch(api+"admin/post/" + id, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+      "token": localStorage.getItem("token")
+
+
+    }
+  })
+    .then((res) => res.text()) // or res.json()
+    .then((res) => alert(res.msg));
+}
+
 
 function updatePost(post) {
   async function putData(url = "", data = {}) {
@@ -51,6 +65,7 @@ export default function FormUpdatePost() {
     price: "",
     Images: [],
   });
+  const [deletion , setdeletion]= useState()
   let dispatch = useDispatch();
   useEffect(() => {
 
@@ -88,8 +103,13 @@ export default function FormUpdatePost() {
 
   // Handle field changes
   const handleChange = (e) => {
+
     setInput((input) => {
       const { name, value } = e.target;
+      setErrors(validate({
+        ...input,
+        [name]: value,
+      }))
       return {
         ...input,
         [name]: value,
@@ -99,27 +119,34 @@ export default function FormUpdatePost() {
   const deleteMultiOption = (name, value) => {
     console.log(value);
     setInput((input) => {
-      return {
+      let temInput= {
         ...input,
         [name]: input[name].filter((e) => e != value),
-      };
+      }
+      setErrors(validate(temInput))
+      return temInput;
     });
   };
   // Handle multioptio like images or categories
   const handleMultiOption = (e) => {
     setInput((input) => {
       const { name, value } = e.target;
-      return {
+      let temInput = {
         ...input,
         [name]: [...input[name], value],
-      };
+      }
+      setErrors(validate(temInput))
+      return temInput;
     });
   };
   const addImage = (link) => {
-    setInput({
+
+    let temInput = {
       ...input,
       Images: [...input.Images, link],
-    });
+    }
+    setErrors(validate(temInput))
+    setInput(temInput);
   };
 
   // Handle errors by blur event
@@ -131,6 +158,11 @@ export default function FormUpdatePost() {
     e.preventDefault();
     dispatch(updatePost({ ...input, name: input.title }));
   };
+  function deletePost() {
+    setdeletion(true)
+    setStep(4)
+    removePost(id)
+  }
 
   switch (step) {
     case 0:
@@ -149,6 +181,8 @@ export default function FormUpdatePost() {
           Images={input.Images}
           deleteMultiOption={deleteMultiOption}
           handleChange={handleChange}
+          errors={errors}
+          deletePost={deletePost}
         />
       );
     case 2:
@@ -162,6 +196,7 @@ export default function FormUpdatePost() {
           handleBlur={handleBlur}
           input={input}
           allCategories={allCategories}
+          errors={errors}
         />
       );
     case 3:
@@ -171,10 +206,12 @@ export default function FormUpdatePost() {
           prevStep={prevStep}
           input={input}
           handleSubmit={handleSubmit}
+          errors={errors}
+          allCategories={allCategories}
         />
       );
     case 4:
-      return <Success />;
+      return <Success id={id} deletion={deletion} />;
     default:
       return null;
   }
