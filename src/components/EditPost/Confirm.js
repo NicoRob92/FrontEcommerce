@@ -14,11 +14,11 @@ const Confirm = ({ nextStep, prevStep, input, handleSubmit,allCategories }) => {
 
         return (
             <form className="container">
-            <h1>Por favor, confirma los datos</h1>
+            <h3>Por favor, confirma los datos</h3>
                 <ul className="list-group">
 
                     <li className="list-group-item" name="title" >
-                    <h3>{input.title}</h3>
+                    <h1>{input.title}</h1>
                     </li>
                     <li className="list-group-item" name="categoryId" >
                       <h2>Categorias</h2>
