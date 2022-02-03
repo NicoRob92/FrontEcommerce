@@ -1,8 +1,13 @@
 import { useState } from "react/cjs/react.development";
 import firebase from "firebase";
+import ConfirmDeletion  from './ConfirmDeletion'
+
+
 firebase.initializeApp({
   storageBucket: "gs://ecstorage-72e4f.appspot.com",
 });
+
+
 const FormProductDetail = ({
   nextStep,
   addImage,
@@ -11,6 +16,8 @@ const FormProductDetail = ({
   handleBlur,
   deleteMultiOption,
   handleChange,
+  errors,
+  deletePost
 }) => {
   const [uploadValue, setUploadValue] = useState(1);
   const continues = (e) => {
@@ -41,10 +48,11 @@ const FormProductDetail = ({
       }
     );
   }
+
   return (
     <div className="container">
       <div className="mb-3">
-        <label className="form-label">Title</label>
+        <label className="form-label"><h2>Titulo</h2></label>
         <input
           type="text"
           className="form-control"
@@ -54,9 +62,13 @@ const FormProductDetail = ({
         />
 
         <div className="form-text">
-          This will be the title, please indicate product, brand and model, ex.
-          Google Pixel 6 Pro 128GB white
+          Indica por favor nombre, marca y modelo
         </div>
+
+          {errors.title?
+            <div className="sm alert alert-danger">{errors.title}</div>
+            :null}
+
       </div>
       <progress value={uploadValue} max="100"></progress>
       <div className="col mb-3">
@@ -73,17 +85,20 @@ const FormProductDetail = ({
 
 
         <div className="d-flex flex-wrap justify-content-center">
+        {errors.Images?
+          <div className="sm alert alert-danger">{errors.Images}</div>
+          :null}
           {Images?.map((link, i) => {
             return (
               <div
                 key={i}
                 className=" card  flex-column justify-content-between"
               >
-                <img height={260} src={link} />
+                <img className="rounded" height={260} src={link} />
                 <div
+
                   type="button"
-                  name="Categories"
-                  className="bg-danger"
+                  className="btn rounded text-danger "
                   value={i}
                   onClick={() => deleteMultiOption("Images", link)}
                 >
@@ -93,10 +108,15 @@ const FormProductDetail = ({
             );
           })}
         </div>
-      </div>
-      <button className="btn btn-primary" onClick={continues}>
-        Continue
+      </div  >
+      <div className="">
+      <button className="btn btn-primary m-3" onClick={continues}>
+        Siguiente
       </button>
+
+      <ConfirmDeletion deletePost={deletePost} input={input}/>
+      </div>
+
     </div>
   );
 };

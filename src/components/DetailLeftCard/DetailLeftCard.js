@@ -11,8 +11,8 @@ const DetailLeftCard = ({ postById }) => {
           </div>
         </div>
         <div className={styles.img_select}>
-          {postById.Images?.map((image) => (
-            <div className={styles.img_item}>
+          {postById.Images?.map((image, i) => (
+            <div key={i} className={styles.img_item}>
               <img src={image.link} alt={postById?.name} />
             </div>
           ))}
