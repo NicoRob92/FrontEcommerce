@@ -4,6 +4,8 @@ import styles from "./Admin.module.scss";
 import DashBoard from "../../Views/AdminViews/DashBoard/DashBoard";
 import AdminCategory from "../../Views/AdminViews/CreateCategory/AdminCategory";
 import {OrderHistoryAdmin} from '../../containers/OrderHistoryAdmin/OrderHistoryAdmin'
+import {UsersAdmin} from '../../containers/UsersAdmin/UsersAdmin'
+import {PostAdmin} from '../../containers/PostAdmin/PostAdmin'
 export default function Admin() {
   return (
     <div className={styles.container}>
@@ -23,27 +25,20 @@ export default function Admin() {
           <Route exact path="/admin">
             <DashBoard />
           </Route>
-          <Route exact path="/admin/post">
-            <p> ver todos los post </p>
-          </Route>
           <Route exact path="/admin/user">
-            <p>users</p>
-          </Route>
-          <Route exact path="/admin/user/reset-password">
-            <p> Reset Password</p>
-          </Route>
+          <UsersAdmin/>
+          </Route>        
           <Route exact path="/admin/user/:id">
             <p> User for id </p>
           </Route>
           <Route exact path="/admin/orders">
-
           <OrderHistoryAdmin/>
           </Route>
           <Route exact path="/admin/orders/:id">
             <p> ordenes for id</p>
           </Route>
           <Route exact path="/admin/post">
-            <p> All post o products ??</p>
+            <PostAdmin/>
           </Route>
           <Route exact path="/admin/post/:id">
             <p>

@@ -6,7 +6,7 @@ export const api = 'http://localhost:4000/api/';
 const getPostsUrl = api + 'post';
 export const getPostByIdUrl = api + 'posts';
 export const getCategoriesUrl = api + 'category';
-const getUsersUrl = api + 'users';
+const getUsersUrl = api + 'admin/users';
 const getCountriesUrl = api + 'countries';
 const Review = api + 'admin/review';
 
@@ -89,7 +89,7 @@ export function create_post(payload, token) {
       body: JSON.stringify(payload),
       headers: {
         'Content-Type': 'application/json',
-        'token': token,
+        token: token,
       },
     }).catch((e) => console.error(e));
   };
@@ -160,6 +160,17 @@ export function getReview(PostId) {
       .then((response) => response.json())
       .then((json) => {
         dispatch({ type: actionTypes.GET_REVIEW, payload: json });
+      })
+      .catch((e) => console.error(e));
+  };
+}
+
+export function getUsers() {
+  return function (dispatch) {
+    return fetch(getUsersUrl)
+      .then((response) => response.json())
+      .then((json) => {
+        dispatch({ type: actionTypes.GET_USERS, payload: json });
       })
       .catch((e) => console.error(e));
   };
