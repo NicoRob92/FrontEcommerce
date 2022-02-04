@@ -11,7 +11,8 @@ const initialState = {
   filteredPostByCategory: [],
   postById: [],
   orders: [],
-  reviews: []
+  reviews: [],
+
 };
 
 export default function Product(state = initialState, action) {

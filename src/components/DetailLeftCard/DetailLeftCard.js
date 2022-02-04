@@ -1,7 +1,6 @@
 import styles from "./_DetailLeftCard.module.scss";
 
 const DetailLeftCard = ({ postById }) => {
-  console.log(postById);
   return (
     <div className={`card ${styles.card_wrapper}`}>
       <div className={`card ${styles.product_imgs}`}>

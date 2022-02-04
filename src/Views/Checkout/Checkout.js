@@ -31,7 +31,7 @@ const Checkout = () => {
         <CheckoutFailure />
         {timer === 4 && <Redirect to="/"/>}
       </Route>
-      <Route exact path={`${url}/Pending`}>
+      <Route exact path={`${url}/pending`}>
         <CheckoutPending />
         {timer === 4 && <Redirect to="/"/>}
       </Route>
