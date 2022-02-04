@@ -7,7 +7,7 @@ import style from './_Menu.module.scss';
 import { NavLink } from 'react-router-dom';
 export const Menu = ({ user, handleLogOut, close }) => {
   const rol = localStorage.getItem('rol');
-  console.log(user);
+  const id = localStorage.getItem('userId');
   return (
     <div className={style.menu} id='menu'>
       <div className={style.tittle}>
@@ -48,7 +48,7 @@ export const Menu = ({ user, handleLogOut, close }) => {
       </div>
       <menu>
         <li key='0' type='none'>
-          <h6>Perfil</h6>
+          <NavLink to={`/user/profile/${id}`}>Perfil</NavLink>
         </li>
 
         <li key='2' type='none'>
@@ -70,7 +70,7 @@ export const Menu = ({ user, handleLogOut, close }) => {
         ) : null}
       </menu>
 
-      <button className={style.logout}onClick={(e) => handleLogOut(e)}>
+      <button className={style.logout} onClick={(e) => handleLogOut(e)}>
         <svg
           width='32'
           height='32'

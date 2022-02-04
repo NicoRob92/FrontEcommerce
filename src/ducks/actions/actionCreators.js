@@ -137,9 +137,13 @@ export function getCategoryPost(categoryId) {
   return { type: actionTypes.GET_CATEGORY_POST, payload: categoryId };
 }
 
-export function getOrders() {
+export function getOrders(token) {
   return function (dispatch) {
-    return fetch(Orders)
+    return fetch(Orders,{
+      method: 'GET',
+      headers: { 'Content-Type': 'application/json',
+    'token':token}
+    })
       .then((response) => response.json())
       .then((json) => {
         dispatch({ type: actionTypes.GET_ORDERS, payload: json });

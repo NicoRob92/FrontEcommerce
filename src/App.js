@@ -66,7 +66,7 @@ const App = () => {
         <Route exact path="/compras">
           <Compras />
         </Route>
-        <Route exact path="/profile/:id">
+        <Route exact path="/user/profile/:id">
           <ProfileView/>
         </Route>
       </Switch>
