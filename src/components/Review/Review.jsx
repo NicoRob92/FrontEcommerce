@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect} from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { createTheme, responsiveFontSizes, ThemeProvider } from "@mui/material/styles";
 import Typography from "@mui/material/Typography";
