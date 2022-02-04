@@ -39,7 +39,7 @@ export function getPostByName(name) {
 }
 export function getPostById(id) {
   return function (dispatch) {
-    fetch('http://localhost:4000/api/posts' + '/' + id)
+    fetch('http://localhost:4000/api/posts/' + id)
       .then((res) => res.json())
       .then((res) => {
         while (res.Images.length < 5) {
@@ -182,11 +182,10 @@ export function getUsers(token) {
       headers: {
         token: token
       }
-    }
+    })
       .then((response) => response.json())
       .then((json) => {
         dispatch({ type: actionTypes.GET_USERS, payload: json });
       })
-      .catch((e) => console.error(e));
-  };
+      .catch((e) => console.error(e))}}
 

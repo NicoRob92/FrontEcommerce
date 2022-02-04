@@ -16,7 +16,6 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Rating from "@mui/material/Rating";
-import { render } from "@testing-library/react";
 
 const ReviewForm = ({ ProductId, token }) => {
   const dispatch = useDispatch()
