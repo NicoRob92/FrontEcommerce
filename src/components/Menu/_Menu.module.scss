@@ -5,9 +5,40 @@
   background-color: $CPrimary;
   color: $CFourth;
   transition: 0.4s;
+  display:flex;
+  flex-direction: column;
+  align-items: flex-start;
   
 }
 
+.tittle{
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-start;
+  align-content: center;
+  width: 100%;
+  border-bottom: 1px solid white;
+  h5{
+    display: flex;
+    align-items: center;
+  }
+}
+
+.closeButton{
+  border-radius:50px;
+  display:flex;
+  align-items: center;
+  justify-content: center;
+  background-color: transparent;
+  border:none;
+}
+
+.logout{
+  justify-self: flex-end;
+  background-color: transparent;
+  border:none;
+  align-self: flex-end;
+}
 
 @media screen and (min-width:$width-notebook){
   .menu{
