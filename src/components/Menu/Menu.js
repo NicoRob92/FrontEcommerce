@@ -66,7 +66,7 @@ export const Menu = ({ user, handleLogOut, close }) => {
         ) : null}
       </menu>
 
-      <button className={style.logout}onClick={(e) => handleLogOut(e)}>
+      <button className={style.logout} onClick={(e) => handleLogOut(e)}>
         <svg
           width='32'
           height='32'

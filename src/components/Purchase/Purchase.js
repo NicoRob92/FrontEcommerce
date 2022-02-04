@@ -1,6 +1,7 @@
 import styles from "./_Purchase.module.scss";
 
 const Purchase = ({ postById, addPostToCart }) => {
+  
   return (
     <div className={`card ${styles.purchase_info}`}>
       <div className="card-body" styles="width: 18">

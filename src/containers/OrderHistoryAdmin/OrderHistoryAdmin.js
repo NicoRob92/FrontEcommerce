@@ -3,8 +3,7 @@ import {useSelector} from 'react-redux';
 
 
 export const OrderHistoryAdmin = () => {
-  const Users = useSelector((state) => state.reducer.users)
-  console.log(Users)
+ 
   return (
     <div className={styles.orderHistory}>
       <div className={styles.grid}>
