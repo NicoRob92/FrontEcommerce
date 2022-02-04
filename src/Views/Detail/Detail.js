@@ -1,32 +1,97 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import DetailLeftCard from "../../components/DetailLeftCard/DetailLeftCard";
 import DetailRightCard from "../../components/DetailRightCard/DetailRightCard";
 import Purchase from "../../components/Purchase/Purchase";
 import Review from "../../components/Review/Review";
-import Card from '@mui/material/Card';
+import Card from "@mui/material/Card";
 
 import * as actionCreators from "../../ducks/actions/actionCreators";
 
 import styles from "./_Detail.module.scss";
 
 const CardDetail = () => {
-  const dispatch = useDispatch();
   const { id } = useParams();
+
+  const dispatch = useDispatch();
+
+  const [logginStatus, setLogginStatus] = useState(true);
+  const [confirmBuy, setConfirmBuy] = useState(false)
+  const [address, setAddress] = useState("");
+  const [payLink,setPayLink] = useState(null)
   const postById = useSelector((state) => state.reducer.postById);
-  console.log(postById)
+  console.log(payLink)
+  
 
   useEffect(() => {
     dispatch(actionCreators.getPostById(id));
   }, [dispatch, id]);
 
+  const checkDirectBuy = () => {
+    setConfirmBuy(prevState => prevState = true)
+    let logged = Boolean(localStorage.getItem("logged"))
+    if(logged) setLogginStatus(prevState => prevState = logged)
+    if(!logged) setLogginStatus(prevState => prevState = logged)
+  }
+  const getAddress = (e) => {
+    setAddress((prevState) => (prevState = e.target.value));
+  };
+
+  const buyNowFast = (e) => {
+    let logged = Boolean(localStorage.getItem("logged"));
+    if (!logged) return
+    if (logged) {
+
+      fetch("http://localhost:4000/api/checkout", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          item: [{
+            id: postById.id,
+            title: postById.name,
+            description: postById.description,
+            quantity: Number(document.getElementById("quantity").value),
+            unit_price: parseFloat(postById.price),
+            stock: postById.stock,
+          }],
+          payer: {
+            id: Number(localStorage.getItem("userId")),
+            email: localStorage.getItem("email"),
+            address: {
+              street_name: address
+            }
+          }
+        })
+      })
+      .then((res) => {
+        if (res.status === 200 && res.statusText === "OK") return res;
+      })
+      .then(res => res.json())
+      .then(res => {
+        setPayLink(prevState => prevState = res.res)
+      })
+      .catch(res => console.log(res))
+    }
+  };
+
+  let logged = Boolean(localStorage.getItem("logged"));
   const addPostToCart = () => {
     let quantity = document.getElementById("quantity").value;
 
+    let userId = Number(localStorage.getItem("userId"));
+    let username = localStorage.getItem("username");
+    let email = localStorage.getItem("email");
+
     let posts = JSON.parse(localStorage.getItem("posts")) || {
       item: [],
-      id: 1, //falta conseguir id de usuario
+      payer: {
+        id: userId,
+        username,
+        email,
+      },
     };
 
     const post = {
@@ -35,7 +100,7 @@ const CardDetail = () => {
       stock: postById.stock,
       description: postById.description,
       unit_price: parseFloat(postById.price),
-      quantity: Number(quantity)
+      quantity: Number(quantity),
     };
 
     if (posts.item.length === 0) {
@@ -64,13 +129,25 @@ const CardDetail = () => {
   return (
     <div className={styles.container}>
       <Card className={styles.detail_container}>
-        {postById.Images?.length > 0 ? <DetailLeftCard postById={postById} /> : null}
+        {postById.Images?.length > 0 ? (<DetailLeftCard postById={postById} />) : null}
         {postById ? <DetailRightCard postById={postById} /> : null}
-        {postById ? <Purchase postById={postById} addPostToCart={addPostToCart} /> : null}
+        {postById ? (
+          <Purchase
+            postById={postById}
+            logginStatus={logginStatus}
+            address={address}
+            confirmBuy={confirmBuy}
+            payLink={payLink}
+            checkDirectBuy={checkDirectBuy}
+            getAddress={getAddress}
+            buyNowFast={buyNowFast}
+            addPostToCart={addPostToCart}
+          />
+        ) : null}
         {/* Review section */}
       </Card>
       <Card className={styles.review_container}>
-      <Review ProductId={id} />
+        <Review ProductId={id} />
       </Card>
     </div>
   );
