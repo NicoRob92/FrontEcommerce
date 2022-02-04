@@ -10,7 +10,8 @@ const initialState = {
   countries: [],
   filteredPostByCategory: [],
   postById: [],
-  orders: []
+  orders: [],
+  reviews: [],
 };
 
 export default function Product(state = initialState, action) {

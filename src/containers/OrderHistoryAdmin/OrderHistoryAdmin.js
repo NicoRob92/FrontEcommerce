@@ -1,8 +1,17 @@
 import styles from './__OrderHistoryAdmin.module.scss';
-import {useSelector} from 'react-redux';
-
+import {useSelector , useDispatch} from 'react-redux';
+import {useEffect} from 'react'
+import {getOrders} from '../../ducks/actions/actionCreators'
 
 export const OrderHistoryAdmin = () => {
+  const token = localStorage.getItem('token')
+  const orders = useSelector((state) => state.reducer.orders)
+  const dispatch = useDispatch()
+  console.log(orders)
+
+  useEffect(() => {
+    dispatch(getOrders(token))
+  },[])
  
   return (
     <div className={styles.orderHistory}>
@@ -10,11 +19,11 @@ export const OrderHistoryAdmin = () => {
         <div className={styles.boxOne}>Lista de Ordenes</div>
         <div className={styles.boxTwo}>
           <div className={styles.title}>Nº de Orden</div>
-          <div className={styles.item}>43534</div>
+         {orders? orders.map(e => <div className={styles.item}>{e.id}</div>) : null}
         </div>
         <div className={styles.boxThree}>
           <div className={styles.title}>Usuario</div>
-          <div className={styles.item}>NicoRob92</div>
+          {orders? orders.map(e => <div className={styles.item}>{e.user.id}</div>) : null}
 
         </div>
         <div className={styles.boxFour}>

@@ -13,7 +13,6 @@ const Cart = ({
   decrementQuantity,
 }) => {
   const [redirection, setRedirection] = useState(null);
-  console.log(cartState);
 
   const cart = useRef(null);
   useEffect(() => {

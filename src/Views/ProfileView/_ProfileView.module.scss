@@ -1,0 +1,23 @@
+.container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.profileImage{
+    width: 300px;
+    height: 300px;
+}
+
+.pText{
+    color: #6d6d6d;
+}
+.labels{
+    color: #6d6d6d;
+}
+
+
+.button_container{
+    display: flex;
+    width: 100%;
+}
