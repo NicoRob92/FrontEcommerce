@@ -32,6 +32,7 @@ export function resetLogin() {
   localStorage.removeItem('logged');
   localStorage.removeItem('email');
   localStorage.removeItem('userId');
+  localStorage.removeItem('posts')
 
 }
 
