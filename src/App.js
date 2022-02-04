@@ -10,8 +10,12 @@ import Register from "./Views/Register/Register";
 import FormNewPost from "./components/FormNewPost/FormNewPost";
 import Order from "./Views/Order/Order";
 import Checkout from "./Views/Checkout/Checkout";
+
+import ProfileView from "./Views/ProfileView/ProfileView";
+
 import FormUpdatePost from "./components/EditPost/FormUpdatePost";
 import Compras from "./Views/Compras/Compras.js";
+
 
 import * as actionCreators from "./ducks/actions/actionCreators";
 
@@ -61,6 +65,9 @@ const App = () => {
         </Route>
         <Route exact path="/compras">
           <Compras />
+        </Route>
+        <Route exact path="/profile/:id">
+          <ProfileView/>
         </Route>
       </Switch>
     </>
