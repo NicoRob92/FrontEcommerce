@@ -6,7 +6,8 @@ const FormProductDescription = ({
   input,
   allCategories,
   handleMultiOption,
-  deleteMultiOption
+  deleteMultiOption,
+  errors
 }) => {
   const continues = (e) => {
     e.preventDefault();
@@ -20,7 +21,7 @@ const FormProductDescription = ({
   return (
     <form className="container">
       <div className="mb-3">
-        <label className="form-label">Choose Category</label>
+        <label className="form-label">Puedes escoger varias categorias</label>
         <select
           className="form-select"
           name="Categories"
@@ -54,21 +55,12 @@ const FormProductDescription = ({
             )
           })}
         </ul>
+        {errors.Categories?
+          <div className="sm alert alert-danger">{errors.Categories}</div>
+          :null
+        }
       </div>
-      <div className="mb-3">
-        <label className="form-label">Condition</label>
-        <select
-          className="form-select"
-          name="condition"
-          defaultValue={input.condition}
-          onBlur={handleBlur}
-          onChange={handleChange}
-        >
-          <option hidden>Open this select menu</option>
-          <option value="new">New</option>
-          <option value="used">Used</option>
-        </select>
-      </div>
+
       <div className="mb-3">
         <label className="form-label">Stock</label>
         <input
@@ -79,9 +71,13 @@ const FormProductDescription = ({
           onBlur={handleBlur}
           onChange={handleChange}
         />
-        <div className="form-text">Amount of products you have on stock</div>
+        <div className="form-text">Cuantos productos tienes disponibles</div>
       </div>
-      
+      {errors.stock?
+        <div className="sm alert alert-danger">{errors.stock}</div>
+        :null
+      }
+
       <div className="mb-3">
         <label className="form-label">Description</label>
         <br />
@@ -95,9 +91,13 @@ const FormProductDescription = ({
           cols="40"
         ></textarea>
         <div className="form-text">
-          Give a brief description of your product
+          Da una descripción más exacta de tu producto
         </div>
       </div>
+      {errors.description?
+        <div className="sm alert alert-warning">{errors.description}</div>
+        :null
+      }
       <div className="input-group mb-3">
         <span className="input-group-text">$</span>
         <input
@@ -108,12 +108,17 @@ const FormProductDescription = ({
           onBlur={handleBlur}
           onChange={handleChange}
         />
+
       </div>
+      {errors.price?
+        <div className="alert alert-sm alert-danger">{errors.price}</div>
+        :null
+      }
       <button className="btn btn-primary" onClick={continues}>
-        Continue
+        Siguiente
       </button>
       <button className="btn btn-light" onClick={back}>
-        Back
+        Atras
       </button>
     </form>
   );

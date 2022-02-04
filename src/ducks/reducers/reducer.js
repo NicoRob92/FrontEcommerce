@@ -12,7 +12,6 @@ const initialState = {
   postById: [],
   orders: [],
   reviews: [],
-
 };
 
 export default function Product(state = initialState, action) {
@@ -95,11 +94,6 @@ export default function Product(state = initialState, action) {
         ...state,
         orders: sortedOrder
       }
-    case actionTypes.GET_REVIEW:
-      return{
-        ...state,
-        reviews: action.payload
-      }  
     default:
       return state;
   }

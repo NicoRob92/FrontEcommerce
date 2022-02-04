@@ -6,9 +6,9 @@ export const api = 'http://localhost:4000/api/';
 const getPostsUrl = api + 'post';
 export const getPostByIdUrl = api + 'posts';
 export const getCategoriesUrl = api + 'category';
-const getUsersUrl = api + 'users';
+const getUsersUrl = api + 'admin/users';
 const getCountriesUrl = api + 'countries';
-const Review = api + 'admin/review';
+const Review = api + 'admin/review/';
 
 export function getUsers() {
   return function (dispatch) {
@@ -51,7 +51,7 @@ export function getPostByName(name) {
 }
 export function getPostById(id) {
   return function (dispatch) {
-    fetch('http://localhost:4000/api/posts' + '/' + id)
+    fetch('http://localhost:4000/api/posts/' + id)
       .then((res) => res.json())
       .then((res) => {
         while (res.Images.length < 5) {
@@ -101,7 +101,7 @@ export function create_post(payload, token) {
       body: JSON.stringify(payload),
       headers: {
         'Content-Type': 'application/json',
-        'token': token,
+        token: token,
       },
     }).catch((e) => console.error(e));
   };
@@ -157,18 +157,28 @@ export function filterOrder(payload) {
   };
 }
 
-export function postReview(payload) {
+export function postReview(payload, token) {
+  console.log(`I'm the payload ${JSON.stringify(payload)}`);
   return async () => {
     return await fetch(Review, {
       method: 'POST',
-      body: payload,
+      body: JSON.stringify(payload),
+      headers: {
+        'Content-Type': 'application/json',
+        'token': token,
+      },
     }).catch((e) => console.error(e));
   };
 }
 
-export function getReview(PostId) {
+export function getReview(id, token) {
   return function (dispatch) {
-    return fetch(Review, PostId)
+    return fetch(Review + id , {
+      method: 'GET',
+      headers: {
+        token: token
+      }
+    })
       .then((response) => response.json())
       .then((json) => {
         dispatch({ type: actionTypes.GET_REVIEW, payload: json });
@@ -176,3 +186,18 @@ export function getReview(PostId) {
       .catch((e) => console.error(e));
   };
 }
+
+export function getUsers(token) {
+  return function (dispatch) {
+    return fetch(getUsersUrl, {
+      method: 'GET',
+      headers: {
+        token: token
+      }
+    })
+      .then((response) => response.json())
+      .then((json) => {
+        dispatch({ type: actionTypes.GET_USERS, payload: json });
+      })
+      .catch((e) => console.error(e))}}
+
