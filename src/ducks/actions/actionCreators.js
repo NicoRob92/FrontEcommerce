@@ -12,6 +12,17 @@ const getCountriesUrl = api + 'countries';
 const Review = api + 'admin/review/';
 const Orders = api + '/admin/orders';
 
+export function getUsers() {
+  return function (dispatch) {
+    return fetch(getUsersUrl)
+      .then((response) => response.json())
+      .then((json) => {
+        dispatch({ type: actionTypes.GET_USERS, payload: json });
+      })
+      .catch((e) => console.error(e));
+  };
+}
+
 export function getPosts() {
   return function (dispatch) {
     fetch(getPostsUrl)
@@ -25,6 +36,7 @@ export function getPosts() {
       .catch((e) => console.error(e));
   };
 }
+
 
 export function getPostByName(name) {
   return function (dispatch) {

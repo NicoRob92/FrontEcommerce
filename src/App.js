@@ -10,8 +10,12 @@ import Register from "./Views/Register/Register";
 import FormNewPost from "./components/FormNewPost/FormNewPost";
 import Order from "./Views/Order/Order";
 import Checkout from "./Views/Checkout/Checkout";
-import FormUpdatePost  from "./components/EditPost/FormUpdatePost"
+
 import ProfileView from "./Views/ProfileView/ProfileView";
+
+import FormUpdatePost from "./components/EditPost/FormUpdatePost";
+import Compras from "./Views/Compras/Compras.js";
+
 
 import * as actionCreators from "./ducks/actions/actionCreators";
 
@@ -21,6 +25,7 @@ const App = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    // dispatch(actionCreators.setLoggin())
     dispatch(actionCreators.setCart(JSON.parse(localStorage.getItem("posts"))));
     dispatch(actionCreators.getCategories());
     dispatch(actionCreators.getPosts());
@@ -54,9 +59,12 @@ const App = () => {
         </Route>
         <Route path="/checkout">
           <Checkout />
-        </Route>      
+        </Route>
         <Route exact path="/editpost/:id">
-          <FormUpdatePost/>
+          <FormUpdatePost />
+        </Route>
+        <Route exact path="/compras">
+          <Compras />
         </Route>
         <Route exact path="/profile/:id">
           <ProfileView/>

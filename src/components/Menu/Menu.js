@@ -1,5 +1,9 @@
 import React from 'react';
 import style from './_Menu.module.scss';
+
+ 
+ 
+
 import { NavLink } from 'react-router-dom';
 export const Menu = ({ user, handleLogOut, close }) => {
   const rol = localStorage.getItem('rol');

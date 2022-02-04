@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState} from "react";
 import { NavLink, Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 
@@ -16,6 +16,7 @@ const Navbar = () => {
   const [showLogin, setShowLogin] = useState(false);
   const cart = useSelector((state) => state.reducer.cart);
   const logged = localStorage.getItem('logged')
+
 
   const show = () => {
     setShowLogin(!showLogin);
