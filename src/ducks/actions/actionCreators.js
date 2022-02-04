@@ -7,7 +7,7 @@ const getPostsUrl = api + 'post';
 export const getPostByIdUrl = api + 'posts';
 export const getCategoriesUrl = api + 'category';
 const getUsersUrl = api + 'admin/users';
-const getUserId = api + 'admin/user/'
+const User = api + 'admin/user/'
 const getCountriesUrl = api + 'countries';
 const Review = api + 'admin/review/';
 const Orders = api + '/admin/orders';
@@ -198,7 +198,7 @@ export function getUsers(token) {
 
 export function getUserById(id, token) {
   return (dispatch) => {
-    return fetch(getUserId+id, {
+    return fetch(User+id, {
       method:  'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -209,6 +209,21 @@ export function getUserById(id, token) {
       .then((json) => {
         dispatch({ type: actionTypes.GET_USER_BY_ID, payload: json });
       })
+      .catch((e) => console.error(e));
+  }
+}
+
+export function putUser(id, input, token) {
+  return async () => {
+    return fetch(User+id, {
+      method:  'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'token': token,
+      },
+      body: input
+    })
+    .then((response) => response.json())
       .catch((e) => console.error(e));
   }
 }
