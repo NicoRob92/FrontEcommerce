@@ -7,15 +7,20 @@ import {OrderHistoryAdmin} from '../../containers/OrderHistoryAdmin/OrderHistory
 import {UsersAdmin} from '../../containers/UsersAdmin/UsersAdmin'
 import {PostAdmin} from '../../containers/PostAdmin/PostAdmin'
 export default function Admin() {
+
+  const rol = localStorage.getItem('rol')
+  
   return (
+    <div className={styles.container}>
+    { rol === 'admin' ?
     <div className={styles.container}>
       <aside>
         <AdminButtonLink text="DASHBOARD" to="/admin" />
         <AdminButtonLink text="Administrar categorías" to="/admin/category" />
         <NavLink to="/admin/user"> Usuarios</NavLink>
-        <NavLink to="/admin/user/reset-password"> Reset-Password</NavLink>
         <NavLink to="/admin/orders"> Ordenes</NavLink>
         <NavLink to="/admin/post"> Post</NavLink>
+        <NavLink to="/">Home</NavLink>
       </aside>
       <div className={styles.containerRight}>
         <Switch>
@@ -27,10 +32,7 @@ export default function Admin() {
           </Route>
           <Route exact path="/admin/user">
           <UsersAdmin/>
-          </Route>        
-          <Route exact path="/admin/user/:id">
-            <p> User for id </p>
-          </Route>
+          </Route>                 
           <Route exact path="/admin/orders">
           <OrderHistoryAdmin/>
           </Route>
@@ -48,7 +50,8 @@ export default function Admin() {
             </p>
           </Route>
         </Switch>
-      </div>
+      </div> </div> : <div> Not found</div>}
+      
     </div>
   );
 }

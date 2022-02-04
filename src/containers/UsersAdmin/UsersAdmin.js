@@ -7,10 +7,10 @@ export const UsersAdmin = () => {
   let Users = useSelector((state) => state.reducer.users);
   const dispatch = useDispatch();
   const [filter, setFilter] = useState(null);
-
-  Users = Users.sort((a,b) => a.id - b.id)
+  const token = localStorage.getItem('token')
+  Users = Users?.sort((a, b) => a.id - b.id);
   useEffect(() => {
-    dispatch(getUsers());
+    dispatch(getUsers(token));
   }, [dispatch]);
 
   const [input, setInput] = useState({
@@ -71,7 +71,9 @@ export const UsersAdmin = () => {
               />
             </svg>
           </button>
-          <button onClick={(e) => reset(e)} className={styles.reset}>Clear</button>
+          <button onClick={(e) => reset(e)} className={styles.reset}>
+            Clear
+          </button>
         </div>
       </form>
       <div className={styles.grid}>
@@ -79,9 +81,17 @@ export const UsersAdmin = () => {
         <div className={styles.boxTwo}>
           <div className={styles.title}>ID User</div>
           {filter ? (
-            filter?.map((e) => <div key={e.id} className={styles.item}>{e.id}</div>)
+            filter?.map((e) => (
+              <div key={e.id} className={styles.item}>
+                {e.id}
+              </div>
+            ))
           ) : Users ? (
-            Users.map((e) => <div key={e.id} className={styles.item}>{e.id}</div>)
+            Users.map((e) => (
+              <div key={e.id} className={styles.item}>
+                {e.id}
+              </div>
+            ))
           ) : (
             <div>Users Not Found</div>
           )}
@@ -89,9 +99,17 @@ export const UsersAdmin = () => {
         <div className={styles.boxThree}>
           <div className={styles.title}>Username</div>
           {filter ? (
-            filter?.map((e) => <div key={e.id} className={styles.item}>{e.username}</div>)
+            filter?.map((e) => (
+              <div key={e.id} className={styles.item}>
+                {e.username}
+              </div>
+            ))
           ) : Users ? (
-            Users.map((e) => <div key={e.id} className={styles.item}>{e.username}</div>)
+            Users.map((e) => (
+              <div key={e.id} className={styles.item}>
+                {e.username}
+              </div>
+            ))
           ) : (
             <div>Users Not Found</div>
           )}
@@ -99,9 +117,17 @@ export const UsersAdmin = () => {
         <div className={styles.boxFour}>
           <div className={styles.title}>Email</div>
           {filter ? (
-            filter?.map((e) => <div key={e.id} className={styles.item}>{e.email}</div>)
+            filter?.map((e) => (
+              <div key={e.id} className={styles.item}>
+                {e.email}
+              </div>
+            ))
           ) : Users ? (
-            Users.map((e) => <div key={e.id} className={styles.item}>{e.email}</div>)
+            Users.map((e) => (
+              <div key={e.id} className={styles.item}>
+                {e.email}
+              </div>
+            ))
           ) : (
             <div>Users Not Found</div>
           )}
@@ -109,9 +135,17 @@ export const UsersAdmin = () => {
         <div className={styles.boxFive}>
           <div className={styles.title}>Rol</div>
           {filter ? (
-            filter?.map((e) => <div key={e.id} className={styles.item}>{e.role}</div>)
+            filter?.map((e) => (
+              <div key={e.id} className={styles.item}>
+                {e.role}
+              </div>
+            ))
           ) : Users ? (
-            Users.map((e) => <div key={e.id} className={styles.item}>{e.role}</div>)
+            Users.map((e) => (
+              <div key={e.id} className={styles.item}>
+                {e.role}
+              </div>
+            ))
           ) : (
             <div>Users Not Found</div>
           )}
@@ -162,18 +196,22 @@ export const UsersAdmin = () => {
                   <svg
                     width='25'
                     height='25'
-                    viewBox='0 0 33 33'
+                    viewBox='0 0 32 32'
                     fill='none'
                     xmlns='http://www.w3.org/2000/svg'>
                     <path
-                      d='M6.71252 26.1647L16.7125 16.1647L26.7125 26.1647'
-                      stroke='white'
-                      strokeWidth='2'
-                      strokeLinecap='round'
-                      strokeLinejoin='round'
+                      opacity='0.2'
+                      d='M16 20C20.4183 20 24 16.4183 24 12C24 7.58172 20.4183 4 16 4C11.5817 4 8 7.58172 8 12C8 16.4183 11.5817 20 16 20Z'
+                      fill='white'
                     />
                     <path
-                      d='M6.71252 16.1647L16.7125 6.16467L26.7125 16.1647'
+                      d='M16 20C20.4183 20 24 16.4183 24 12C24 7.58172 20.4183 4 16 4C11.5817 4 8 7.58172 8 12C8 16.4183 11.5817 20 16 20Z'
+                      stroke='white'
+                      strokeWidth='2'
+                      strokeMiterlimit='10'
+                    />
+                    <path
+                      d='M3.875 27C5.10367 24.8714 6.87104 23.1038 8.99944 21.8749C11.1278 20.6459 13.5423 19.9989 16 19.9989C18.4577 19.9989 20.8722 20.6459 23.0006 21.8749C25.129 23.1038 26.8963 24.8714 28.125 27'
                       stroke='white'
                       strokeWidth='2'
                       strokeLinecap='round'
@@ -229,7 +267,7 @@ export const UsersAdmin = () => {
             ))
           ) : Users ? (
             Users.map((e) => (
-              <div key ={e.id}className={styles.actions}>
+              <div key={e.id} className={styles.actions}>
                 <button>
                   <svg
                     width='25'
@@ -268,21 +306,25 @@ export const UsersAdmin = () => {
                   </svg>
                 </button>
                 <button>
-                  <svg
+                <svg
                     width='25'
                     height='25'
-                    viewBox='0 0 33 33'
+                    viewBox='0 0 32 32'
                     fill='none'
                     xmlns='http://www.w3.org/2000/svg'>
                     <path
-                      d='M6.71252 26.1647L16.7125 16.1647L26.7125 26.1647'
-                      stroke='white'
-                      strokeWidth='2'
-                      strokeLinecap='round'
-                      strokeLinejoin='round'
+                      opacity='0.2'
+                      d='M16 20C20.4183 20 24 16.4183 24 12C24 7.58172 20.4183 4 16 4C11.5817 4 8 7.58172 8 12C8 16.4183 11.5817 20 16 20Z'
+                      fill='white'
                     />
                     <path
-                      d='M6.71252 16.1647L16.7125 6.16467L26.7125 16.1647'
+                      d='M16 20C20.4183 20 24 16.4183 24 12C24 7.58172 20.4183 4 16 4C11.5817 4 8 7.58172 8 12C8 16.4183 11.5817 20 16 20Z'
+                      stroke='white'
+                      strokeWidth='2'
+                      strokeMiterlimit='10'
+                    />
+                    <path
+                      d='M3.875 27C5.10367 24.8714 6.87104 23.1038 8.99944 21.8749C11.1278 20.6459 13.5423 19.9989 16 19.9989C18.4577 19.9989 20.8722 20.6459 23.0006 21.8749C25.129 23.1038 26.8963 24.8714 28.125 27'
                       stroke='white'
                       strokeWidth='2'
                       strokeLinecap='round'
