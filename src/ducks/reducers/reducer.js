@@ -94,6 +94,13 @@ export default function Product(state = initialState, action) {
         ...state,
         orders: sortedOrder
       }
+    case actionTypes.CREATE_POST:
+    
+      return {
+        ...state,
+        postById:action.payload
+      }
+
     default:
       return state;
   }
