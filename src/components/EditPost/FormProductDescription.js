@@ -30,7 +30,7 @@ const FormProductDescription = ({
           onChange={handleMultiOption}
         >
           <option hidden>Open this select menu</option>
-          <option value="select">Select</option>
+          <option value="select">Selecciona</option>
           {allCategories?.map((c) => {
             return (
               <option key={c.id} value={c.id}>

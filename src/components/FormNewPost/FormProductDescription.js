@@ -1,55 +1,131 @@
-import {useSelector} from 'react-redux'
-const FormProductDescription = ({ nextStep, prevStep, handleChange, handleBlur, input }) => {
-    const category = useSelector((state) => state.reducer.categories)
+import ConfirmCancel  from './ConfirmCancel'
 
-    const continues = e => {
-        e.preventDefault()
-        nextStep()
-    }
 
-    const back = e => {
-        e.preventDefault()
-        prevStep()
-    }
-        return (
-            <form className='container'>
-                <div className="mb-3">
-                    <label className="form-label">Choose Category</label>
-                    <select className="form-select" name="Categories" defaultValue={input.Categories} onBlur={handleBlur} onChange={handleChange}>
-                        <option>Select a Category</option>
-                        {category?.map(e=> <option key={e.id} value={e.id}>{e.name}</option>)}
-                    </select>
-                </div>
-                <div className="mb-3">
-                    <label className="form-label">Condition</label>
-                    <select className="form-select" name="status" defaultValue={input.status} onBlur={handleBlur} onChange={handleChange}>
-                        <option hidden>Open this select menu</option>
-                        <option key='new' value={true}>New</option>
-                        <option key='Used'value={false}>Used</option>
-                    </select>
-                </div>
-                <div className="mb-3">
-                    <label className="form-label">Stock</label>
-                    <input type="number" className="form-control" name="stock" defaultValue={input.stock} onBlur={handleBlur} onChange={handleChange} />
-                    <div className="form-text">Amount of products you have on stock</div>
-                </div>
-                <div className="mb-3">
-                    <label className="form-label">Default file input example</label>
-                    <input className="form-control" type="file" name="Images" defaultValue={input.Images} onBlur={handleBlur} onChange={handleChange} />
-                </div>
-                <div className="mb-3">
-                    <label className="form-label">Description</label>
-                    <input type="text" className="form-control" name="description" defaultValue={input.description} onBlur={handleBlur} onChange={handleChange} />
-                    <div className="form-text">Give a brief description of your product</div>
-                </div>
-                <div className="input-group mb-3">
-                    <span className="input-group-text">$</span>
-                    <input type="number" className="form-control" name="price" defaultValue={input.price} onBlur={handleBlur} onChange={handleChange} />
-                </div>
-                <button className="btn btn-primary" onClick={continues}>Continue</button>
-                <button className="btn btn-light" onClick={back}>Back</button>
-            </form>
-        )
-    }
+const FormProductDescription = ({
+  nextStep,
+  prevStep,
+  handleChange,
+  handleBlur,
+  input,
+  allCategories,
+  handleMultiOption,
+  deleteMultiOption,
+  errors
+}) => {
+  const continues = (e) => {
+    e.preventDefault();
+    nextStep();
+  };
 
-export default FormProductDescription
+  const back = (e) => {
+    e.preventDefault();
+    prevStep();
+  };
+  return (
+    <form className="container">
+      <div className="mb-3">
+        <label className="form-label">Puedes escoger varias categorias</label>
+        <select
+          className="form-select"
+          name="Categories"
+          default value="select"
+          onBlur={handleBlur}
+          onChange={handleMultiOption}
+        >
+          <option hidden>Open this select menu</option>
+          <option value="select">Selecciona</option>
+          {allCategories?.map((c) => {
+            return (
+              <option key={c.id} value={c.id}>
+                {c.name}
+              </option>
+            );
+          })}
+        </select>
+        <ul className="column m-1">
+          {input.Categories?.map((c, i) => {
+            let name = allCategories.filter(e=>e.id==c)
+            return (
+            <span key={c} className="card border border-dark d-inline  m-1" key={i}>
+              <span className="p-1">{name[0].name} </span>
+              <div type="button"
+                name="Categories"
+                className="rounded d-inline  bg-danger h-100"
+                value={c}
+                onClick={()=>deleteMultiOption("Categories",c)}
+                >{" x "}</div>
+            </span>
+            )
+          })}
+        </ul>
+        {errors.Categories?
+          <div className="sm alert alert-danger">{errors.Categories}</div>
+          :null
+        }
+      </div>
+
+      <div className="mb-3">
+        <label className="form-label">Stock</label>
+        <input
+          type="text"
+          className="form-control"
+          name="stock"
+          defaultValue={input.stock}
+          onBlur={handleBlur}
+          onChange={handleChange}
+        />
+        <div className="form-text">Cuantos productos tienes disponibles</div>
+      </div>
+      {errors.stock?
+        <div className="sm alert alert-danger">{errors.stock}</div>
+        :null
+      }
+
+      <div className="mb-3">
+        <label className="form-label">Description</label>
+        <br />
+        <textarea
+          className="form-control"
+          name="description"
+          defaultValue={input.description}
+          onBlur={handleBlur}
+          onChange={handleChange}
+          rows="6"
+          cols="40"
+        ></textarea>
+        <div className="form-text">
+          Da una descripción más exacta de tu producto
+        </div>
+      </div>
+      {errors.description?
+        <div className="sm alert alert-warning">{errors.description}</div>
+        :null
+      }
+      <div className="input-group mb-3">
+        <span className="input-group-text">$</span>
+        <input
+          type="number"
+          className="form-control"
+          name="price"
+          defaultValue={input.price}
+          onBlur={handleBlur}
+          onChange={handleChange}
+        />
+
+      </div>
+      {errors.price?
+        <div className="alert alert-sm alert-danger">{errors.price}</div>
+        :null
+      }
+      <button className="btn btn-primary" onClick={continues}>
+        Siguiente
+      </button>
+      <button className="btn btn-light" onClick={back}>
+        Atras
+      </button>
+      <ConfirmCancel />
+    </form>
+  );
+};
+
+export default FormProductDescription;

@@ -12,16 +12,7 @@ const getCountriesUrl = api + 'countries';
 const Review = api + 'admin/review/';
 const Orders = api + '/admin/orders';
 
-export function getUsers() {
-  return function (dispatch) {
-    return fetch(getUsersUrl)
-      .then((response) => response.json())
-      .then((json) => {
-        dispatch({ type: actionTypes.GET_USERS, payload: json });
-      })
-      .catch((e) => console.error(e));
-  };
-}
+
 
 export function getPosts() {
   return function (dispatch) {
@@ -97,7 +88,7 @@ export function getCountries() {
 }
 
 export function create_post(payload, token) {
-  return async () => {
+  return async (dispatch) => {
     return await fetch('http://localhost:4000/api/admin/post', {
       method: 'POST',
       body: JSON.stringify(payload),
@@ -105,7 +96,12 @@ export function create_post(payload, token) {
         'Content-Type': 'application/json',
         token: token,
       },
-    }).catch((e) => console.error(e));
+    })
+    .then((response) => response.json())
+    .then((json) => {
+      dispatch({ type: actionTypes.CREATE_POST, payload: json });
+    })
+    .catch((e) => console.error(e));
   };
 }
 
