@@ -182,11 +182,11 @@ export function getUsers(token) {
       headers: {
         token: token
       }
-    }
+    })
       .then((response) => response.json())
       .then((json) => {
         dispatch({ type: actionTypes.GET_USERS, payload: json });
       })
       .catch((e) => console.error(e));
   };
-
+}

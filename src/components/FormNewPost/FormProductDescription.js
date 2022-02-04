@@ -1,7 +1,7 @@
 import {useSelector} from 'react-redux'
 const FormProductDescription = ({ nextStep, prevStep, handleChange, handleBlur, input }) => {
     const category = useSelector((state) => state.reducer.categories)
-    
+
     const continues = e => {
         e.preventDefault()
         nextStep()
@@ -12,7 +12,7 @@ const FormProductDescription = ({ nextStep, prevStep, handleChange, handleBlur, 
         prevStep()
     }
         return (
-            <form>
+            <form className='container'>
                 <div className="mb-3">
                     <label className="form-label">Choose Category</label>
                     <select className="form-select" name="Categories" defaultValue={input.Categories} onBlur={handleBlur} onChange={handleChange}>
