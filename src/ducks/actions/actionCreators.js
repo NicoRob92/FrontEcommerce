@@ -7,8 +7,21 @@ const getPostsUrl = api + 'post';
 export const getPostByIdUrl = api + 'posts';
 export const getCategoriesUrl = api + 'category';
 const getUsersUrl = api + 'admin/users';
+const User = api + 'admin/user/'
 const getCountriesUrl = api + 'countries';
 const Review = api + 'admin/review/';
+const Orders = api + '/admin/orders';
+
+export function getUsers() {
+  return function (dispatch) {
+    return fetch(getUsersUrl)
+      .then((response) => response.json())
+      .then((json) => {
+        dispatch({ type: actionTypes.GET_USERS, payload: json });
+      })
+      .catch((e) => console.error(e));
+  };
+}
 
 export function getPosts() {
   return function (dispatch) {
@@ -23,6 +36,7 @@ export function getPosts() {
       .catch((e) => console.error(e));
   };
 }
+
 
 export function getPostByName(name) {
   return function (dispatch) {
@@ -129,7 +143,7 @@ export function getCategoryPost(categoryId) {
 
 export function getOrders() {
   return function (dispatch) {
-    return fetch(`http://localhost:4000/api/admin/orders`)
+    return fetch(Orders)
       .then((response) => response.json())
       .then((json) => {
         dispatch({ type: actionTypes.GET_ORDERS, payload: json });
@@ -164,7 +178,8 @@ export function getReview(id, token) {
     return fetch(Review + id , {
       method: 'GET',
       headers: {
-        token: token
+        'Content-Type': 'application/json',
+        'token': token,
       }
     })
       .then((response) => response.json())
@@ -180,11 +195,47 @@ export function getUsers(token) {
     return fetch(getUsersUrl, {
       method: 'GET',
       headers: {
-        token: token
+        'Content-Type': 'application/json',
+        'token': token,
       }
     })
       .then((response) => response.json())
       .then((json) => {
         dispatch({ type: actionTypes.GET_USERS, payload: json });
       })
-      .catch((e) => console.error(e))}}
+      .catch((e) => console.error(e));
+  };
+}
+
+
+export function getUserById(id, token) {
+  return (dispatch) => {
+    return fetch(User+id, {
+      method:  'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'token': token,
+      }
+    })
+    .then((response) => response.json())
+      .then((json) => {
+        dispatch({ type: actionTypes.GET_USER_BY_ID, payload: json });
+      })
+      .catch((e) => console.error(e));
+  }
+}
+
+export function putUser(id, input, token) {
+  return async () => {
+    return fetch(User+id, {
+      method:  'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'token': token,
+      },
+      body: input
+    })
+    .then((response) => response.json())
+      .catch((e) => console.error(e));
+  }
+}
