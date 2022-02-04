@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import {Link}  from 'react-router-dom'
 
 function ConfirmCancel() {
   return (
@@ -44,9 +45,12 @@ function ConfirmCancel() {
               >
                 Cancelar
               </button>
-              <button type="button" data-bs-dismiss="modal" className="btn btn-primary">
-                Confirmar
-              </button>
+              <Link to='/' style={{ textDecoration: "none" }}>
+                <button type="button" data-bs-dismiss="modal" className="btn btn-primary">
+                 Confirmar
+                </button>
+              </Link>
+
             </div>
           </div>
         </div>

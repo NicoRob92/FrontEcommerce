@@ -11,8 +11,7 @@ function Register (props){
 
     const onSubmit = e=>{
 
-        
-        console.log("si")
+  
         e.preventDefault()
         fetch(api+"register", {
         method: "POST",
@@ -27,8 +26,8 @@ function Register (props){
             setData({})
             setIsSend(true)
         })
-        
-        
+
+
 
     }
 
@@ -41,11 +40,11 @@ function Register (props){
 
     return (
         <div className={style.container}>
-        <form onSubmit={e=>onSubmit(e)}> 
+        <form onSubmit={e=>onSubmit(e)}>
             <label>Username</label> <br/>
 
                 <input type="text"
-                name="username" 
+                name="username"
                 value={data.username || ""}
                 onChange={e=>handleChange(e)}
                 ></input><br/>
@@ -53,7 +52,7 @@ function Register (props){
             <label>First name</label> <br/>
 
                 <input type="text"
-                name="first_name" 
+                name="first_name"
                 value={data.first_name || ""}
                 onChange={e=>handleChange(e)}
                 ></input><br/>
@@ -61,41 +60,41 @@ function Register (props){
             <label>Last name</label> <br/>
 
                 <input type="text"
-                name="last_name" 
+                name="last_name"
                 value={data.last_name || ""}
-                onChange={e=>handleChange(e)}                
+                onChange={e=>handleChange(e)}
                 ></input><br/>
 
             <label>Email</label> <br/>
 
                 <input type="email"
-                name="email" 
+                name="email"
                 value={data.email || ""}
-                onChange={e=>handleChange(e)}  
+                onChange={e=>handleChange(e)}
                 ></input><br/>
 
             <label>Phone</label> <br/>
 
                 <input type="tel"
-                name="phone" 
+                name="phone"
                 value={data.phone || ""}
-                onChange={e=>handleChange(e)}  
+                onChange={e=>handleChange(e)}
                 ></input><br/>
 
             <label>Dni</label> <br/>
 
                 <input type="tel"
-                name="dni" 
+                name="dni"
                 value={data.dni || ""}
-                onChange={e=>handleChange(e)}  
+                onChange={e=>handleChange(e)}
                 ></input><br/>
 
             <label>Password</label> <br/>
 
                 <input type="password"
-                name="password" 
+                name="password"
                 value={data.password || ""}
-                onChange={e=>handleChange(e)}  
+                onChange={e=>handleChange(e)}
                 ></input><br/>
 
             <label>Country</label> <br/>
@@ -105,7 +104,7 @@ function Register (props){
                        return <option key={i} value={c.id}>{c.name}</option>
                    })}
                </select>
-                
+
             <div>
             <button type="submit">Submit</button>
             </div>
@@ -117,13 +116,13 @@ function Register (props){
                 <span>Your account was sent to the server</span> <br/>
                 <NavLink to="/" className={style.backHome}>Ok!</NavLink>
             </div>
-            
+
         </div>
         </>:""}
 
         </div>
 
-        
+
     )
 }
 const mapStateToProps = (state)=>{
