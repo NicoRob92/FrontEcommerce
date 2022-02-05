@@ -1,34 +1,53 @@
 import styles from './_PostAdmin.module.scss';
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { getPosts} from '../../ducks/actions/actionCreators';
-import Paginate from '../Paginate/Paginate';
+import { getPosts } from '../../ducks/actions/actionCreators';
+import {NavLink} from 'react-router-dom'
+import { ModalDeletePost } from '../../components/Modals/ModalDeletePost';
 export const PostAdmin = () => {
-
-  const array = useSelector((state) => state.reducer.posts)
- const Post = array?.filter( e => e.User.role === 'admin');
- 
+  const array = useSelector((state) => state.reducer.posts);
+  const Post = array?.filter((e) => e.User.role === 'admin');
 
   const dispatch = useDispatch();
-  const [filter, setFilter] = useState(null); 
-  const [toShow,setToShow] = useState(null);
+  const [filter, setFilter] = useState(null);
+  const [toShow, setToShow] = useState(null);
+  const [show, setShow] = useState(true);
+  const [deletePost, setDeletePost] = useState(false);
+
+  const [id,setId] = useState(null);
   useEffect(() => {
     dispatch(getPosts());
   }, [dispatch]);
 
   useEffect(() => {
-    Post ? setToShow(Post.slice(0,27)) : setToShow(null)
+    Post ? setToShow(Post.slice(0, 27)) : setToShow(null);
   }, [array]);
 
   const [input, setInput] = useState({
     option: '',
     value: '',
   });
+
+  const handleDelete = (e) =>{
+    setId(e);
+    setDeletePost(!deletePost);
+    setShow(!show)
+  }
+
+  const handleShow = () => {
+    setShow(!show);
+    deletePost ? setDeletePost(!deletePost) : setDeletePost(deletePost);
+  };
   
+
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    input.option === 'id' ? setFilter(Post.filter((e) => e[input.option] === Number(input.value))): 
-    input.option === 'userId'? setFilter(Post.filter((e) => e.User.id === Number(input.value))) : setFilter(Post.filter((e) => e.User[input.option] === input.value))
+    input.option === 'id'
+      ? setFilter(Post.filter((e) => e[input.option] === Number(input.value)))
+      : input.option === 'userId'
+      ? setFilter(Post.filter((e) => e.User.id === Number(input.value)))
+      : setFilter(Post.filter((e) => e.User[input.option] === input.value));
   };
 
   const reset = (e) => {
@@ -36,7 +55,6 @@ export const PostAdmin = () => {
     setFilter(null);
   };
 
- 
   // const setPage = (e) => setCurrent((prevState) => (prevState = e.target.value));
   return (
     <div className={styles.container}>
@@ -48,9 +66,15 @@ export const PostAdmin = () => {
             <option disabled='disabled' defaultValue={true}>
               Filtro
             </option>
-            <option key='postID' value='id'>Post ID</option>
-            <option key='userpname' value='username'>Username</option>
-            <option key='userpID' value='userId'>User ID</option>
+            <option key='postID' value='id'>
+              Post ID
+            </option>
+            <option key='userpname' value='username'>
+              Username
+            </option>
+            <option key='userpID' value='userId'>
+              User ID
+            </option>
           </select>
           <input
             type='text'
@@ -81,7 +105,9 @@ export const PostAdmin = () => {
               />
             </svg>
           </button>
-          <button onClick={(e) => reset(e)} className={styles.reset}>Clear</button>
+          <button onClick={(e) => reset(e)} className={styles.reset}>
+            Clear
+          </button>
         </div>
       </form>
       <div className={styles.grid}>
@@ -89,9 +115,17 @@ export const PostAdmin = () => {
         <div className={styles.boxTwo}>
           <div className={styles.title}>ID Post</div>
           {filter ? (
-            filter?.map((e) => <div className={styles.item} key={e.id}>{e.id}</div>)
+            filter?.map((e) => (
+              <div className={styles.item} key={e.id}>
+                {e.id}
+              </div>
+            ))
           ) : toShow ? (
-            toShow.map((e) => <div className={styles.item} key={e.id}>{e.id}</div>)
+            toShow.map((e) => (
+              <div className={styles.item} key={e.id}>
+                {e.id}
+              </div>
+            ))
           ) : (
             <div>Post Not Found</div>
           )}
@@ -99,9 +133,17 @@ export const PostAdmin = () => {
         <div className={styles.boxThree}>
           <div className={styles.title}>Title</div>
           {filter ? (
-            filter?.map((e) => <div className={styles.item} key={e.id}>{e.name}</div>)
+            filter?.map((e) => (
+              <div className={styles.item} key={e.id}>
+                {e.name}
+              </div>
+            ))
           ) : toShow ? (
-            toShow.map((e) => <div className={styles.item} key={e.id}>{e.name}</div>)
+            toShow.map((e) => (
+              <div className={styles.item} key={e.id}>
+                {e.name}
+              </div>
+            ))
           ) : (
             <div>Post Not Found</div>
           )}
@@ -109,9 +151,19 @@ export const PostAdmin = () => {
         <div className={styles.boxFour}>
           <div className={styles.title}>Link</div>
           {filter ? (
-            filter?.map((e) => <div key={e.id} className={styles.item}><a href={`http://localhost:3000/detail/${e.id}`}>{`http://localhost:3000/detail/${e.id}`}</a></div>)
+            filter?.map((e) => (
+              <div key={e.id} className={styles.item}>
+                <a
+                  href={`http://localhost:3000/detail/${e.id}`}>{`http://localhost:3000/detail/${e.id}`}</a>
+              </div>
+            ))
           ) : toShow ? (
-            toShow.map((e) => <div key={e.id} className={styles.item}><a href={`http://localhost:3000/detail/${e.id}`}>{`http://localhost:3000/detail/${e.id}`}</a></div>)
+            toShow.map((e) => (
+              <div key={e.id} className={styles.item}>
+                <a
+                  href={`http://localhost:3000/detail/${e.id}`}>{`http://localhost:3000/detail/${e.id}`}</a>
+              </div>
+            ))
           ) : (
             <div>Post Not Found</div>
           )}
@@ -119,9 +171,21 @@ export const PostAdmin = () => {
         <div className={styles.boxFive}>
           <div className={styles.title}>Author</div>
           {filter ? (
-            filter?.map((e) => <div  key={e.id} className={styles.item}>{`Id: ${e.User.id}  User: ${e.User.username}`}</div>)
+            filter?.map((e) => (
+              <div
+                key={e.id}
+                className={
+                  styles.item
+                }>{`Id: ${e.User.id}  User: ${e.User.username}`}</div>
+            ))
           ) : toShow ? (
-            toShow.map((e) => <div key={e.id} className={styles.item}>{`Id: ${e.User.id}  User: ${e.User.username}`}</div>)
+            toShow.map((e) => (
+              <div
+                key={e.id}
+                className={
+                  styles.item
+                }>{`Id: ${e.User.id}  User: ${e.User.username}`}</div>
+            ))
           ) : (
             <div>Post Not Found</div>
           )}
@@ -132,6 +196,7 @@ export const PostAdmin = () => {
             filter.map((e) => (
               <div key={e.id} className={styles.actions}>
                 <button>
+                  <NavLink to={`/user/editpost/${e.id}`}>
                   <svg
                     width='25'
                     height='25'
@@ -167,30 +232,8 @@ export const PostAdmin = () => {
                       strokeLinejoin='round'
                     />
                   </svg>
-                </button>
-                <button>
-                  <svg
-                    width='25'
-                    height='25'
-                    viewBox='0 0 33 33'
-                    fill='none'
-                    xmlns='http://www.w3.org/2000/svg'>
-                    <path
-                      d='M6.71252 26.1647L16.7125 16.1647L26.7125 26.1647'
-                      stroke='white'
-                      strokeWidth='2'
-                      strokeLinecap='round'
-                      strokeLinejoin='round'
-                    />
-                    <path
-                      d='M6.71252 16.1647L16.7125 6.16467L26.7125 16.1647'
-                      stroke='white'
-                      strokeWidth='2'
-                      strokeLinecap='round'
-                      strokeLinejoin='round'
-                    />
-                  </svg>
-                </button>
+                  </NavLink>
+                </button>               
                 <button>
                   <svg
                     width='25'
@@ -241,6 +284,7 @@ export const PostAdmin = () => {
             toShow.map((e) => (
               <div key={e.id} className={styles.actions}>
                 <button>
+                <NavLink to={`/user/editpost/${e.id}`}>
                   <svg
                     width='25'
                     height='25'
@@ -276,31 +320,10 @@ export const PostAdmin = () => {
                       strokeLinejoin='round'
                     />
                   </svg>
+                  </NavLink>
                 </button>
-                <button>
-                  <svg
-                    width='25'
-                    height='25'
-                    viewBox='0 0 33 33'
-                    fill='none'
-                    xmlns='http://www.w3.org/2000/svg'>
-                    <path
-                      d='M6.71252 26.1647L16.7125 16.1647L26.7125 26.1647'
-                      stroke='white'
-                      strokeWidth='2'
-                      strokeLinecap='round'
-                      strokeLinejoin='round'
-                    />
-                    <path
-                      d='M6.71252 16.1647L16.7125 6.16467L26.7125 16.1647'
-                      stroke='white'
-                      strokeWidth='2'
-                      strokeLinecap='round'
-                      strokeLinejoin='round'
-                    />
-                  </svg>
-                </button>
-                <button>
+                
+                <button onClick={(x) => handleDelete(e.id)}>
                   <svg
                     width='25'
                     height='25'
@@ -355,7 +378,8 @@ export const PostAdmin = () => {
         <button /* onClick={(e) => prev(e)} */>Prev</button>
         {/* <Paginate totalPages={cant} setPage= {setPage} /> */}
         <button /* onClick={(e) => next(e)}  */>Next</button>
-      </div>
+      </div>  
+      {deletePost ? <ModalDeletePost id={id} show={handleShow} hidden={show}/> : null}
     </div>
   );
 };
