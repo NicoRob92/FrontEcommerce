@@ -4,23 +4,14 @@
 .navbar {
   display: flex;
   width: 100%;
-  height: 7vh;
-  justify-content: space-around;
-}
-
-.container {
-  width: 100%;
+  height: 7vh;  
   background-color: $CPrimary;
-  display: flex;
-  align-items: center;
+
 }
 
-.profile {
-  height: 100%;
-  width: auto;
-  transition: all 0.4s;
-  margin-left: 5%;
-}
+
+
+
 
 .login{
   margin-left: 15%;
@@ -54,7 +45,6 @@
   width: auto;
   text-decoration: none;
   color: goldenrod;
-  outline:1px solid white;
   
 }
 .title :focus{
@@ -63,7 +53,6 @@
 .market{
   text-decoration: none;
   color: goldenrod;
-  outline:1px solid white;
 }
 .register {
   width: 15%;
@@ -84,9 +73,53 @@
   background-color: rgba(12, 145, 60, 1);
   transition: 0.3s;
 }
+
+.containertitle{
+  width: 50%;
+  background-color:$CPrimary ;
+  display: flex;
+  height: 100%;
+  justify-content: space-between;
+  margin-right: 3%;
+  margin-left:3%;
+  padding-right: 3%;
+  align-items: center;
+}
+
+.containerLogin{
+  width: 50%;
+  background-color:$CPrimary ;
+  display: flex;
+  height: 100%;
+  justify-content: space-between;
+  margin-right: 3%;
+  margin-left:3%;
+  align-items: center;
+}
+.containerProfile{
+  width: 50%;
+  background-color:$CPrimary ;
+  display: flex;
+  height: 100%;
+  justify-content: space-between;
+  margin-right: 3%;
+  margin-left:3%;
+  align-items: center;
+  .profile {
+    width: 60%;
+    height: 100%;  
+    transition: all 0.4s;
+  }
+}
+
+.containersearch{
+  width: 70%;
+  display: flex;
+  align-items: center;
+}
 @media screen and (min-width: $width-notebook) {
   .profile {
-    width: 85%;
+    width: 40%;
     height: 95%;
     left: 30%;
     display: flex;
@@ -103,3 +136,4 @@
     
   }
 }
+

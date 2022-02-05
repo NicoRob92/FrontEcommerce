@@ -28,10 +28,10 @@ const Home = () => {
       <div className={styles.carrousel}>
         {/* Carousel  component */}
         <div className={styles.post}>
-          <h1>postos Destacados</h1>
+          <h1>Productos Destacados</h1>
           <Link to="/market">Ver todos</Link>
         </div>
-        <Carrousel cards="4" arr={posts} />
+        <Carrousel cards="5" arr={posts} />
       </div>
       <span className={styles.separador}></span>
 
@@ -39,10 +39,10 @@ const Home = () => {
         {/* Carousel  component */}
 
         <div className={styles.post}>
-          <h1>Subastas Destacadas</h1>
+          <h1>Productos Recientes</h1>
           <Link to="/market">Ver todos</Link>
         </div>
-        <Carrousel cards="4" arr={posts} />
+        <Carrousel cards="5" arr={posts} />
       </div>
 
       {/* Footer */}

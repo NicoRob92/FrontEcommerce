@@ -55,24 +55,23 @@ const Navbar = () => {
   return (
     <div className={styles.navbar}>
       {/* Ecommerce */}
-      <div className={styles.container}>
+      <div className={styles.containertitle}>
         <Link to={"/"} className={styles.tittle}>
-          <h2>Ecommerce</h2>
+          <h2>Kwik-E-Mart</h2>
         </Link>
-      </div>
-      <div className={styles.container}>
         <Link to={"/market"} className={styles.market}>
           <h4>Market</h4>
         </Link>
-
       </div>
+      
+      
       {/* Searchbar */}
-      <div className={styles.container}>
-        <Searchbar className={styles.searchbar} />
+      <div className={styles.containersearch}>
+        <Searchbar />
       </div>
       {/* Profile */}
       {showLogin === false && !logged ? (
-        <div className={styles.container}>
+        <div className={styles.containerLogin}>
           <button onClick={show} className={styles.login}>Login</button>
           <div className={styles.cart}>
             <button onClick={() => setShowCart(!showCart)}>
@@ -107,7 +106,7 @@ const Navbar = () => {
           />
         </div>
       ) : (
-        <div className={styles.container}>
+        <div className={styles.containerProfile}>
           <div className={styles.profile}>
             <Profile show={show} />
           </div>
