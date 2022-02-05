@@ -18,6 +18,7 @@ const ListItems = ({ label, text }) => {
   const token = localStorage.getItem("token")
   const [visible, setVisible] = useState(false)
   const [input, setInput] = useState('')
+  const type = label
 
   const handleShowForm = (e) => {
     e.preventDefault()
@@ -31,7 +32,7 @@ const ListItems = ({ label, text }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    dispatch(putUser(userId, input, token));
+    dispatch(putUser(userId, input, type, token));
     setInput('')
     setVisible(false)
   }
@@ -50,10 +51,10 @@ const ListItems = ({ label, text }) => {
       {visible
         ?
         <ListItem disablePadding>
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={(e) => handleSubmit(e)}>
             <div className={styles.button_container}>
             <TextField size="small" id="outlined-basic" label={label} variant="outlined" value={input} onChange={handleChangeInput} />
-            <Button size="small" sx={{marginLeft: '5px'}} variant="outlined">Save</Button>
+            <Button type="submit" size="small" sx={{marginLeft: '5px'}} variant="outlined">Save</Button>
             </div>
           </form>
         </ListItem>

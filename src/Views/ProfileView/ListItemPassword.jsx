@@ -15,6 +15,7 @@ const ListItemPassword = ({ value }) => {
     const token = localStorage.getItem("token")
     const [visible, setVisible] = useState(false)
     const [input, setInput] = useState('')
+    const type = "PASSWORD"
 
     const handleShowForm = () => {
         setVisible(!visible)
@@ -26,7 +27,7 @@ const ListItemPassword = ({ value }) => {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        dispatch(putUser(userId, input, token))
+        dispatch(putUser(userId, input, type, token))
         setInput('')
         setVisible(false)
     }
@@ -40,7 +41,7 @@ const ListItemPassword = ({ value }) => {
                         <form onSubmit={handleSubmit}>
                             <div className={styles.button_container}>
                                 <TextField size="small" id="outlined-basic" label="Password" variant="outlined" value={input} onChange={handleChangeInput} />
-                                <Button size="small" sx={{ marginLeft: '5px' }} variant="outlined">Save</Button>
+                                <Button size="small" sx={{ marginLeft: '5px' }} variant="outlined" type="submit">Save</Button>
                             </div>
                         </form>
                     </ListItem>

@@ -220,7 +220,7 @@ export function getUserById(id, token) {
   }
 }
 
-export function putUser(id, input, token) {
+export function putUser(id, input, type, token) {
   return async () => {
     return fetch(User+id, {
       method:  'PUT',
@@ -228,7 +228,7 @@ export function putUser(id, input, token) {
         'Content-Type': 'application/json',
         'token': token,
       },
-      body: input
+      body: JSON.stringify({input: input, type:type})
     })
     .then((response) => response.json())
       .catch((e) => console.error(e));
