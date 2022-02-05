@@ -45,6 +45,8 @@ export const ModalRol = ({ id, hidden, show }) => {
   return (
     <div className={styles.modal} hidden={hidden}>
       <div className={styles.container}>
+        <h2 className={styles.title}>Modificar Rol</h2>
+          
         <button className={styles.close} onClick={(e) => show()}>
           <svg
             width='32'
@@ -75,8 +77,8 @@ export const ModalRol = ({ id, hidden, show }) => {
           </svg>
         </button>
         <form className={styles.form} onSubmit={(e)=>onSubmit(e)}>
-          <div className={styles.item}>
-            <label> Rol </label>
+          <div className={styles.itemrol}>
+            <label> Elegir Rol </label>
             <select onChange={(e)=> onChange(e)} name='input'>
                 <option key='0' defaultValue={true}>Select</option>
                 <option key='1' value='user'>User</option>

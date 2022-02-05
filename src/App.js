@@ -60,7 +60,7 @@ const App = () => {
         <Route path="/checkout">
           <Checkout />
         </Route>
-        <Route exact path="/editpost/:id">
+        <Route exact path="/user/editpost/:id">
           <FormUpdatePost />
         </Route>
         <Route exact path="/compras">

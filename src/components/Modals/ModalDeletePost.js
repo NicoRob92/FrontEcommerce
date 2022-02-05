@@ -1,17 +1,16 @@
 import styles from './_Modal.module.scss';
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
 import axios from 'axios'
 
 
 
-export const ModalDeleteUser = ({ id, hidden, show }) => {
+export const ModalDeletePost = ({ id, hidden, show }) => {
   console.log(id)
   const token = localStorage.getItem('token')
   const [success, setSuccess] = useState(false)  
 
   const updateRol = async () => {
-   return await axios.delete(`http://localhost:4000/api/admin/user/${id}`,{
+   return await axios.delete(`http://localhost:4000/api/admin/post/${id}`,{
       headers:{
         'Content-Type': 'application/json',
         'token' : token
@@ -23,7 +22,7 @@ export const ModalDeleteUser = ({ id, hidden, show }) => {
     e.preventDefault();
     let prueba = await updateRol()
     console.log(prueba)
-    if(prueba.data.msg === 'delete success'){
+    if(prueba.data.msg === 'Post Destroyed'){
       setSuccess(true)
       console.log(success)
        setTimeout(()=> setSuccess(false),3000)
@@ -33,7 +32,7 @@ export const ModalDeleteUser = ({ id, hidden, show }) => {
   return (
     <div className={styles.modal} hidden={hidden}>
       <div className={styles.container}>
-        <h2 className={styles.title}>Eliminar Usuario</h2>
+        <h2 className={styles.title}>Eliminar post</h2>
 
         <button className={styles.close} onClick={(e) => show()}>
           <svg
@@ -66,11 +65,11 @@ export const ModalDeleteUser = ({ id, hidden, show }) => {
         </button>
         <form className={styles.form} onSubmit={(e)=>onSubmit(e)}>
           <div className={styles.item}>
-            <h1 className={styles.danger}>Seguro quiere eliminar al usuario</h1>
+            <h1 className={styles.danger}>Seguro quiere eliminar el post</h1>
             </div>
-          <button type='submit'>Eliminar Usuario</button>
+          <button type='submit'>Eliminar Post</button>
         </form>
-        {success === true ? <h1 className={styles.success}>Usuario eliminado</h1> : null}
+        {success === true ? <h2 className={styles.success}>Post eliminado</h2> : null}
       </div>
     </div>
   );
