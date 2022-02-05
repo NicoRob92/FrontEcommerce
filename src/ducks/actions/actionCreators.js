@@ -239,3 +239,18 @@ export function putUser(id, input, token) {
       .catch((e) => console.error(e));
   }
 }
+
+export function resetPassword(input,token){
+  return async() => {
+    return fetch(`http://localhost:4000/api/admin/user/reset-password-force`,{
+      method:'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'token' : token
+      },
+      body:JSON.stringify(input)
+    }).then((response) => response.json())
+    .then((data) => console.log(data))
+    .catch((e) => console.error(e))
+  }
+}
