@@ -8,7 +8,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { getPages } from "../../helpers/getPages";
 import { getPostToShow } from "../../helpers/getPostToShow";
 
-import * as actionsCreators from "../../ducks/actions/actionCreators";
+import * as actionCreators from "../../ducks/actions/actionCreators";
 
 import styles from "./_Market.module.scss";
 
@@ -16,12 +16,15 @@ import styles from "./_Market.module.scss";
 
 const Market = () => {
   const categories = useSelector((state) => state.reducer.categories);
-  const post = useSelector((state) => state.reducer.posts);
+  const posts = useSelector((state) => state.reducer.posts);
   const chosenCategories = useSelector((state) => state.reducer.chosenCategories);
   const filteredPostByCategory = useSelector((state) => state.reducer.filteredPostByCategory);
   const dispatch = useDispatch();
+  // console.log(posts)
+  // console.log(filteredPostByCategory)
+  console.log(chosenCategories)
 
-  let postToShow = filteredPostByCategory.length === 0 ? post : filteredPostByCategory;
+  let postToShow = filteredPostByCategory.length === 0 ? posts : filteredPostByCategory;
 
 
   const [currentPage, setCurrentPage] = useState(1);
@@ -47,13 +50,13 @@ const Market = () => {
     let index = chosenCategories.findIndex((e) => e === Number(target.value));
 
     if (target.checked && index === -1)
-      dispatch(actionsCreators.chooseCategories(Number(target.value), "add category"));
+      dispatch(actionCreators.chooseCategories(Number(target.value), "add category"));
     else if (!target.checked && index !== -1)
-      dispatch(actionsCreators.chooseCategories(Number(target.value), "remove category", index));
+      dispatch(actionCreators.chooseCategories(Number(target.value), "remove category", index));
     else if (target.id === "reset-chosenCategories")
-      dispatch(actionsCreators.resetCategories());
+      dispatch(actionCreators.resetCategories());
     else if (target.id === "search")
-      dispatch(actionsCreators.filterPostByCategory());
+      dispatch(actionCreators.filterPostByCategory());
   };
 
   return (

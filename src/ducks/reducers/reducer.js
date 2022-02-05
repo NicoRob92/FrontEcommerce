@@ -4,7 +4,7 @@ const initialState = {
   categories: [],
   chosenCategories: [],
   categoryPost: [],
-  post: [],
+  posts: [],
   cart: [],
   users: [],
   countries: [],
@@ -21,7 +21,6 @@ export default function Product(state = initialState, action) {
         ...state,
         posts: action.payload,
       };
-
     case actionTypes.GET_CATEGORIES:
       return { ...state, categories: action.payload };
     case actionTypes.GET_USERS:
@@ -33,7 +32,7 @@ export default function Product(state = initialState, action) {
     case actionTypes.GET_CATEGORY_POST:
       return {
         ...state,
-        categoryPost: state.post.filter(
+        categoryPost: state.posts.filter(
           (post) => post.categoryId === action.payload
         ),
       };
@@ -64,13 +63,13 @@ export default function Product(state = initialState, action) {
         chosenCategories: [],
         filteredPostByCategory: [],
       };
-    case actionTypes.FILTER_POSTS_BY_CATEGORY:
+      case actionTypes.FILTER_POSTS_BY_CATEGORY:
+      const categoriesInOrder = state.chosenCategories.sort();
       return {
         ...state,
         filteredPostByCategory: state.posts.filter((post) => {
-          const categoriesInOrder = state.chosenCategories.sort();
-          if (categoriesInOrder.toString().includes(post.categoryId.toString()))
-            return true;
+          console.log(String(post.Categories[0].id))
+          if (categoriesInOrder.toString().includes(String(post.Categories[0].id))) return true;
           else return false;
         }),
       };
