@@ -156,7 +156,10 @@ export default function FormUpdatePost() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
     dispatch(updatePost({ ...input, name: input.title }));
+
+
   };
   function deletePost() {
     setdeletion(true)
@@ -211,7 +214,7 @@ export default function FormUpdatePost() {
         />
       );
     case 4:
-      return <Success id={id} deletion={deletion} />;
+      return <Success id={id} deletion={deletion} errors={errors} />;
     default:
       return null;
   }

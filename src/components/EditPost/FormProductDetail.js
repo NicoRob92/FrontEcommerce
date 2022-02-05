@@ -1,11 +1,6 @@
 import { useState } from "react/cjs/react.development";
-import firebase from "firebase";
+import firebase from "../../services/firebaseStorage";
 import ConfirmDeletion  from './ConfirmDeletion'
-
-
-firebase.initializeApp({
-  storageBucket: "gs://ecstorage-72e4f.appspot.com",
-});
 
 
 const FormProductDetail = ({

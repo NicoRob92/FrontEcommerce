@@ -88,7 +88,7 @@ export function getCountries() {
 }
 
 export function create_post(payload, token) {
-  return async () => {
+  return async (dispatch) => {
     return await fetch('http://localhost:4000/api/admin/post', {
       method: 'POST',
       body: JSON.stringify(payload),
@@ -96,7 +96,12 @@ export function create_post(payload, token) {
         'Content-Type': 'application/json',
         token: token,
       },
-    }).catch((e) => console.error(e));
+    })
+    .then((response) => response.json())
+    .then((json) => {
+      dispatch({ type: actionTypes.CREATE_POST, payload: json });
+    })
+    .catch((e) => console.error(e));
   };
 }
 
@@ -200,7 +205,7 @@ export function getUsers(token) {
       })
       .catch((e) => console.error(e));
   };
-} 
+}
 
 
 export function getUserById(id, token) {
