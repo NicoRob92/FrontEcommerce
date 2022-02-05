@@ -21,8 +21,9 @@ const CardDetail = () => {
   const [address, setAddress] = useState("");
   const [payLink,setPayLink] = useState(null)
   const postById = useSelector((state) => state.reducer.postById);
-  console.log(payLink)
-  
+
+  JSON.stringify(localStorage.setItem("lastPost", postById.id))
+
 
   useEffect(() => {
     dispatch(actionCreators.getPostById(id));
@@ -77,37 +78,34 @@ const CardDetail = () => {
     }
   };
 
-  let logged = Boolean(localStorage.getItem("logged"));
   const addPostToCart = () => {
-    let quantity = document.getElementById("quantity").value;
-
-    let userId = Number(localStorage.getItem("userId"));
-    let username = localStorage.getItem("username");
-    let email = localStorage.getItem("email");
-
     let posts = JSON.parse(localStorage.getItem("posts")) || {
       item: [],
       payer: {
-        id: userId,
-        username,
-        email,
+        id: Number(localStorage.getItem("userId")),
+        email: localStorage.getItem("email"),
+        address: {
+          street_name: null
+        }
       },
     };
-
+    
+    
+    
     const post = {
       id: postById.id,
       title: postById.name,
       stock: postById.stock,
       description: postById.description,
       unit_price: parseFloat(postById.price),
-      quantity: Number(quantity),
+      quantity: Number(document.getElementById("quantity").value),
     };
-
+    // si no existe ningun post en el array de item lo agregamos directamente
     if (posts.item.length === 0) {
       posts.item.push(post);
       localStorage.setItem("posts", JSON.stringify(posts));
     }
-
+    // buscamos si ya existe un post igual en el array si existe lo reemplazamos
     let check = false;
     if (posts.item.length !== 0) {
       for (let i = 0; i < posts.item.length; i++) {
@@ -118,12 +116,14 @@ const CardDetail = () => {
         }
       }
     }
+    // si se encontro el mismo post lo intrpducimos al carrito
     if (check) localStorage.setItem("posts", JSON.stringify(posts));
-
+    // si no se encontro el mismo post lo pusheamos al array de item y lo metemos al carrito
     if (!check) {
       posts.item.push(post);
       localStorage.setItem("posts", JSON.stringify(posts));
     }
+    //despachamos una accion que va setear el estado global del carrito con todos los post
     dispatch(actionCreators.setCart(JSON.parse(localStorage.getItem("posts"))));
   };
   return (

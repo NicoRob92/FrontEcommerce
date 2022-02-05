@@ -1,5 +1,5 @@
 const CheckoutPending = () => {
-  return <div>pending</div>;
+  return <div>La compra esta en estado pendiente</div>;
 };
 
 export default CheckoutPending;

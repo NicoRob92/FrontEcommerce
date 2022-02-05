@@ -7,6 +7,7 @@ import FilterSubmit from "../../components/Filters/FilterSubmit";
 import styles from "./_Categories.module.scss";
 
 const Categories = ({ categories, setCategories, chosenCategories }) => {
+  
   const location = useLocation();
   return (
     <div className={styles.categoriesContainer}>
