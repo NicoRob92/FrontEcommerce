@@ -1,0 +1,41 @@
+.modal{
+    width: 88.5%;
+    height: 100%;
+    position:fixed;
+    background-color: rgba(0,0,0,.8);
+    backdrop-filter: blur(8px);
+    display:flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.container{
+   outline: 1px solid white;
+   width: 60%;
+   height: 60%;
+   display: flex;
+   flex-direction: column;
+   justify-content: space-around;
+   align-items: center;
+   
+}
+
+.form{
+    outline: 1px solid white;
+    width: 60%;
+    height: 60%;
+    display: flex;
+    flex-direction: column;
+    
+}
+.close{
+    position: absolute;
+    top:20%;
+    right: 20%;
+    border:none;
+    background-color: transparent;
+}
+
+.success{
+    color: white;
+}

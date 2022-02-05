@@ -2,12 +2,53 @@ import styles from './_UsersAdmin.module.scss';
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { getUsers } from '../../ducks/actions/actionCreators';
-
+import { ModalPass } from '../../components/Modals/ModalPass';
+import { ModalRol } from '../../components/Modals/ModalRol';
+import { ModalDeleteUser } from '../../components/Modals/ModalDeleteUser';
 export const UsersAdmin = () => {
   let Users = useSelector((state) => state.reducer.users);
   const dispatch = useDispatch();
   const [filter, setFilter] = useState(null);
-  const token = localStorage.getItem('token')
+  const token = localStorage.getItem('token');
+  const [show, setShow] = useState(true);
+  const [editUser, setEditUser] = useState(false);
+  const [editRol, setEditRol] = useState(false);
+  const [deleteUser, setDeleteUser] = useState(false);
+  const [rol, setrol] = useState(0);
+  const [id, setId] = useState(null);
+
+  
+  const handleEditPass = (e) => {
+    setId(e);
+    setEditUser(!editUser);
+    setShow(!show);
+  };
+
+  const handleEditRol = (e) => {
+    setId(e);
+    setEditRol(!editRol);
+    setShow(!show);
+  };
+  const handleDeleteUser = (e) => {
+    setId(e);
+    setDeleteUser(!deleteUser);
+    setShow(!show);
+  };
+
+  const handleShow = () => {
+    setShow(!show);
+    editUser ? setEditUser(!editUser) : setEditUser(editUser);
+    editRol ? setEditRol(!editRol) : setEditRol(editRol);
+    deleteUser ? setDeleteUser(!deleteUser) : setDeleteUser(deleteUser);
+  };
+
+  const changeRol = () => {
+    rol < 2 ? setrol(prev => rol + 1) : setrol(prev => 0);
+    if (rol === 0) setFilter(null);
+    if (rol === 1) setFilter(Users.filter((e) => e.role === 'admin'));
+    if (rol === 2) setFilter(Users.filter((e) => e.role === 'user'));
+  };
+
   Users = Users?.sort((a, b) => a.id - b.id);
   useEffect(() => {
     dispatch(getUsers(token));
@@ -133,7 +174,7 @@ export const UsersAdmin = () => {
           )}
         </div>
         <div className={styles.boxFive}>
-          <div className={styles.title}>Rol</div>
+          <div className={styles.title} onClick={(e) => changeRol(e)}>Rol</div>
           {filter ? (
             filter?.map((e) => (
               <div key={e.id} className={styles.item}>
@@ -151,11 +192,31 @@ export const UsersAdmin = () => {
           )}
         </div>
         <div className={styles.boxSix}>
+          <div className={styles.title}>
+            Status
+          </div>
+          {filter ? (
+            filter?.map((e) => (
+              <div key={e.id} className={styles.item}>
+                {e.status === true ? 'Activo' : 'Inactivo'}
+              </div>
+            ))
+          ) : Users ? (
+            Users.map((e) => (
+              <div key={e.id} className={styles.item}>
+                {e.status === true ? 'Activo' : 'Inactivo'}
+              </div>
+            ))
+          ) : (
+            <div>Users Not Found</div>
+          )}
+        </div>
+        <div className={styles.boxSeven}>
           <div className={styles.title}>Action</div>
           {filter ? (
             filter.map((e) => (
-              <div key={e.key} className={styles.actions}>
-                <button>
+              <div key={e.id} className={styles.actions}>
+                <button key={e.id} onClick={(x) => handleEditPass(e.id)}>
                   <svg
                     width='25'
                     height='25'
@@ -192,7 +253,7 @@ export const UsersAdmin = () => {
                     />
                   </svg>
                 </button>
-                <button>
+                <button key={e.id} onClick={(x) => handleEditRol(e.id)}>
                   <svg
                     width='25'
                     height='25'
@@ -219,7 +280,7 @@ export const UsersAdmin = () => {
                     />
                   </svg>
                 </button>
-                <button>
+                <button key={e.id} onClick={(x) => handleDeleteUser(e.id)}>
                   <svg
                     width='25'
                     height='25'
@@ -268,7 +329,7 @@ export const UsersAdmin = () => {
           ) : Users ? (
             Users.map((e) => (
               <div key={e.id} className={styles.actions}>
-                <button>
+                <button key={e.id} onClick={(x) => handleEditPass(e.id)}>
                   <svg
                     width='25'
                     height='25'
@@ -305,8 +366,8 @@ export const UsersAdmin = () => {
                     />
                   </svg>
                 </button>
-                <button>
-                <svg
+                <button key={e.id} onClick={(x) => handleEditRol(e.id)}>
+                  <svg
                     width='25'
                     height='25'
                     viewBox='0 0 32 32'
@@ -332,7 +393,7 @@ export const UsersAdmin = () => {
                     />
                   </svg>
                 </button>
-                <button>
+                <button key={e.id} onClick={(x) => handleDeleteUser(e.id)}>
                   <svg
                     width='25'
                     height='25'
@@ -387,6 +448,11 @@ export const UsersAdmin = () => {
         <button>Prev</button>
         <button>Next</button>
       </div>
+      {editUser ? <ModalPass id={id} show={handleShow} hidden={show} /> : null}
+      {editRol ? <ModalRol id={id} show={handleShow} hidden={show} /> : null}
+      {deleteUser ? (
+        <ModalDeleteUser id={id} show={handleShow} hidden={show} />
+      ) : null}
     </div>
   );
 };
