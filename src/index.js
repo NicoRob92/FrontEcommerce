@@ -18,23 +18,16 @@ import { Switch, Route } from "react-router-dom";
 ReactDOM.render(
   <Provider store={store}>
     <React.StrictMode>
-      <Auth0Provider
-        domain="nicorobledo.us.auth0.com"
-        clientId="QxfsX7iCeiq3dv2l50vYK7djTBhMqymm"
-        redirectUri={window.location.origin}
-      >
-        <BrowserRouter>
+      <BrowserRouter>
         <Switch>
           <Route path="/admin">
-            <Admin/>
+            <Admin />
           </Route>
           <Route path="/">
             <App />
           </Route>
         </Switch>
-         
-        </BrowserRouter>
-      </Auth0Provider>
+      </BrowserRouter>
     </React.StrictMode>
   </Provider>,
   document.getElementById("root")

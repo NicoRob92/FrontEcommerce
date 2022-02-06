@@ -1,0 +1,5 @@
+export const CLIENT_ID = "219415381778-0i232b3rrodpup91vekchl39a4k93bmc.apps.googleusercontent.com"
+export const CLIENT_SECRET = "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"
+export const REDIRECT_URI = "http://localhost:4000/admin/auth/google/callback"
+export const SCOPE = "https://www.googleapis.com/auth/userinfo.email "
+export const REDIRECT_URI_END = "http://localhost:4000/admin/home"
