@@ -22,7 +22,7 @@ const Market = () => {
   const dispatch = useDispatch();
   // console.log(posts)
   // console.log(filteredPostByCategory)
-  console.log(chosenCategories)
+  console.log(categories)
 
   let postToShow = filteredPostByCategory.length === 0 ? posts : filteredPostByCategory;
 
