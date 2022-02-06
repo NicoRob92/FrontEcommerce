@@ -20,9 +20,7 @@ const Market = () => {
   const chosenCategories = useSelector((state) => state.reducer.chosenCategories);
   const filteredPostByCategory = useSelector((state) => state.reducer.filteredPostByCategory);
   const dispatch = useDispatch();
-  // console.log(posts)
-  // console.log(filteredPostByCategory)
-  console.log(chosenCategories)
+
 
   let postToShow = filteredPostByCategory.length === 0 ? posts : filteredPostByCategory;
 
@@ -30,12 +28,12 @@ const Market = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const postPerPage = 20;
 
-  useEffect(() => {
-    let element = document.getElementById("categories");
-    element
-      ? element?.classList.add(`${styles.categories}`)
-      : element?.classList.remove(`${styles.categories}`);
-  }, []);
+  // useEffect(() => {
+  //   let element = document.getElementById("categories");
+  //   element
+  //     ? element?.classList.add(`${styles.categories}`)
+  //     : element?.classList.remove(`${styles.categories}`);
+  // }, []);
 
   const totalPages = getPages(postToShow?.length, postPerPage);
 
@@ -58,6 +56,7 @@ const Market = () => {
     else if (target.id === "search")
       dispatch(actionCreators.filterPostByCategory());
   };
+ 
 
   return (
     <>

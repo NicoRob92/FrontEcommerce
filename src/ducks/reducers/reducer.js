@@ -68,7 +68,6 @@ export default function Product(state = initialState, action) {
       return {
         ...state,
         filteredPostByCategory: state.posts.filter((post) => {
-          console.log(String(post.Categories[0].id))
           if (categoriesInOrder.toString().includes(String(post.Categories[0].id))) return true;
           else return false;
         }),
