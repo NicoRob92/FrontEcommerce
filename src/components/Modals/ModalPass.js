@@ -47,6 +47,7 @@ export const ModalPass = ({ id, hidden, show }) => {
   return (
     <div className={styles.modal} hidden={hidden}>
       <div className={styles.container}>
+        <h2 className={styles.title}>Modificar Password</h2>
         <button className={styles.close} onClick={(e) => show()}>
           <svg
             width='32'

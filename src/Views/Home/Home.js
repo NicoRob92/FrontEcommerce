@@ -23,29 +23,30 @@ const Home = () => {
         {/* Carousel  component */}
         <CarrouselOfertas cards="1" arr={images} />
       </div>
-      <span className={styles.separador}></span>
 
       <div className={styles.carrousel}>
         {/* Carousel  component */}
         <div className={styles.post}>
-          <h1>postos Destacados</h1>
-          <Link to="/market">Ver todos</Link>
+          <h1>Productos Destacados</h1>
+          <Link to="/market" className={styles.link}>Ver todos</Link>
         </div>
-        <Carrousel cards="4" arr={posts} />
+        <Carrousel cards="5" arr={posts} />
       </div>
-      <span className={styles.separador}></span>
 
       <div className={styles.carrousel}>
         {/* Carousel  component */}
 
         <div className={styles.post}>
-          <h1>Subastas Destacadas</h1>
-          <Link to="/market">Ver todos</Link>
+          <h1>Productos Recientes</h1>
+          <Link to="/market" className={styles.link}>Ver todos</Link>
         </div>
-        <Carrousel cards="4" arr={posts} />
+        <Carrousel cards="5" arr={posts} />
       </div>
 
       {/* Footer */}
+      <div className={styles.footer}>
+        Varias cosas aqui
+      </div>
     </div>
   );
 };

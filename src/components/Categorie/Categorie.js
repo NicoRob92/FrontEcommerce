@@ -1,6 +1,6 @@
 import styles from "./_Categorie.module.scss";
 
-const Categorie = ({ id, name, setCategories}) => {
+const Categorie = ({ id, name, setCategories, chosenCategories}) => {
 
   return (
     <div className={styles.categorieContainer}>
