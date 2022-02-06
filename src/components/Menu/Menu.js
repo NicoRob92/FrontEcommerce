@@ -55,7 +55,7 @@ export const Menu = ({ user, handleLogOut, close }) => {
           <NavLink to={'/new-post'}>Post</NavLink>
         </li>
         <li key='3' type='none'>
-          Compras
+          <NavLink to={"/compras"}>Compras</NavLink>
         </li>
         <li key='4' type='none'>
           Ventas

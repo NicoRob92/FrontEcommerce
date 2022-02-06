@@ -12,6 +12,7 @@ const Checkout = () => {
   const [timer,setTimer] = useState(1)
 
 
+
   let {url} = useRouteMatch()
   useEffect(()=>{
   if(timer <= 4 ) {
@@ -24,12 +25,12 @@ const Checkout = () => {
   return (
     <Switch>
       <Route exact path={`${url}/success`}>
-        <CheckoutSuccess timer={timer}/>
+        <CheckoutSuccess />
         {timer === 4 && <Redirect to="/"/>}
       </Route>
       <Route exact path={`${url}/failure`}>
         <CheckoutFailure />
-        {timer === 4 && <Redirect to="/"/>}
+        {timer === 4 && <Redirect to={`/detail/${JSON.parse(localStorage.getItem("lastPost"))}`}/>}
       </Route>
       <Route exact path={`${url}/pending`}>
         <CheckoutPending />

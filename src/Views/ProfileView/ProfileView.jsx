@@ -12,7 +12,8 @@ import List from "@mui/material/List";
 import Divider from "@mui/material/Divider";
 import ListItems from "./ListItems";
 import ListItemPassword from "./ListItemPassword";
-import Avatar from '@mui/material/Avatar';
+import ImageProfile from "./ImageProfile";
+
 const ProfileView = () => {
     const dispatch = useDispatch();
     const user = useSelector((state) => state.user.user);
@@ -23,10 +24,12 @@ const ProfileView = () => {
         dispatch(getUserById(userId, token));
     }, []);
 
+
+
     return (
         <div className={styles.container}>
-            <Box sx={{ marginTop: '20px' }}>
-                <Avatar className={styles.profileImage} alt="Profile Picture" src={user.image ? user.image : "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"} />
+            <Box sx={{ marginTop: '20px', marginBottom: '10px' }}>
+                <ImageProfile image={user.image}/>
             </Box>
             <Box>
                 <Card sx={{ width: 800 }}>
@@ -70,7 +73,7 @@ const ProfileView = () => {
                     </nav>
                 </Card>
             </Box>
-            <Box sx={{ marginTop: '10px' }}>
+            <Box sx={{ marginTop: '10px', marginBottom: '20px' }}>
                 <Card sx={{ width: 800 }}>
                     <CardContent>
                         <h3 className={styles.title}>Password</h3>

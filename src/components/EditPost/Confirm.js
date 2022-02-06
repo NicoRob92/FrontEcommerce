@@ -1,10 +1,21 @@
 
-const Confirm = ({ nextStep, prevStep, input, handleSubmit,allCategories }) => {
+const Confirm = ({ nextStep, prevStep, input,errors, handleSubmit,allCategories }) => {
     const continues = e => {
         e.preventDefault()
-        nextStep()
-        // dispatch the action or handle submit
-        handleSubmit(e)
+            if(Object.keys(errors).length === 0){
+              nextStep()
+              // dispatch the action or handle submit
+              handleSubmit(e)
+            }else {
+              let errs =""
+              Object.keys(errors).map(key=>{
+                errs += "-"+errors[key]+"\n"
+               return errors[key]
+             })
+             alert("Completa bien el formulario, por favor.\n"+errs)
+            }
+
+
     }
 
     const back = e => {

@@ -12,7 +12,10 @@ const Cart = ({
   incrementQuantity,
   decrementQuantity,
 }) => {
-  const [redirection, setRedirection] = useState(null);
+  const [payLink, setPayLink] = useState(null);
+  const [logginStatus, setLogginStatus] = useState(null)
+  const [address,setAddress] = useState("")
+  const [postsState, setPostsState] = useState(false)
 
   const cart = useRef(null);
   useEffect(() => {
@@ -20,13 +23,30 @@ const Cart = ({
     return cart.current.classList.remove(`${styles.closed}`);
   });
 
-  let checkLength = JSON.parse(localStorage.getItem("posts"));
+  useEffect(()=>{
+    let postsInLS = JSON.parse(localStorage.getItem("posts"))
+    postsInLS?.item.length ? setPostsState(prevState => prevState = true) : setPostsState(prevState => prevState = false)
+  })
+
+  const checkLoggin = () => {
+    const loggin = Boolean(localStorage.getItem("logged"))
+    if(!loggin) setLogginStatus(prevState => prevState = loggin)
+    if(loggin) setLogginStatus(prevState => prevState = loggin)
+  }
+
+  const gettingAddress = (e) => {
+    setAddress(prevState => prevState = e.target.value)
+  }
 
   const sendCheckout = () => {
-    if (!checkLength) return;
+    let posts = JSON.parse(localStorage.getItem("posts"));  
+    if (!posts.item.length) return;
+    posts.payer.address.street_name = address
+
+
     fetch("http://localhost:4000/api/checkout", {
       method: "POST",
-      body: localStorage.getItem("posts"),
+      body: JSON.stringify(posts),
       headers: {
         "Content-Type": "application/json",
       },
@@ -36,7 +56,7 @@ const Cart = ({
       })
       .then((res) => res.json())
       .then((res) => {
-        setRedirection((prevState) => (prevState = res.res));
+        setPayLink((prevState) => (prevState = res.res));
       })
       .catch((error) => console.error(error));
   };
@@ -69,13 +89,16 @@ const Cart = ({
               />
             ))}
             <div>
+              {postsState ?<div>
+                <input type="button" value="Deseas proceder con la compra?" onClick={checkLoggin} />
+              </div> : null}
+              
+              {logginStatus === false ? <p>Debes estar logeado</p> : logginStatus === true ?<input id="address-input" type="text" onChange={gettingAddress} placeholder="Direccion de envio"></input>: null}
               <div>
-                <input type="button" value="comprar" onClick={sendCheckout} />
-              </div>
-              <div>
-                {redirection ? (
-                  <a href={redirection}>
-                    Seguro que quieres proceder con compra?
+                {address ? <div><input type="button" onClick={sendCheckout}value="Generar Link de pago"/></div>:null}
+                {payLink ? (
+                  <a href={payLink}>
+                    Pagar
                   </a>
                 ) : null}
               </div>
