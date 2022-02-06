@@ -21,7 +21,6 @@ const Market = () => {
   const filteredPostByCategory = useSelector((state) => state.reducer.filteredPostByCategory);
   const dispatch = useDispatch();
 
-
   let postToShow = filteredPostByCategory.length === 0 ? posts : filteredPostByCategory;
 
 

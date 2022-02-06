@@ -2,7 +2,7 @@ import styles from "./CartItem.module.scss";
 
 const CartItem = ({ name, id, decrementQuantity, incrementQuantity, removePost, quantity }) => {
   return (
-    <div className={styles.item}>
+    <div className={styles.item} >
       <div>
         <input id={id} type={"button"} value={"X"} onClick={removePost}/>
       </div>

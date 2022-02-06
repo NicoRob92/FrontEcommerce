@@ -25,7 +25,7 @@ const Cart = ({
 
   useEffect(()=>{
     let postsInLS = JSON.parse(localStorage.getItem("posts"))
-    postsInLS.item.length ? setPostsState(prevState => prevState = true) : setPostsState(prevState => prevState = false)
+    postsInLS?.item.length ? setPostsState(prevState => prevState = true) : setPostsState(prevState => prevState = false)
   })
 
   const checkLoggin = () => {

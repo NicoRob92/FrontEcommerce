@@ -60,13 +60,13 @@ const App = () => {
         <Route path="/checkout">
           <Checkout />
         </Route>
-        <Route exact path="/editpost/:id">
+        <Route exact path="/user/editpost/:id">
           <FormUpdatePost />
         </Route>
         <Route exact path="/compras">
           <Compras />
         </Route>
-        <Route exact path="/profile/:id">
+        <Route exact path="/user/profile/:id">
           <ProfileView/>
         </Route>
       </Switch>

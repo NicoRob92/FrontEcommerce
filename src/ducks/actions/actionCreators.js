@@ -88,7 +88,7 @@ export function getCountries() {
 }
 
 export function create_post(payload, token) {
-  return async () => {
+  return async (dispatch) => {
     return await fetch('http://localhost:4000/api/admin/post', {
       method: 'POST',
       body: JSON.stringify(payload),
@@ -96,7 +96,12 @@ export function create_post(payload, token) {
         'Content-Type': 'application/json',
         token: token,
       },
-    }).catch((e) => console.error(e));
+    })
+    .then((response) => response.json())
+    .then((json) => {
+      dispatch({ type: actionTypes.CREATE_POST, payload: json });
+    })
+    .catch((e) => console.error(e));
   };
 }
 
@@ -132,9 +137,13 @@ export function getCategoryPost(categoryId) {
   return { type: actionTypes.GET_CATEGORY_POST, payload: categoryId };
 }
 
-export function getOrders() {
+export function getOrders(token) {
   return function (dispatch) {
-    return fetch(Orders)
+    return fetch(Orders,{
+      method: 'GET',
+      headers: { 'Content-Type': 'application/json',
+    'token':token}
+    })
       .then((response) => response.json())
       .then((json) => {
         dispatch({ type: actionTypes.GET_ORDERS, payload: json });
@@ -196,7 +205,7 @@ export function getUsers(token) {
       })
       .catch((e) => console.error(e));
   };
-} 
+}
 
 
 export function getUserById(id, token) {
@@ -216,7 +225,7 @@ export function getUserById(id, token) {
   }
 }
 
-export function putUser(id, input, token) {
+export function putUser(id, input, type, token) {
   return async () => {
     return fetch(User+id, {
       method:  'PUT',
@@ -224,9 +233,24 @@ export function putUser(id, input, token) {
         'Content-Type': 'application/json',
         'token': token,
       },
-      body: input
+      body: JSON.stringify({input: input, type:type})
     })
     .then((response) => response.json())
       .catch((e) => console.error(e));
+  }
+}
+
+export function resetPassword(input,token){
+  return async() => {
+    return fetch(`http://localhost:4000/api/admin/user/reset-password-force`,{
+      method:'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'token' : token
+      },
+      body:JSON.stringify(input)
+    }).then((response) => response.json())
+    .then((data) => console.log(data))
+    .catch((e) => console.error(e))
   }
 }
