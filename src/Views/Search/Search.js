@@ -30,6 +30,7 @@ const Search = () => {
     setFilter(array);
   };
 
+  console.log(filter)
   let categoriesId = filter ? filter?.map((e) => e.categoryId) : null;
   let id = new Set(categoriesId);
   for (const num of id) {
