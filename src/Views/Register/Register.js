@@ -3,7 +3,6 @@ import style from "./Register.module.scss"
 import { NavLink } from "react-router-dom"
 import { connect } from "react-redux"
 import { api } from "../../ducks/actions/actionCreators"
-import Google from "../../components/GoogleAuth/Google"
 
 function Register(props) {
 
@@ -111,7 +110,6 @@ function Register(props) {
                 <div>
                     <button type="submit">Submit</button>
                 </div>
-                <Google />
             </form>
 
             {isSend ? <>
