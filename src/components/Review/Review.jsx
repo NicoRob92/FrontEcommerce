@@ -1,7 +1,5 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from "react-redux";
-import { createTheme, responsiveFontSizes, ThemeProvider } from "@mui/material/styles";
-import Typography from "@mui/material/Typography";
 import ReviewBar from './ReviewBar';
 import ReviewCard from './ReviewCard';
 import st from './_Review.module.scss'
@@ -10,8 +8,8 @@ import { getReview, getUsers } from '../../ducks/actions/actionCreators'
 
 const Review = ({ ProductId }) => {
     const dispatch = useDispatch()
-    const reviews = useSelector((state) => state.review.reviews)
-
+    const reviews = useSelector((state) => state.review.pureReviews)
+    const [order, setOrder] = useState('')
     let token = localStorage.getItem('token')
 
     useEffect(() => {
@@ -25,11 +23,11 @@ const Review = ({ ProductId }) => {
                 <h5>Rating and Reviews</h5>
             </div>
             <div className={st.btns}>
-                <ReviewBar />
+                <ReviewBar Order={setOrder} />
             </div>
             <div>
                 {reviews ? (
-                    reviews.Reviews?.map((e) => {
+                    reviews.map((e) => {
                         return <ReviewCard key={e.id} description={e.description} rating={e.rating} name={e.author} />;
                     })
                 ) : (
