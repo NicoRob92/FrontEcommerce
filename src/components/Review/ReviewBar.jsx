@@ -9,8 +9,8 @@ import ThumbDownOffAltIcon from "@mui/icons-material/ThumbDownOffAlt";
 const ReviewBar = () => {
     const [value, setValue] = useState(0)
     return (
-        <Fragment>
-        <Box sx={{ width: 500 }}>
+        <div>
+        <div>
           <BottomNavigation
             showLabels
             value={value}
@@ -25,8 +25,8 @@ const ReviewBar = () => {
               icon={<ThumbDownOffAltIcon />}
             />
           </BottomNavigation>
-        </Box>
-      </Fragment>
+        </div>
+      </div>
     )
 };
 
