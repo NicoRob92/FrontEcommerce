@@ -1,19 +1,15 @@
-import { useEffect} from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from "react-redux";
-import { createTheme, responsiveFontSizes, ThemeProvider } from "@mui/material/styles";
-import Typography from "@mui/material/Typography";
 import ReviewBar from './ReviewBar';
 import ReviewCard from './ReviewCard';
 import st from './_Review.module.scss'
 import ReviewForm from './ReviewForm';
-import {getReview, getUsers} from '../../ducks/actions/actionCreators'
+import { getReview, getUsers } from '../../ducks/actions/actionCreators'
 
-const Review = ({ProductId}) => {
+const Review = ({ ProductId }) => {
     const dispatch = useDispatch()
-    const reviews = useSelector((state) => state.review.reviews)
-
-    let theme = createTheme();
-    theme = responsiveFontSizes(theme);
+    const reviews = useSelector((state) => state.review.pureReviews)
+    const [order, setOrder] = useState('')
     let token = localStorage.getItem('token')
 
     useEffect(() => {
@@ -24,26 +20,22 @@ const Review = ({ProductId}) => {
     return (
         <div className={st.container}>
             <div>
-                <ThemeProvider theme={theme}>
-                    <Typography className={st.title} variant="h4">Ratings and reviews</Typography>
-                </ThemeProvider>
+                <h5>Rating and Reviews</h5>
             </div>
             <div className={st.btns}>
-                <ReviewBar />
+                <ReviewBar Order={setOrder} />
             </div>
             <div>
                 {reviews ? (
-                    reviews.Reviews?.map((e) => {
-                        return <ReviewCard key={e.id}   description={e.description} rating={e.rating} name={e.author}/>;
+                    reviews.map((e) => {
+                        return <ReviewCard key={e.id} description={e.description} rating={e.rating} name={e.author} />;
                     })
                 ) : (
                     <div className={st.cardB}>
                         <div className={st.titleCard}>
-                            <ThemeProvider theme={theme}>
-                                <Typography variant="h5">
-                                    This product does not have any review yet
-                                </Typography>
-                            </ThemeProvider>
+                            <h5>
+                                This product does not have any review yet
+                            </h5>
                         </div>
                         <p className="card-text">
                             Hey! Be the first one to provide a review for this product, you

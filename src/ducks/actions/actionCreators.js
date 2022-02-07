@@ -159,7 +159,6 @@ export function filterOrder(payload) {
 }
 
 export function postReview(payload, token) {
-  console.log(`I'm the payload ${JSON.stringify(payload)}`);
   return async () => {
     return await fetch(Review, {
       method: "POST",
@@ -186,6 +185,13 @@ export function getReview(id, token) {
         dispatch({ type: actionTypes.GET_REVIEW, payload: json });
       })
       .catch((e) => console.error(e));
+  };
+}
+
+export function filterReview(payload) {
+  return {
+    type: actionTypes.FILTER_REVIEW,
+    payload,
   };
 }
 
