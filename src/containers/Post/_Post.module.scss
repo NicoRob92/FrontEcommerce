@@ -1,12 +1,29 @@
 .container {
     width: 70%;
-    background-color:transparent;
+    height: 85%;
+    background-color:blue;
     border:none;
     display:flex;
     flex-direction: column;
     align-items: center;
+    justify-content:flex-start;
     backdrop-filter: blur(4px);
+    outline: 1px solid black;
 }
 .buttons{
+    position: absolute;
+    bottom: -7%;
     background-color:black;
+    display: flex;
+  
+}
+
+.posts{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color:gray;
 }

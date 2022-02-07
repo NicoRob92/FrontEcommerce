@@ -23,7 +23,7 @@ export const PostAdmin = () => {
     dispatch(getPosts());
   }, [dispatch]);
 
-
+  console.log(array[0])
 
   const [input, setInput] = useState({
     option: '',

@@ -1,7 +1,7 @@
 import faker from 'faker';
 import * as actionTypes from './actionTypes';
 
-export const api = 'http://localhost:4000/api/';
+export const api = 'https://api-ec.herokuapp.com/api/';
 
 const getPostsUrl = api + 'post';
 export const getPostByIdUrl = api + 'posts';
@@ -44,7 +44,7 @@ export function getPostsByName(name) {
 }
 export function getPostById(id) {
   return function (dispatch) {
-    fetch("http://localhost:4000/api/posts/" + id)
+    fetch('https://api-ec.herokuapp.com/api/posts/' + id)
       .then((res) => res.json())
       .then((res) => {
         while (res.Images.length < 5) {
@@ -89,8 +89,8 @@ export function getCountries() {
 
 export function create_post(payload, token) {
   return async (dispatch) => {
-    return await fetch("http://localhost:4000/api/admin/post", {
-      method: "POST",
+    return await fetch('https://api-ec.herokuapp.com/api/admin/post', {
+      method: 'POST',
       body: JSON.stringify(payload),
       headers: {
         "Content-Type": "application/json",
@@ -239,10 +239,10 @@ export function putUser(id, input, type, token) {
   };
 }
 
-export function resetPassword(input, token) {
-  return async () => {
-    return fetch(`http://localhost:4000/api/admin/user/reset-password-force`, {
-      method: "PUT",
+export function resetPassword(input,token){
+  return async() => {
+    return fetch(`https://api-ec.herokuapp.com/api/admin/user/reset-password-force`,{
+      method:'PUT',
       headers: {
         "Content-Type": "application/json",
         token: token,

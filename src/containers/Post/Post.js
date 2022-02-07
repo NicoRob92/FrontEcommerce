@@ -29,17 +29,22 @@ const Post = ({ array }) => {
 
   return (
     <div className={styles.container}>
+      <div className={styles.posts}>
       {array ? (
         postToShow?.map((e) => <PostCard key={e.id} post={e} />)
       ) : (
         <h1>Loading</h1>
       )}
+      </div>
       <div className={styles.buttons}>
+
           <button onClick={(e)=> prev(e)}>Prev</button>
         <Paginado itemsP={postPerPage} array={posts} paginate={paginate} />
         <button onClick={(e)=> next(e)}>Next</button>
 
       </div>
+     
+
     </div>
   );
 };

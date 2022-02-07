@@ -23,7 +23,7 @@ export const ModalRol = ({ id, hidden, show }) => {
   
 
   const updateRol = async () => {
-   return await axios.put(`http://localhost:4000/api/admin/user/${id}`,rol,{
+   return await axios.put(`https://api-ec.herokuapp.com/api/admin/user/${id}`,rol,{
       headers:{
         'Content-Type': 'application/json',
         'token' : token
