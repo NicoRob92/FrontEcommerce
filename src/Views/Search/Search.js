@@ -14,19 +14,19 @@ const Search = () => {
   const { name } = useParams();
 
   const categories = useSelector((state) => state.reducer.categories);
-  const chosenCategories = useSelector((state) => state.reducer.chosenCategories);
-  const postsByName = useSelector(state => state.reducer.postsByName)
-  const filteredPostByCategory = useSelector(state => state.reducer.filteredPostByCategory)
-  console.log(filteredPostByCategory)
+  const chosenCategories = useSelector(
+    (state) => state.reducer.chosenCategories
+  );
+  const postsByName = useSelector((state) => state.reducer.postsByName);
+  const filteredPostsByCategory = useSelector((state) => state.reducer.filteredPostByCategory);
 
-  const toShow = filteredPostByCategory.length ? filteredPostByCategory : postsByName
+  const toShow = filteredPostsByCategory.length
+    ? filteredPostsByCategory
+    : postsByName;
 
-  // let arrayId = [];
-  useEffect(()=>{
-    dispatch(actionCreators.getPostsByName(name))
-  },[name])
-
-  
+  useEffect(() => {
+    dispatch(actionCreators.getPostsByName(name));
+  }, [name]);
 
   // let categoriess = filter && filter?.map((e) => e.Categories);
   // let categoriesId = categories?.flat().map((e) => e.id);
@@ -37,14 +37,15 @@ const Search = () => {
   // let arrayCategory = [];
   // arrayId.forEach((e) => arrayCategory.push(categories.filter((x) => x.id === e)));
 
-
   // useEffect(() => {
   //   setCategory(arrayCategory.flat());
   // }, [categories]);
 
   useEffect(() => {
     let element = document.getElementById("categories");
-    element ? element?.classList.add(`${styles.categories}`) : element?.classList.remove(`${styles.categories}`);
+    element
+      ? element?.classList.add(`${styles.categories}`)
+      : element?.classList.remove(`${styles.categories}`);
   }, [name]);
 
   const setCategories = (e) => {
@@ -52,17 +53,28 @@ const Search = () => {
     let index = chosenCategories.findIndex((e) => e === target.id);
 
     if (target.checked && index === -1) {
-      dispatch(actionCreators.chooseCategories(target.id, "add category"));
-    } 
-    else if (!target.checked && index !== -1) {
-      dispatch(actionCreators.chooseCategories(target.id, "remove category", index));
-    } 
-    else if (target.id === "reset-chosenCategories")
+      dispatch(
+        actionCreators.chooseCategories(Number(target.id), "add category")
+      );
+    } else if (!target.checked && index !== -1) {
+      dispatch(
+        actionCreators.chooseCategories(
+          Number(target.id),
+          "remove category",
+          index
+        )
+      );
+    } else if (target.id === "reset-chosenCategories")
       dispatch(actionCreators.resetCategories());
-
     else if (target.id === "search")
-      dispatch(actionCreators.filterPostByCategory("search"));
+      dispatch(actionCreators.filterPostsByCategory("search"));
   };
+
+  useEffect(() => {
+    return () => {
+      dispatch(actionCreators.resetCategories());
+    };
+  }, []);
 
   return (
     <div className={styles.container}>
