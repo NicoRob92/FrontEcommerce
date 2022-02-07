@@ -26,7 +26,7 @@ export const ModalPass = ({ id, hidden, show }) => {
   }
 
   const resetPassword = async () => {
-   return await axios.put(`http://localhost:4000/api/admin/user/reset-password-force`,body,{
+   return await axios.put(`https://api-ec.herokuapp.com/api/admin/user/reset-password-force`,body,{
       headers:{
         'Content-Type': 'application/json',
         'token' : token

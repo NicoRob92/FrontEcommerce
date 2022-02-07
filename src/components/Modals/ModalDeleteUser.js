@@ -11,7 +11,7 @@ export const ModalDeleteUser = ({ id, hidden, show }) => {
   const [success, setSuccess] = useState(false)  
 
   const updateRol = async () => {
-   return await axios.delete(`http://localhost:4000/api/admin/user/${id}`,{
+   return await axios.delete(`https://api-ec.herokuapp.com/api/admin/user/${id}`,{
       headers:{
         'Content-Type': 'application/json',
         'token' : token

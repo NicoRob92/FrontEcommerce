@@ -9,11 +9,10 @@ export const OrderHistoryAdmin = () => {
   const dispatch = useDispatch() 
   const [filter, setFilter] = useState(null); 
   const [current, setCurrent] = useState(1)
-  const pages = filter ? filter?.length / 27 : orders.length / 272
+  const pages = filter ? filter?.length / 27 : orders?.length / 272
   const lastIndex = current * 27
   const first = lastIndex - 27
-  const toShow = filter ? filter.slice(first,lastIndex) : orders.slice(first,lastIndex)
-
+  const toShow = filter ? filter.slice(first,lastIndex) : orders?.slice(first,lastIndex)
   const paginate = (e) => {
     setCurrent(e)
   }
@@ -38,8 +37,8 @@ export const OrderHistoryAdmin = () => {
   
   const handleSubmit = (e) => {
     e.preventDefault();
-    input.option === 'id' ? setFilter(orders.filter((e) => e[input.option] === Number(input.value))): 
-    input.option === 'userId'? setFilter(orders.filter((e) => e.User.id === Number(input.value))) : setFilter(orders.filter((e) => e.User[input.option] === input.value))
+    input.option === 'id' ? setFilter(orders?.filter((e) => e[input.option] === Number(input.value))): 
+    input.option === 'userId'? setFilter(orders?.filter((e) => e.User.id === Number(input.value))) : setFilter(orders?.filter((e) => e.User[input.option] === input.value))
   };
   const reset = (e) => {
     e.preventDefault();
@@ -50,7 +49,6 @@ export const OrderHistoryAdmin = () => {
   useEffect(() => {
     dispatch(getOrders(token))
   },[])
- 
   return (
     <div className={styles.orderHistory}>
       <form onSubmit={(e) => handleSubmit(e)} className={styles.Form}>
