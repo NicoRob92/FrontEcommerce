@@ -61,12 +61,14 @@ export default function Product(state = initialState, action) {
         };
       }
       break;
+
     case actionTypes.RESET_CATEGORIES:
       return {
         ...state,
         chosenCategories: [],
         filteredPostsByCategory: [],
       };
+
     case actionTypes.FILTER_POSTS_BY_CATEGORY:
       if (action.info === "market") {
         const categoriesInOrder = state.chosenCategories.sort();
@@ -84,19 +86,23 @@ export default function Product(state = initialState, action) {
         };
       }
       if (action.info === "search") {
-        const categoriesInOrder = state.chosenCategories.sort();
+        console.log("antes", state.chosenCategories)
+        const categoriesInOrder = state.chosenCategories.sort((a,b) => a-b).toString();
+        
         return {
           ...state,
           filteredPostsByCategory: state.postsByName.filter((post) => {
-            let categories = post.Categories;
-            categories = categories.map((category) => category.id);
-            categories = categories.sort((a, b) => a - b);
-            if (
-              categoriesInOrder.toString().includes(categories.toString())
-            )
-              return true;
-            else return false;
-          }),
+            let categories = post.Categories.map((category) => category.id);
+            categories = categories.sort((a, b) => a - b).toString();
+            console.log("categorias elegidas en orden",categoriesInOrder)
+            console.log("categorias de cada post en orden",categories)
+            console.log("coinciden?", categories === categoriesInOrder)
+            if (categoriesInOrder.includes(categories)) {
+              return true
+            } else {
+              return false
+            }
+          })
         };
       }
 
