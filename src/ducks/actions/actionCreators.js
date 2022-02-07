@@ -189,6 +189,13 @@ export function getReview(id, token) {
   };
 }
 
+export function filterReview(payload) {
+  return {
+    type: actionTypes.FILTER_REVIEW,
+    payload,
+  };
+}
+
 export function getUsers(token) {
   return function (dispatch) {
     return fetch(getUsersUrl, {
