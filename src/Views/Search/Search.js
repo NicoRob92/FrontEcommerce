@@ -21,11 +21,9 @@ const Search = () => {
   let arrayId = [];
 
   const getPostByName = async () => {
-    const arr = await axios.get(`http://localhost:4000/api/post?name=${name}`);
+    const arr = await axios.get(`https://api-ec.herokuapp.com/api/post?name=${name}`);
     let array = arr.data;
-    array.forEach((e) => {
-      e.image = faker.image.image(350, 350, true);
-    });
+   
     setFilter(array);
   };
 

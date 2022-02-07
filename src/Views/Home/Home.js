@@ -7,7 +7,11 @@ import { Link } from "react-router-dom";
 const Home = () => {
   const posts = useSelector((state) => state.reducer.posts);
   const images = ["1", "2", "3", "4", "5"];
+  
+ let recientes = posts.map(e => e)
+  recientes = recientes.sort((a, b) => b.id - a.id);
 
+  console.log(recientes)
   useEffect(() => {
     let element = document.getElementById("categories");
     element
@@ -40,9 +44,9 @@ const Home = () => {
           <h1>Productos Recientes</h1>
           <Link to="/market" className={styles.link}>Ver todos</Link>
         </div>
-        <Carrousel cards="5" arr={posts} />
+        <Carrousel cards="5" arr={recientes} />
       </div>
-
+ 
       {/* Footer */}
       <div className={styles.footer}>
         Varias cosas aqui
