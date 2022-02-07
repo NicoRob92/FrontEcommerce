@@ -4,6 +4,7 @@ import { NavLink } from "react-router-dom"
 import { connect } from "react-redux"
 import { api } from "../../ducks/actions/actionCreators"
 import firebase from "../../services/firebaseStorage";
+import Google from "../../components/GoogleAuth/Google"
 
 var profileImageEx = "http://cdn.onlinewebfonts.com/svg/img_191958.png"
 function Register(props) {
@@ -159,6 +160,7 @@ function Register(props) {
                 <div>
                     <button type="submit">Submit</button>
                 </div>
+                <Google />
             </form>
 
             {isSend ? <>
