@@ -1,50 +1,47 @@
-import faker from 'faker';
-import * as actionTypes from './actionTypes';
+import faker from "faker";
+import * as actionTypes from "./actionTypes";
 
-export const api = 'http://localhost:4000/api/';
+export const api = "http://localhost:4000/api/";
 
-const getPostsUrl = api + 'post';
-export const getPostByIdUrl = api + 'posts';
-export const getCategoriesUrl = api + 'category';
-const getUsersUrl = api + 'admin/users';
-const User = api + 'admin/user/'
-const getCountriesUrl = api + 'countries';
-const Review = api + 'admin/review/';
-const Orders = api + '/admin/orders';
-
-
+const getPostsUrl = api + "post";
+export const getPostByIdUrl = api + "posts";
+export const getCategoriesUrl = api + "category";
+const getCountriesUrl = api + "countries";
+const getUsersUrl = api + "admin/users";
+const User = api + "admin/user/";
+const Review = api + "admin/review/";
+const Orders = api + "/admin/orders";
 
 export function getPosts() {
   return function (dispatch) {
     fetch(getPostsUrl)
-      .then((response) => response.json())
-      .then((json) => {
-        json.forEach((e) => {
+      .then((res) => res.json())
+      .then((res) => {
+        res.forEach((e) => {
           e.image = faker.image.image(350, 350, true);
         });
-        dispatch({ type: actionTypes.GET_POSTS, payload: json });
+        dispatch({ type: actionTypes.GET_POSTS, payload: res });
       })
-      .catch((e) => console.error(e));
+      .catch((err) => console.error(err));
   };
 }
 
-
-export function getPostByName(name) {
+export function getPostsByName(name) {
   return function (dispatch) {
-    fetch(getPostsUrl + '?name=' + name)
-      .then((response) => response.json())
-      .then((json) => {
-        json.forEach((e) => {
+    fetch(getPostsUrl + "?name=" + name)
+      .then((res) => res.json())
+      .then((res) => {
+        res.forEach((e) => {
           e.image = faker.image.image(350, 350, true);
         });
-        dispatch({ type: actionTypes.GET_POSTS, payload: json });
+        dispatch({ type: actionTypes.GET_POSTS_BY_NAME, payload: res });
       })
-      .catch((e) => console.error(e));
+      .catch((err) => console.error(err));
   };
 }
 export function getPostById(id) {
   return function (dispatch) {
-    fetch('http://localhost:4000/api/posts/' + id)
+    fetch("http://localhost:4000/api/posts/" + id)
       .then((res) => res.json())
       .then((res) => {
         while (res.Images.length < 5) {
@@ -89,19 +86,19 @@ export function getCountries() {
 
 export function create_post(payload, token) {
   return async (dispatch) => {
-    return await fetch('http://localhost:4000/api/admin/post', {
-      method: 'POST',
+    return await fetch("http://localhost:4000/api/admin/post", {
+      method: "POST",
       body: JSON.stringify(payload),
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
         token: token,
       },
     })
-    .then((response) => response.json())
-    .then((json) => {
-      dispatch({ type: actionTypes.CREATE_POST, payload: json });
-    })
-    .catch((e) => console.error(e));
+      .then((response) => response.json())
+      .then((json) => {
+        dispatch({ type: actionTypes.CREATE_POST, payload: json });
+      })
+      .catch((e) => console.error(e));
   };
 }
 
@@ -127,9 +124,10 @@ export function setCart(post) {
   };
 }
 
-export function filterPostByCategory() {
+export function filterPostByCategory(info = "market") {
   return {
     type: actionTypes.FILTER_POSTS_BY_CATEGORY,
+    info,
   };
 }
 
@@ -139,10 +137,9 @@ export function getCategoryPost(categoryId) {
 
 export function getOrders(token) {
   return function (dispatch) {
-    return fetch(Orders,{
-      method: 'GET',
-      headers: { 'Content-Type': 'application/json',
-    'token':token}
+    return fetch(Orders, {
+      method: "GET",
+      headers: { "Content-Type": "application/json", token: token },
     })
       .then((response) => response.json())
       .then((json) => {
@@ -163,11 +160,11 @@ export function postReview(payload, token) {
   console.log(`I'm the payload ${JSON.stringify(payload)}`);
   return async () => {
     return await fetch(Review, {
-      method: 'POST',
+      method: "POST",
       body: JSON.stringify(payload),
       headers: {
-        'Content-Type': 'application/json',
-        'token': token,
+        "Content-Type": "application/json",
+        token: token,
       },
     }).catch((e) => console.error(e));
   };
@@ -175,12 +172,12 @@ export function postReview(payload, token) {
 
 export function getReview(id, token) {
   return function (dispatch) {
-    return fetch(Review + id , {
-      method: 'GET',
+    return fetch(Review + id, {
+      method: "GET",
       headers: {
-        'Content-Type': 'application/json',
-        'token': token,
-      }
+        "Content-Type": "application/json",
+        token: token,
+      },
     })
       .then((response) => response.json())
       .then((json) => {
@@ -193,11 +190,11 @@ export function getReview(id, token) {
 export function getUsers(token) {
   return function (dispatch) {
     return fetch(getUsersUrl, {
-      method: 'GET',
+      method: "GET",
       headers: {
-        'Content-Type': 'application/json',
-        'token': token,
-      }
+        "Content-Type": "application/json",
+        token: token,
+      },
     })
       .then((response) => response.json())
       .then((json) => {
@@ -207,50 +204,50 @@ export function getUsers(token) {
   };
 }
 
-
 export function getUserById(id, token) {
   return (dispatch) => {
-    return fetch(User+id, {
-      method:  'GET',
+    return fetch(User + id, {
+      method: "GET",
       headers: {
-        'Content-Type': 'application/json',
-        'token': token,
-      }
+        "Content-Type": "application/json",
+        token: token,
+      },
     })
-    .then((response) => response.json())
+      .then((response) => response.json())
       .then((json) => {
         dispatch({ type: actionTypes.GET_USER_BY_ID, payload: json });
       })
       .catch((e) => console.error(e));
-  }
+  };
 }
 
 export function putUser(id, input, type, token) {
   return async () => {
-    return fetch(User+id, {
-      method:  'PUT',
+    return fetch(User + id, {
+      method: "PUT",
       headers: {
-        'Content-Type': 'application/json',
-        'token': token,
+        "Content-Type": "application/json",
+        token: token,
       },
-      body: JSON.stringify({input: input, type:type})
+      body: JSON.stringify({ input: input, type: type }),
     })
-    .then((response) => response.json())
+      .then((response) => response.json())
       .catch((e) => console.error(e));
-  }
+  };
 }
 
-export function resetPassword(input,token){
-  return async() => {
-    return fetch(`http://localhost:4000/api/admin/user/reset-password-force`,{
-      method:'PUT',
+export function resetPassword(input, token) {
+  return async () => {
+    return fetch(`http://localhost:4000/api/admin/user/reset-password-force`, {
+      method: "PUT",
       headers: {
-        'Content-Type': 'application/json',
-        'token' : token
+        "Content-Type": "application/json",
+        token: token,
       },
-      body:JSON.stringify(input)
-    }).then((response) => response.json())
-    .then((data) => console.log(data))
-    .catch((e) => console.error(e))
-  }
+      body: JSON.stringify(input),
+    })
+      .then((response) => response.json())
+      .then((data) => console.log(data))
+      .catch((e) => console.error(e));
+  };
 }

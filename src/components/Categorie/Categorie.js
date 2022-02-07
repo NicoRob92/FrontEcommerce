@@ -5,7 +5,7 @@ const Categorie = ({ id, name, setCategories, chosenCategories}) => {
   return (
     <div className={styles.categorieContainer}>
       <div className={styles.pointer}>
-        <input type="checkbox" value={id} id={name} onChange={setCategories}/>
+        <input type="checkbox" value={id} id={id} onChange={setCategories}/>
       </div>
       <label htmlFor={name}>{name}</label>
     </div>
