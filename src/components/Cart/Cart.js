@@ -29,8 +29,6 @@ const Cart = ({
       ? setPostsLength((prevState) => (prevState = true))
       : setPostsLength((prevState) => (prevState = false));
   });
-  console.log(postsLength);
-
   const payLinkGenerator = (e, email, address) => {
     if (!postsLength) return;
     let loggin = Boolean(localStorage.getItem("logged"))
@@ -39,8 +37,6 @@ const Cart = ({
     let postsInLS = JSON.parse(localStorage.getItem("posts"));
     postsInLS.payer.address.street_name = address;
     postsInLS.payer.email = email;
-    console.log(postsInLS)
-
     fetch("https://api-ec.herokuapp.com/api/checkout", {
       method: "POST",
       body: JSON.stringify(postsInLS),

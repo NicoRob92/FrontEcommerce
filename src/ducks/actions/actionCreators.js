@@ -20,9 +20,7 @@ export function getPosts() {
     fetch(getPostsUrl)
       .then((res) => res.json())
       .then((res) => {
-        res.forEach((e) => {
-          e.image = faker.image.image(350, 350, true);
-        });
+        res.forEach((e) => {e.image = faker.image.image(350, 350, true);});
         dispatch({ type: actionTypes.GET_POSTS, payload: res });
       })
       .catch((err) => console.error(err));
@@ -113,6 +111,13 @@ export function chooseCategories(category, info, index) {
     index,
   };
 }
+export function filterPostsByCategory(info) {
+  console.log("soy el filter" , info)
+  return {
+    type: actionTypes.FILTER_POSTS_BY_CATEGORY,
+    info,
+  };
+}
 
 export function resetCategories() {
   return {
@@ -127,12 +132,6 @@ export function setCart(post) {
   };
 }
 
-export function filterPostByCategory(info = "market") {
-  return {
-    type: actionTypes.FILTER_POSTS_BY_CATEGORY,
-    info,
-  };
-}
 
 export function getCategoryPost(categoryId) {
   return { type: actionTypes.GET_CATEGORY_POST, payload: categoryId };
