@@ -9,7 +9,7 @@ import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import QuestionCard from './QuestionCard';
 import SendIcon from '@mui/icons-material/Send';
-
+import styles from './_Questions.module.scss'
 
 const Questions = ({ Questions, PostId }) => {
     const dispatch = useDispatch()
@@ -26,7 +26,7 @@ const Questions = ({ Questions, PostId }) => {
     }
     return (
         <div>
-            <h2>Do you have any question?</h2>
+            <h5 className={styles.title_questions}>Do you have any question?</h5>
             {/* Display questions */}
             <div>
                 {Questions ?
@@ -38,7 +38,7 @@ const Questions = ({ Questions, PostId }) => {
             </div>
             <Accordion>
                 <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                    <h4>Write your Question </h4>
+                    <h6>Write your Question </h6>
                 </AccordionSummary>
                 <AccordionDetails>
                     <form onSubmit={handleSubmit}>
@@ -49,7 +49,6 @@ const Questions = ({ Questions, PostId }) => {
                             label="Question"
                             multiline
                             maxRows={8}
-                            label="description"
                             value={input}
                             onChange={handleInputChange}
                         />
