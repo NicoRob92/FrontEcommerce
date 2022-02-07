@@ -1,16 +1,19 @@
-import faker from "faker";
-import * as actionTypes from "./actionTypes";
+import faker from 'faker';
+import * as actionTypes from './actionTypes';
 
-export const api = "http://localhost:4000/api/";
+export const api = 'http://localhost:4000/api/';
 
-const getPostsUrl = api + "post";
-export const getPostByIdUrl = api + "posts";
-export const getCategoriesUrl = api + "category";
-const getCountriesUrl = api + "countries";
-const getUsersUrl = api + "admin/users";
-const User = api + "admin/user/";
-const Review = api + "admin/review/";
-const Orders = api + "/admin/orders";
+const getPostsUrl = api + 'post';
+export const getPostByIdUrl = api + 'posts';
+export const getCategoriesUrl = api + 'category';
+const getUsersUrl = api + 'admin/users';
+const User = api + 'admin/user/'
+const getCountriesUrl = api + 'countries';
+const Review = api + 'admin/review/';
+const Orders = api + '/admin/orders';
+const questions = api + 'customer/question'
+
+
 
 export function getPosts() {
   return function (dispatch) {
@@ -243,6 +246,7 @@ export function resetPassword(input, token) {
         "Content-Type": "application/json",
         token: token,
       },
+
       body: JSON.stringify(input),
     })
       .then((response) => response.json())
@@ -250,3 +254,33 @@ export function resetPassword(input, token) {
       .catch((e) => console.error(e));
   };
 }
+
+export function createQuestion(input, token) {
+  return async () => {
+    return fetch(questions, {
+      method:  'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'token' : token
+      },
+      body: JSON.stringify(input)
+    })
+    .then((response) => response.json())
+      .catch((e) => console.error(e));
+  }
+}
+
+export function replyQuestion(input, token){
+  return async() => {
+    return fetch(questions,{
+      method:'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'token' : token
+      },
+      body:JSON.stringify(input)
+    }).then((response) => response.json())
+    .catch((e) => console.error(e))
+  }
+}
+

@@ -5,6 +5,7 @@ import DetailLeftCard from "../../components/DetailLeftCard/DetailLeftCard";
 import DetailRightCard from "../../components/DetailRightCard/DetailRightCard";
 import Purchase from "../../components/Purchase/Purchase";
 import Review from "../../components/Review/Review";
+import Questions from "../../components/Questions/Questions";
 import Card from "@mui/material/Card";
 
 import * as actionCreators from "../../ducks/actions/actionCreators";
@@ -31,9 +32,12 @@ const CardDetail = () => {
         {postById ? <Purchase postById={postById} /> : null}
         {/* Review section */}
       </Card>
-      <Card className={styles.review_container}>
+      <div className={styles.review_container}>
         <Review ProductId={id} />
-      </Card>
+      </div>
+      <div className={styles.questions_container}>
+        <Questions Questions={postById.Questions} PostId={id}/>
+      </div>
     </div>
   );
 };
