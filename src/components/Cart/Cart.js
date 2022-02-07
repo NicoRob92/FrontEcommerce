@@ -1,8 +1,9 @@
 import { useRef, useEffect, useState } from "react";
+import EmailAddress from "../EmailAddress/EmailAddress";
 
 import CartItem from "./CartItem";
 
-import styles from "./Cart.module.scss";
+import styles from "./_Cart.module.scss";
 
 const Cart = ({
   showCart,
@@ -12,10 +13,9 @@ const Cart = ({
   incrementQuantity,
   decrementQuantity,
 }) => {
+  const [logginStatus, setLogginStatus] = useState(false);
   const [payLink, setPayLink] = useState(null);
-  const [logginStatus, setLogginStatus] = useState(null)
-  const [address,setAddress] = useState("")
-  const [postsState, setPostsState] = useState(false)
+  const [postsLength, setPostsLength] = useState(false);
 
   const cart = useRef(null);
   useEffect(() => {
@@ -23,30 +23,27 @@ const Cart = ({
     return cart.current.classList.remove(`${styles.closed}`);
   });
 
-  useEffect(()=>{
-    let postsInLS = JSON.parse(localStorage.getItem("posts"))
-    postsInLS?.item.length ? setPostsState(prevState => prevState = true) : setPostsState(prevState => prevState = false)
-  })
+  useEffect(() => {
+    let postsInLS = JSON.parse(localStorage.getItem("posts"));
+    postsInLS?.item?.length
+      ? setPostsLength((prevState) => (prevState = true))
+      : setPostsLength((prevState) => (prevState = false));
+  });
+  console.log(postsLength);
 
-  const checkLoggin = () => {
-    const loggin = Boolean(localStorage.getItem("logged"))
-    if(!loggin) setLogginStatus(prevState => prevState = loggin)
-    if(loggin) setLogginStatus(prevState => prevState = loggin)
-  }
+  const payLinkGenerator = (e, email, address) => {
+    if (!postsLength) return;
+    let loggin = Boolean(localStorage.getItem("logged"))
+    if(!loggin) return setLogginStatus(false)
+    if(loggin) setLogginStatus(true)
+    let postsInLS = JSON.parse(localStorage.getItem("posts"));
+    postsInLS.payer.address.street_name = address;
+    postsInLS.payer.email = email;
+    console.log(postsInLS)
 
-  const gettingAddress = (e) => {
-    setAddress(prevState => prevState = e.target.value)
-  }
-
-  const sendCheckout = () => {
-    let posts = JSON.parse(localStorage.getItem("posts"));  
-    if (!posts.item.length) return;
-    posts.payer.address.street_name = address
-
-
-    fetch("http://localhost:4000/api/checkout", {
+    fetch("https://api-ec.herokuapp.com/api/checkout", {
       method: "POST",
-      body: JSON.stringify(posts),
+      body: JSON.stringify(postsInLS),
       headers: {
         "Content-Type": "application/json",
       },
@@ -88,21 +85,13 @@ const Cart = ({
                 removePost={removePost}
               />
             ))}
-            <div>
-              {postsState ?<div>
-                <input type="button" value="Deseas proceder con la compra?" onClick={checkLoggin} />
-              </div> : null}
-              
-              {logginStatus === false ? <p>Debes estar logeado</p> : logginStatus === true ?<input id="address-input" type="text" onChange={gettingAddress} placeholder="Direccion de envio"></input>: null}
-              <div>
-                {address ? <div><input type="button" onClick={sendCheckout}value="Generar Link de pago"/></div>:null}
-                {payLink ? (
-                  <a href={payLink}>
-                    Pagar
-                  </a>
-                ) : null}
-              </div>
-            </div>
+            {postsLength ? (
+              <EmailAddress
+                logginStatus={logginStatus}
+                payLinkGenerator={payLinkGenerator}
+                payLink={payLink}
+              />
+            ) : null}
           </div>
         </section>
       </div>

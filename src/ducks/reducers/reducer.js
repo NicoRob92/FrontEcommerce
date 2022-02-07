@@ -1,10 +1,11 @@
 import * as actionTypes from "../actions/actionTypes";
 
 const initialState = {
+  posts: [],
+  postsByName: [],
   categories: [],
   chosenCategories: [],
   categoryPost: [],
-  posts: [],
   cart: [],
   users: [],
   countries: [],
@@ -21,6 +22,11 @@ export default function Product(state = initialState, action) {
         ...state,
         posts: action.payload,
       };
+    case actionTypes.GET_POSTS_BY_NAME:
+      return {
+        ...state,
+        postsByName: action.payload
+      }
     case actionTypes.GET_CATEGORIES:
       return { ...state, categories: action.payload };
     case actionTypes.GET_USERS:
@@ -63,16 +69,30 @@ export default function Product(state = initialState, action) {
         chosenCategories: [],
         filteredPostByCategory: [],
       };
-      case actionTypes.FILTER_POSTS_BY_CATEGORY:
-      const categoriesInOrder = state.chosenCategories.sort();
-      return {
-        ...state,
-        filteredPostByCategory: state.posts.filter((post) => {
-          console.log(String(post.Categories[0].id))
-          if (categoriesInOrder.toString().includes(String(post.Categories[0].id))) return true;
-          else return false;
-        }),
-      };
+    case actionTypes.FILTER_POSTS_BY_CATEGORY:
+      if ((action.info === "market")) {
+        console.log("hgolladfk")
+        const categoriesInOrder = state.chosenCategories.sort();
+        return {
+          ...state,
+          filteredPostByCategory: state.posts.filter((post) => {
+            if (categoriesInOrder.toString().includes(String(post.Categories[0].id))) return true;
+            else return false;
+          }),
+        };
+      }
+      if ((action.info === "search")) {
+        console.log("hola")
+        const categoriesInOrder = state.chosenCategories.sort();
+        return {
+          ...state,
+          filteredPostByCategory: state.posts.filter((post) => {
+            if (categoriesInOrder.toString().includes(String(post.Categories[0].id))) return true;
+            else return false;
+          }),
+        };
+      }
+
     case actionTypes.SET_CART:
       return {
         ...state,
@@ -91,14 +111,13 @@ export default function Product(state = initialState, action) {
           : state.orders.filter((e) => e.status === action.payload);
       return {
         ...state,
-        orders: sortedOrder
-      }
+        orders: sortedOrder,
+      };
     case actionTypes.CREATE_POST:
-    
       return {
         ...state,
-        postById:action.payload
-      }
+        postById: action.payload,
+      };
 
     default:
       return state;

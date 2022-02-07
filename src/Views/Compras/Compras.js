@@ -2,6 +2,7 @@ import style from "./_Compras.module.scss";
 import {Link} from "react-router-dom"
 
 const Compras = () => {
+  
   return (
     <>
       <div className={`container-fluid p-4 ${style.containerTitle}`}>

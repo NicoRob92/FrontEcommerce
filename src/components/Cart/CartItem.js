@@ -1,4 +1,4 @@
-import styles from "./CartItem.module.scss";
+import styles from "./_CartItem.module.scss";
 
 const CartItem = ({ name, id, decrementQuantity, incrementQuantity, removePost, quantity }) => {
   return (
