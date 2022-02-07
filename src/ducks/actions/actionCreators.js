@@ -111,8 +111,8 @@ export function chooseCategories(category, info, index) {
     index,
   };
 }
+
 export function filterPostsByCategory(info) {
-  console.log("soy el filter" , info)
   return {
     type: actionTypes.FILTER_POSTS_BY_CATEGORY,
     info,

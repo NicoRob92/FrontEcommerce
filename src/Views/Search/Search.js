@@ -14,11 +14,10 @@ const Search = () => {
   const { name } = useParams();
 
   const categories = useSelector((state) => state.reducer.categories);
-  const chosenCategories = useSelector(
-    (state) => state.reducer.chosenCategories
-  );
+  const chosenCategories = useSelector((state) => state.reducer.chosenCategories);
   const postsByName = useSelector((state) => state.reducer.postsByName);
-  const filteredPostsByCategory = useSelector((state) => state.reducer.filteredPostByCategory);
+  const filteredPostsByCategory = useSelector((state) => state.reducer.filteredPostsByCategory);
+  
 
   const toShow = filteredPostsByCategory.length
     ? filteredPostsByCategory
@@ -40,34 +39,20 @@ const Search = () => {
   // useEffect(() => {
   //   setCategory(arrayCategory.flat());
   // }, [categories]);
-
   useEffect(() => {
     let element = document.getElementById("categories");
     element
       ? element?.classList.add(`${styles.categories}`)
       : element?.classList.remove(`${styles.categories}`);
   }, [name]);
+  console.log(filteredPostsByCategory)
 
   const setCategories = (e) => {
-    const target = e.target;
-    let index = chosenCategories.findIndex((e) => e === target.id);
-
-    if (target.checked && index === -1) {
-      dispatch(
-        actionCreators.chooseCategories(Number(target.id), "add category")
-      );
-    } else if (!target.checked && index !== -1) {
-      dispatch(
-        actionCreators.chooseCategories(
-          Number(target.id),
-          "remove category",
-          index
-        )
-      );
-    } else if (target.id === "reset-chosenCategories")
-      dispatch(actionCreators.resetCategories());
-    else if (target.id === "search")
-      dispatch(actionCreators.filterPostsByCategory("search"));
+    let index = chosenCategories.findIndex((index) => index === Number(e.target.value));
+    if (e.target.checked && index === -1) dispatch(actionCreators.chooseCategories(Number(e.target.value), "add"));
+    else if (!e.target.checked && index !== -1) dispatch(actionCreators.chooseCategories(Number(e.target.value), "remove", index));
+    else if (e.target.id === "reset") dispatch(actionCreators.resetCategories());
+    else if (e.target.id === "filter") dispatch(actionCreators.filterPostsByCategory("search"));
   };
 
   useEffect(() => {
