@@ -160,7 +160,6 @@ export function filterOrder(payload) {
 }
 
 export function postReview(payload, token) {
-  console.log(`I'm the payload ${JSON.stringify(payload)}`);
   return async () => {
     return await fetch(Review, {
       method: "POST",
