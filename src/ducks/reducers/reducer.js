@@ -9,7 +9,7 @@ const initialState = {
   cart: [],
   users: [],
   countries: [],
-  filteredPostByCategory: [],
+  filteredPostsByCategory: [],
   postById: [],
   orders: [],
   reviews: [],
@@ -25,8 +25,8 @@ export default function Product(state = initialState, action) {
     case actionTypes.GET_POSTS_BY_NAME:
       return {
         ...state,
-        postsByName: action.payload
-      }
+        postsByName: action.payload,
+      };
     case actionTypes.GET_CATEGORIES:
       return { ...state, categories: action.payload };
     case actionTypes.GET_USERS:
@@ -49,17 +49,15 @@ export default function Product(state = initialState, action) {
       };
 
     case actionTypes.CHOOSE_CATEGORIES:
-      if (action.info === "add category") {
+      if (action.info === "add") {
         return {
           ...state,
           chosenCategories: [...state.chosenCategories, action.payload],
         };
-      } else if (action.info === "remove category") {
+      } else if (action.info === "remove") {
         return {
           ...state,
-          chosenCategories: state.chosenCategories.filter(
-            (e, i) => i !== action.index
-          ),
+          chosenCategories: state.chosenCategories.filter((e, i) => i !== action.index),
         };
       }
       break;
@@ -67,27 +65,36 @@ export default function Product(state = initialState, action) {
       return {
         ...state,
         chosenCategories: [],
-        filteredPostByCategory: [],
+        filteredPostsByCategory: [],
       };
     case actionTypes.FILTER_POSTS_BY_CATEGORY:
-      if ((action.info === "market")) {
-        console.log("hgolladfk")
+      if (action.info === "market") {
         const categoriesInOrder = state.chosenCategories.sort();
         return {
           ...state,
-          filteredPostByCategory: state.posts.filter((post) => {
-            if (categoriesInOrder.toString().includes(String(post.Categories[0].id))) return true;
+          filteredPostsByCategory: state.posts.filter((post) => {
+            if (
+              categoriesInOrder
+                .toString()
+                .includes(String(post.Categories[0].id))
+            )
+              return true;
             else return false;
           }),
         };
       }
-      if ((action.info === "search")) {
-        console.log("hola")
+      if (action.info === "search") {
         const categoriesInOrder = state.chosenCategories.sort();
         return {
           ...state,
-          filteredPostByCategory: state.posts.filter((post) => {
-            if (categoriesInOrder.toString().includes(String(post.Categories[0].id))) return true;
+          filteredPostsByCategory: state.postsByName.filter((post) => {
+            let categories = post.Categories;
+            categories = categories.map((category) => category.id);
+            categories = categories.sort((a, b) => a - b);
+            if (
+              categoriesInOrder.toString().includes(categories.toString())
+            )
+              return true;
             else return false;
           }),
         };

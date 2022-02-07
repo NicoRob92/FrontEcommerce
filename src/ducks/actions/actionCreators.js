@@ -1,7 +1,7 @@
 import faker from 'faker';
 import * as actionTypes from './actionTypes';
 
-export const api = 'http://localhost:4000/api/';
+export const api = 'https://api-ec.herokuapp.com/api/';
 
 const getPostsUrl = api + 'post';
 export const getPostByIdUrl = api + 'posts';
@@ -20,9 +20,7 @@ export function getPosts() {
     fetch(getPostsUrl)
       .then((res) => res.json())
       .then((res) => {
-        res.forEach((e) => {
-          e.image = faker.image.image(350, 350, true);
-        });
+        res.forEach((e) => {e.image = faker.image.image(350, 350, true);});
         dispatch({ type: actionTypes.GET_POSTS, payload: res });
       })
       .catch((err) => console.error(err));
@@ -44,7 +42,7 @@ export function getPostsByName(name) {
 }
 export function getPostById(id) {
   return function (dispatch) {
-    fetch("http://localhost:4000/api/posts/" + id)
+    fetch('https://api-ec.herokuapp.com/api/posts/' + id)
       .then((res) => res.json())
       .then((res) => {
         while (res.Images.length < 5) {
@@ -89,8 +87,8 @@ export function getCountries() {
 
 export function create_post(payload, token) {
   return async (dispatch) => {
-    return await fetch("http://localhost:4000/api/admin/post", {
-      method: "POST",
+    return await fetch('https://api-ec.herokuapp.com/api/admin/post', {
+      method: 'POST',
       body: JSON.stringify(payload),
       headers: {
         "Content-Type": "application/json",
@@ -113,6 +111,13 @@ export function chooseCategories(category, info, index) {
     index,
   };
 }
+export function filterPostsByCategory(info) {
+  console.log("soy el filter" , info)
+  return {
+    type: actionTypes.FILTER_POSTS_BY_CATEGORY,
+    info,
+  };
+}
 
 export function resetCategories() {
   return {
@@ -127,12 +132,6 @@ export function setCart(post) {
   };
 }
 
-export function filterPostByCategory(info = "market") {
-  return {
-    type: actionTypes.FILTER_POSTS_BY_CATEGORY,
-    info,
-  };
-}
 
 export function getCategoryPost(categoryId) {
   return { type: actionTypes.GET_CATEGORY_POST, payload: categoryId };
@@ -245,10 +244,10 @@ export function putUser(id, input, type, token) {
   };
 }
 
-export function resetPassword(input, token) {
-  return async () => {
-    return fetch(`http://localhost:4000/api/admin/user/reset-password-force`, {
-      method: "PUT",
+export function resetPassword(input,token){
+  return async() => {
+    return fetch(`https://api-ec.herokuapp.com/api/admin/user/reset-password-force`,{
+      method:'PUT',
       headers: {
         "Content-Type": "application/json",
         token: token,
