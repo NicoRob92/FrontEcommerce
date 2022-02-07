@@ -11,7 +11,7 @@ const User = api + 'admin/user/'
 const getCountriesUrl = api + 'countries';
 const Review = api + 'admin/review/';
 const Orders = api + '/admin/orders';
-
+const questions = api + 'customer/question'
 
 
 export function getPosts() {
@@ -251,6 +251,35 @@ export function resetPassword(input,token){
       body:JSON.stringify(input)
     }).then((response) => response.json())
     .then((data) => console.log(data))
+    .catch((e) => console.error(e))
+  }
+}
+
+export function createQuestion(input, token) {
+  return async () => {
+    return fetch(questions, {
+      method:  'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'token' : token
+      },
+      body: JSON.stringify(input)
+    })
+    .then((response) => response.json())
+      .catch((e) => console.error(e));
+  }
+}
+
+export function replyQuestion(input, token){
+  return async() => {
+    return fetch(questions,{
+      method:'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'token' : token
+      },
+      body:JSON.stringify(input)
+    }).then((response) => response.json())
     .catch((e) => console.error(e))
   }
 }
