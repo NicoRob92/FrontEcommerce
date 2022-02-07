@@ -12,16 +12,16 @@ const Post = ({ array }) => {
   let postToShow = array.slice(first, lastindex);
   const posts = array.length;
 
-  //   const next = (e) => {
-  //     e.preventDefault();
-  //     if (current < pages) setCurrent((current) => current + 1);
+    const next = (e) => {
+      e.preventDefault();
+      if (current < pages) setCurrent((current) => current + 1);
 
-  //   };
-  //   const prev = (e) => {
-  //     e.preventDefault();
-  //     if (current > 1) setCurrent((current) => current - 1);
+    };
+    const prev = (e) => {
+      e.preventDefault();
+      if (current > 1) setCurrent((current) => current - 1);
 
-  //   };
+    };
 
   const paginate = (e) => {
     setCurrent((prev) => e);
@@ -35,7 +35,10 @@ const Post = ({ array }) => {
         <h1>Loading</h1>
       )}
       <div className={styles.buttons}>
+          <button onClick={(e)=> prev(e)}>Prev</button>
         <Paginado itemsP={postPerPage} array={posts} paginate={paginate} />
+        <button onClick={(e)=> next(e)}>Next</button>
+
       </div>
     </div>
   );

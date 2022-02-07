@@ -9,6 +9,7 @@
       name="description"
       content="Web site created using create-react-app"
     />
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
     <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
     <!--
       manifest.json provides metadata used when your web app is installed on a
@@ -30,6 +31,47 @@
   <body>
 
     <noscript>You need to enable JavaScript to run this app.</noscript>
+    <script>
+      function handleCredentialResponse(response) {
+        console.log("Encoded JWT ID token: " + response.credential);
+        fetch("http://localhost:4000/api/decoderGoogle?token="+ response.credential ,{
+          method:"POST"
+        })
+          .then(function(response) {
+            return response.json();
+          })
+          .then(function(data) {
+            console.log(data);
+            localStorage.setItem("logged",true)
+            localStorage.setItem('token', data.token);
+            localStorage.setItem('rol', data.rol);
+            localStorage.setItem('username', data.username);
+            localStorage.setItem('userId', data.id)
+            localStorage.setItem('email', data.username);
+            location.reload()
+          });
+      }
+      if (!localStorage.getItem('token')) {
+        
+        window.onload = function () {
+        
+        google.accounts.id.initialize({
+          client_id: "586990699149-mf4qeqt0f33bine5135ai4t4feibkp2c.apps.googleusercontent.com",
+          callback: handleCredentialResponse
+        });
+        google.accounts.id.renderButton(
+          document.getElementById("buttonDiv"),
+          { theme: "outline", size: "large" }  // customization attributes
+        );
+        google.accounts.id.prompt(); // also display the One Tap dialog
+      }
+      }
+        
+      
+      
+      
+  </script>
+    <div id="buttonDiv" style="display: none;"></div> 
     <div id="root"></div>
 
     <!--
@@ -43,4 +85,5 @@
         To create a production bundle, use `npm run build` or `yarn build`.
       -->
   </body>
+  
 </html>
