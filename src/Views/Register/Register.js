@@ -5,6 +5,7 @@ import { connect } from "react-redux"
 import { api } from "../../ducks/actions/actionCreators"
 import firebase from "../../services/firebaseStorage";
 import Google from "../../components/GoogleAuth/Google"
+import validate from "./Validation"
 
 var profileImageEx = "http://cdn.onlinewebfonts.com/svg/img_191958.png"
 function Register(props) {
@@ -13,6 +14,13 @@ function Register(props) {
     const [isSend, setIsSend] = useState(false)
     const [uploadValue, setUploadValue] = useState()
     const [imageLink, setimageLink] = useState(profileImageEx)
+    // errors state
+    const [errors, setErrors] = useState({});
+
+    const handleBlur = () => {
+        setErrors(validate(data));
+      };
+
     const onSubmit = e => {
 
 
@@ -88,6 +96,7 @@ function Register(props) {
                             onChange={handleUpload}
                             required
                         />
+                        
                     </div>
 
                 </div>
@@ -99,7 +108,10 @@ function Register(props) {
                     name="username"
                     value={data.username || ""}
                     onChange={e => handleChange(e)}
-                ></input><br />
+                    onBlur={handleBlur}
+                ></input>
+                {errors.username ? <p className={style.errors}>{errors.username}</p> : null}
+                <br />
 
                 <label>First name</label> <br />
 
@@ -107,7 +119,10 @@ function Register(props) {
                     name="first_name"
                     value={data.first_name || ""}
                     onChange={e => handleChange(e)}
-                ></input><br />
+                    onBlur={handleBlur}
+                ></input>
+                {errors.first_name ? <p className={style.errors}>{errors.first_name}</p> : null}
+                <br />
 
                 <label>Last name</label> <br />
 
@@ -115,7 +130,10 @@ function Register(props) {
                     name="last_name"
                     value={data.last_name || ""}
                     onChange={e => handleChange(e)}
-                ></input><br />
+                    onBlur={handleBlur}
+                ></input>
+                {errors.last_name ? <p className={style.errors}>{errors.last_name}</p> : null}
+                <br />
 
                 <label>Email</label> <br />
 
@@ -123,7 +141,10 @@ function Register(props) {
                     name="email"
                     value={data.email || ""}
                     onChange={e => handleChange(e)}
-                ></input><br />
+                    onBlur={handleBlur}
+                ></input>
+                {errors.email ? <p className={style.errors}>{errors.email}</p> : null}
+                <br />
 
                 <label>Phone</label> <br />
 
@@ -131,7 +152,10 @@ function Register(props) {
                     name="phone"
                     value={data.phone || ""}
                     onChange={e => handleChange(e)}
-                ></input><br />
+                    onBlur={handleBlur}
+                ></input>
+                {errors.phone ? <p className={style.errors}>{errors.phone}</p> : null}
+                <br />
 
                 <label>Dni</label> <br />
 
@@ -139,7 +163,10 @@ function Register(props) {
                     name="dni"
                     value={data.dni || ""}
                     onChange={e => handleChange(e)}
-                ></input><br />
+                    onBlur={handleBlur}
+                ></input>
+                {errors.dni ? <p className={style.errors}>{errors.dni}</p> : null}
+                <br />
 
                 <label>Password</label> <br />
 
@@ -147,7 +174,10 @@ function Register(props) {
                     name="password"
                     value={data.password || ""}
                     onChange={e => handleChange(e)}
-                ></input><br />
+                    onBlur={handleBlur}
+                ></input>
+                {errors.password ? <p className={style.errors}>{errors.password}</p> : null}
+                <br />
 
                 <label>Country</label> <br />
                 <select name="country" onChange={e => handleChange(e)}>
@@ -156,7 +186,7 @@ function Register(props) {
                         return <option key={i} value={c.id}>{c.name}</option>
                     })}
                 </select>
-
+                {errors.country ? <p className={style.errors}>{errors.country}</p> : null}
                 <div>
                     <button type="submit">Submit</button>
                 </div>
