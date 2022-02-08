@@ -37,7 +37,6 @@ export const Login = ({ show, handleUser, setName }) => {
   };
 
   return (
-    <div className={styles.container}>
       <div className={styles.container}>
         <form
           className={styles.form}
@@ -57,6 +56,9 @@ export const Login = ({ show, handleUser, setName }) => {
             value={user.password}
             placeholder='Password'
             onChange={(e) => handleChange(e)}></input>
+          <div className={styles.buttonContainer}>
+
+            <span>Login</span>
           <button className={`${styles.login}`} type='submit'>
             <svg
               width='25'
@@ -87,37 +89,8 @@ export const Login = ({ show, handleUser, setName }) => {
               />
             </svg>
           </button>
+          </div>
         </form>
-        <button className={`${styles.login}`} onClick={show}>
-        <svg
-            width='25'
-            height='25'
-            viewBox='0 0 32 32'
-            fill='none'
-            xmlns='http://www.w3.org/2000/svg'>
-            <path
-              d='M16 28C22.6274 28 28 22.6274 28 16C28 9.37258 22.6274 4 16 4C9.37258 4 4 9.37258 4 16C4 22.6274 9.37258 28 16 28Z'
-              stroke='white'
-              strokeWidth='2'
-              strokeLiterlimit='10'
-            />
-            <path
-              d='M20 12L12 20'
-              stroke='white'
-              strokeWidth='2'
-              strokeLinecap='round'
-              strokeLinejoin='round'
-            />
-            <path
-              d='M20 20L12 12'
-              stroke='white'
-              strokeWidth='2'
-              strokeLinecap='round'
-              strokeLinejoin='round'
-            />
-          </svg>
-        </button>
       </div>
-    </div>
   );
 };
