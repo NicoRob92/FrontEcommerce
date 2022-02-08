@@ -7,7 +7,7 @@ export default function validate(input) {
   if (!input.first_name) {
     errors.first_name = "First Name is required";
   } else if (!/^[a-zA-Z]+$/.test(input.first_name)) {
-    errors.first_name = "a valid Last Name is required, just letters";
+    errors.first_name = "a valid Name is required, (letters only)";
   }
 
   if (!input.last_name) {
@@ -37,7 +37,7 @@ export default function validate(input) {
   }
 
   if (!input.password) {
-    errors.username = "a password is required";
+    errors.password = "a password is required";
   } else if (
     !/^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}$/.test(
       input.password

@@ -13,10 +13,13 @@ import Divider from "@mui/material/Divider";
 import ListItems from "./ListItems";
 import ListItemPassword from "./ListItemPassword";
 import ImageProfile from "./ImageProfile";
-
+import ListItemCountry from "./ListItemCountry";
 const ProfileView = () => {
     const dispatch = useDispatch();
     const user = useSelector((state) => state.user.user);
+    // const user1 = useSelector((state) => state.user.user);
+    console.log(user);
+    // const user = []
     const token = localStorage.getItem("token");
     const userId = localStorage.getItem("userId");
 
@@ -68,7 +71,7 @@ const ProfileView = () => {
                             <Divider />
                             <ListItems label={`PHONE`} text={user.phone} />
                             <Divider />
-                            <ListItems label={`COUNTRY`} text={user.Country} />
+                            <ListItemCountry label={`COUNTRY`} text={user.Country ? user.Country.name : null} />
                         </List>
                     </nav>
                 </Card>
