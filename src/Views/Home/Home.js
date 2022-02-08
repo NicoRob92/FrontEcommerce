@@ -7,16 +7,13 @@ import { Link } from "react-router-dom";
 import {getOrders} from '../../ducks/actions/actionCreators'
 
 const Home = () => {
-  const posts = useSelector((state) => state.reducer.posts);  
+  const posts = useSelector((state) => state.reducer.posts.filter(post => post.postStatus === 'Activo'));  
+  console.log(posts)
   const images = ["1", "2", "3", "4", "5"];
-  const orders = useSelector((state) => state.reducer.orders);
   const dispatch = useDispatch();
   const token = localStorage.getItem('token')
-  console.log(orders)
  let recientes = posts.map(e => e)
   recientes = recientes.sort((a, b) => b.id - a.id);
-
-  console.log(recientes)
   useEffect(() => {
     let element = document.getElementById("categories");
     element

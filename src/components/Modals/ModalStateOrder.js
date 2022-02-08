@@ -5,30 +5,23 @@ import { useDispatch } from 'react-redux';
 import {api} from '../../credentials'
 
 import axios from 'axios'
-export const ModalPass = ({ id, hidden, show }) => {
+export const ModalStateOrder = ({ id, hidden, show }) => {
   console.log(id)
   const dispatch = useDispatch()
   const token = localStorage.getItem('token')
   const [success, setSuccess] = useState(false)
-  const [password, setPassword] = useState({
-    password: '',
-    confirmPassword: '',    
-  });
+  const [status, setStatus] = useState('');
 
   const onChange = (e) => {
-    setPassword({
-      ...password,
-      [e.target.name]: e.target.value,
-    });
+    setStatus(e.target.value)
   };
 
   const body = {
-    id:id,
-    password:password.confirmPassword
+    status:status
   }
 
-  const resetPassword = async () => {
-   return await axios.put(`${api}admin/user/reset-password-force`,body,{
+  const changeStatus = async () => {
+   return await axios.put(`${api}admin/order/${id}`,body,{
       headers:{
         'Content-Type': 'application/json',
         'token' : token
@@ -38,7 +31,8 @@ export const ModalPass = ({ id, hidden, show }) => {
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    let prueba = await resetPassword()
+    let prueba = await changeStatus()
+    console.log(prueba.data)
     if(prueba.data.msg === 'Password Restore '){
       setSuccess(true)
       console.log(success)
@@ -81,27 +75,17 @@ export const ModalPass = ({ id, hidden, show }) => {
         </button>
         <form className={styles.form} onSubmit={(e)=>onSubmit(e)}>
           <div className={styles.item}>
-            <label>Password</label>
-            <input
-              type='password'
-              name='password'
-              value={password.password}
-              onChange={(e) => onChange(e)}
-            />
-          </div>
-          <div className={styles.item}>
-            <label>Confirm Password</label>
-            <input
-              type='password'
-              name='confirmPassword'
-              value={password.confirmPassword}
-              onChange={(e) => onChange(e)}
-            />
+            <label>Select an option</label>
+            <select onChange={(e) => onChange(e)}>
+            <option type='checkbox' value='creada' key='creada'>Creada</option>
+            <option type='checkbox' value='procesada' key='procesada'>procesada</option>
+            <option type='checkbox' value='completada' key='completada'>completada</option>
+            </select>
           </div>
 
-          <button type='submit'>Change Password</button>
+          <button type='submit'>Change Status</button>
         </form>
-        {success === true ? <h1 className={styles.success}>Succesfully changed password</h1> : null}
+        {success === true ? <h1 className={styles.success}>Status Changed</h1> : null}
       </div>
     </div>
   );

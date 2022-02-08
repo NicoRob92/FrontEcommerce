@@ -2,57 +2,68 @@ import styles from './_PostAdmin.module.scss';
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { getPosts } from '../../ducks/actions/actionCreators';
-import {NavLink} from 'react-router-dom'
+import { NavLink } from 'react-router-dom';
 import { ModalDeletePost } from '../../components/Modals/ModalDeletePost';
-import Paginado from '../Post/paginado'
+import Paginado from '../Post/paginado';
+import axios from 'axios'
+import {api} from '../../credentials'
+
 
 export const PostAdmin = () => {
+  const token = localStorage.getItem('token')
   const array = useSelector((state) => state.reducer.posts);
-  const Post = array
+  const Post = array;
   const dispatch = useDispatch();
   const [filter, setFilter] = useState(null);
   const [show, setShow] = useState(true);
   const [deletePost, setDeletePost] = useState(false);
-  const [current, setCurrent] = useState(1)
-  const lastIndex = current * 27
-  const first = lastIndex - 27
-  let toShow = filter ? filter?.slice(first, lastIndex) : array.slice(first, lastIndex)
-  const [id,setId] = useState(null);
-  const pages = filter?.length || array?.length / 27
+  const [current, setCurrent] = useState(1);
+  const [currentStatus, setCurrentStatus] = useState(0);
+  const  [currentId , setCurrentId] = useState(0)
+  const [number,setNumber] = useState()
+  
+  const lastIndex = current * 27;
+  const first = lastIndex - 27;
+  let toShow = filter
+    ? filter?.slice(first, lastIndex)
+    : array.slice(first, lastIndex);
+  const [id, setId] = useState(null);
+  const pages = filter?.length || array?.length / 27;
   useEffect(() => {
     dispatch(getPosts());
   }, [dispatch]);
 
-  console.log(array[0])
+  useEffect(() => {
+    dispatch(getPosts());
+  }, [number]);
+
 
   const [input, setInput] = useState({
     option: '',
     value: '',
   });
 
-  const handleDelete = (e) =>{
+  const handleDelete = (e) => {
     setId(e);
     setDeletePost(!deletePost);
-    setShow(!show)
-  }
+    setShow(!show);
+  };
 
   const handleShow = () => {
     setShow(!show);
     deletePost ? setDeletePost(!deletePost) : setDeletePost(deletePost);
   };
-  
+
   const paginate = (e) => {
-    setCurrent(e)
-  }
+    setCurrent(e);
+  };
   const next = (e) => {
     e.preventDefault();
     if (current < pages) setCurrent((current) => current + 1);
-
   };
   const prev = (e) => {
     e.preventDefault();
     if (current > 1) setCurrent((current) => current - 1);
-
   };
 
   const handleSubmit = (e) => {
@@ -69,8 +80,48 @@ export const PostAdmin = () => {
     setFilter(null);
   };
 
+  const filterByStatus = (e) => {
+    e.preventDefault();
+    console.log(currentStatus);
+    currentStatus < 2
+      ? setCurrentStatus(currentStatus + 1)
+      : setCurrentStatus(0);
+    currentStatus === 0
+      ? setFilter(null)
+      : currentStatus === 1
+      ? setFilter(array.filter((e) => e.postStatus === 'Activo'))
+      : setFilter(array.filter((e) => e.postStatus === 'Inactivo'));
+  };
+
+  const filterById = (e) => {
+    e.preventDefault();
+    currentId < 2
+      ? setCurrentId(currentId + 1)
+      : setCurrentId(0);
+    currentId === 0
+      ? setFilter(null)
+      : currentId === 1
+      ? setFilter(array.sort((a,b)=> a.id -b.id))
+      : setFilter(array.sort((a,b)=> b.id - a.id));
+  };
+
+
   
-  // const setPage = (e) => setCurrent((prevState) => (prevState = e.target.value));
+
+  const handleStatus = async (e) => {
+    setNumber(e.id)
+    let body = {
+      id:e.id,
+      status: e.postStatus === 'Activo' ? 'Inactivo' : 'Activo'
+    }
+    let change = await axios.put(`${api}admin/post/updateStatus`,JSON.stringify(body),{
+      headers:{
+        'Content-Type': 'application/json',
+        'token' : token
+      }
+    })
+  }
+
   return (
     <div className={styles.container}>
       <form onSubmit={(e) => handleSubmit(e)} className={styles.Form}>
@@ -78,7 +129,7 @@ export const PostAdmin = () => {
           <select
             name='options'
             onChange={(e) => setInput({ ...input, option: e.target.value })}>
-            <option disabled='disabled' defaultValue={true}>
+            <option defaultValue={true}>
               Filtro
             </option>
             <option key='postID' value='id'>
@@ -128,8 +179,8 @@ export const PostAdmin = () => {
       <div className={styles.grid}>
         <div className={styles.boxOne}>Lista de Post</div>
         <div className={styles.boxTwo}>
-          <div className={styles.title}>ID Post</div>
-         { toShow ? (
+          <div className={styles.title}>ID Post <button onClick={(e) => filterById(e)}>x</button></div>
+          {toShow ? (
             toShow.map((e) => (
               <div className={styles.item} key={e.id}>
                 {e.id}
@@ -157,7 +208,7 @@ export const PostAdmin = () => {
             toShow.map((e) => (
               <div key={e.id} className={styles.item}>
                 <a
-                  href={`http://localhost:3000/detail/${e.id}`}>{`http://localhost:3000/detail/${e.id}`}</a>
+                  href={`https://kwik-e-mart.netlify.app/detail/${e.id}`}>{`https://kwik-e-mart.netlify.app/detail/${e.id}`}</a>
               </div>
             ))
           ) : (
@@ -179,50 +230,114 @@ export const PostAdmin = () => {
           )}
         </div>
         <div className={styles.boxSix}>
+          <div className={styles.title}>
+            Status <button onClick={(e) => filterByStatus(e)}>x</button>
+          </div>
+          {toShow ? (
+            toShow.map((e) => (
+              <div key={e.id} className={styles.item}>
+                {' '}
+                {e.postStatus}
+              </div>
+            ))
+          ) : (
+            <div>Post Not Found</div>
+          )}
+        </div>
+        <div className={styles.boxSeven}>
           <div className={styles.title}>Action</div>
           {toShow ? (
             toShow.map((e) => (
               <div key={e.id} className={styles.actions}>
                 <button>
-                <NavLink to={`/user/editpost/${e.id}`}>
-                  <svg
+                  <NavLink to={`/user/editpost/${e.id}`}>
+                    <svg
+                      width='25'
+                      height='25'
+                      viewBox='0 0 33 33'
+                      fill='none'
+                      xmlns='http://www.w3.org/2000/svg'>
+                      <path
+                        d='M12.7125 27.1647H6.71253C6.44731 27.1647 6.19296 27.0593 6.00542 26.8718C5.81789 26.6843 5.71253 26.4299 5.71253 26.1647V20.5772C5.71208 20.4473 5.73723 20.3187 5.78657 20.1986C5.8359 20.0784 5.90844 19.9692 6.00003 19.8772L21 4.87719C21.0931 4.7827 21.204 4.70767 21.3263 4.65645C21.4486 4.60523 21.5799 4.57886 21.7125 4.57886C21.8451 4.57886 21.9764 4.60523 22.0987 4.65645C22.2211 4.70767 22.332 4.7827 22.425 4.87719L28 10.4522C28.0945 10.5452 28.1695 10.6561 28.2208 10.7785C28.272 10.9008 28.2984 11.0321 28.2984 11.1647C28.2984 11.2973 28.272 11.4286 28.2208 11.5509C28.1695 11.6732 28.0945 11.7841 28 11.8772L12.7125 27.1647Z'
+                        stroke='white'
+                        strokeWidth='2'
+                        strokeLinecap='round'
+                        strokeLinejoin='round'
+                      />
+                      <path
+                        d='M17.7125 8.16467L24.7125 15.1647'
+                        stroke='white'
+                        strokeWidth='2'
+                        strokeLinecap='round'
+                        strokeLinejoin='round'
+                      />
+                      <path
+                        d='M27.7125 27.1647H12.7125L5.77502 20.2272'
+                        stroke='white'
+                        strokeWidth='2'
+                        strokeLinecap='round'
+                        strokeLinejoin='round'
+                      />
+                      <path
+                        d='M21.2125 11.6647L9.21252 23.6647'
+                        stroke='white'
+                        strokeWidth='2'
+                        strokeLinecap='round'
+                        strokeLinejoin='round'
+                      />
+                    </svg>
+                  </NavLink>
+                </button>
+                <button onClick={(x) => handleStatus(e)}>
+                  {e.postStatus !== 'Activo' ? 
+                   <svg
                     width='25'
                     height='25'
-                    viewBox='0 0 33 33'
+                    viewBox='0 0 32 32'
                     fill='none'
                     xmlns='http://www.w3.org/2000/svg'>
                     <path
-                      d='M12.7125 27.1647H6.71253C6.44731 27.1647 6.19296 27.0593 6.00542 26.8718C5.81789 26.6843 5.71253 26.4299 5.71253 26.1647V20.5772C5.71208 20.4473 5.73723 20.3187 5.78657 20.1986C5.8359 20.0784 5.90844 19.9692 6.00003 19.8772L21 4.87719C21.0931 4.7827 21.204 4.70767 21.3263 4.65645C21.4486 4.60523 21.5799 4.57886 21.7125 4.57886C21.8451 4.57886 21.9764 4.60523 22.0987 4.65645C22.2211 4.70767 22.332 4.7827 22.425 4.87719L28 10.4522C28.0945 10.5452 28.1695 10.6561 28.2208 10.7785C28.272 10.9008 28.2984 11.0321 28.2984 11.1647C28.2984 11.2973 28.272 11.4286 28.2208 11.5509C28.1695 11.6732 28.0945 11.7841 28 11.8772L12.7125 27.1647Z'
+                      d='M21.5 13L14.1625 20L10.5 16.5'
                       stroke='white'
                       strokeWidth='2'
                       strokeLinecap='round'
                       strokeLinejoin='round'
                     />
                     <path
-                      d='M17.7125 8.16467L24.7125 15.1647'
+                      d='M16 28C22.6274 28 28 22.6274 28 16C28 9.37258 22.6274 4 16 4C9.37258 4 4 9.37258 4 16C4 22.6274 9.37258 28 16 28Z'
                       stroke='white'
                       strokeWidth='2'
                       strokeLinecap='round'
                       strokeLinejoin='round'
+                    />
+                  </svg> :
+                  <svg
+                    width='25'
+                    height='25'
+                    viewBox='0 0 32 32'
+                    fill='none'
+                    xmlns='http://www.w3.org/2000/svg'>
+                    <path
+                      opacity='0.8'
+                      d='M16 28C22.6274 28 28 22.6274 28 16C28 9.37258 22.6274 4 16 4C9.37258 4 4 9.37258 4 16C4 22.6274 9.37258 28 16 28Z'
+                      fill='green'
                     />
                     <path
-                      d='M27.7125 27.1647H12.7125L5.77502 20.2272'
+                      d='M21.5 13L14.1625 20L10.5 16.5'
                       stroke='white'
-                      strokeWidth='2'
-                      strokeLinecap='round'
-                      strokeLinejoin='round'
+                      stroke-width='2'
+                      stroke-linecap='round'
+                      stroke-linejoin='round'
                     />
                     <path
-                      d='M21.2125 11.6647L9.21252 23.6647'
+                      d='M16 28C22.6274 28 28 22.6274 28 16C28 9.37258 22.6274 4 16 4C9.37258 4 4 9.37258 4 16C4 22.6274 9.37258 28 16 28Z'
                       stroke='white'
-                      strokeWidth='2'
-                      strokeLinecap='round'
-                      strokeLinejoin='round'
+                      stroke-width='2'
+                      stroke-linecap='round'
+                      stroke-linejoin='round'
                     />
-                  </svg>
-                  </NavLink>
+                  </svg>}
                 </button>
-                
                 <button onClick={(x) => handleDelete(e.id)}>
                   <svg
                     width='25'
@@ -275,11 +390,17 @@ export const PostAdmin = () => {
         </div>
       </div>
       <div className={styles.buttons}>
-        <button onClick={(e) => prev(e)} >Prev</button>
-        <Paginado itemsP={27} array={filter?.length || array?.length} paginate={paginate} />
-        <button onClick={(e) => next(e)}  >Next</button>
-      </div>  
-      {deletePost ? <ModalDeletePost id={id} show={handleShow} hidden={show}/> : null}
+        <button onClick={(e) => prev(e)}>Prev</button>
+        <Paginado
+          itemsP={27}
+          array={filter?.length || array?.length}
+          paginate={paginate}
+        />
+        <button onClick={(e) => next(e)}>Next</button>
+      </div>
+      {deletePost ? (
+        <ModalDeletePost id={id} show={handleShow} hidden={show} />
+      ) : null}
     </div>
   );
 };

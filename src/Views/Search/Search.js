@@ -15,14 +15,13 @@ const Search = () => {
 
   const categories = useSelector((state) => state.reducer.categories);
   const chosenCategories = useSelector((state) => state.reducer.chosenCategories);
-  const postsByName = useSelector((state) => state.reducer.postsByName);
-  const filteredPostsByCategory = useSelector((state) => state.reducer.filteredPostsByCategory);
-  
+  const postsByName = useSelector(state => state.reducer.postsByName.filter(post => post.postStatus === 'Activo'))
+  const filteredPostByCategory = useSelector(state => state.reducer.filteredPostByCategory)
+  console.log(filteredPostByCategory)
 
-  const toShow = filteredPostsByCategory.length
-    ? filteredPostsByCategory
-    : postsByName;
+  const toShow = filteredPostByCategory?.length ? filteredPostByCategory : postsByName
 
+ 
   useEffect(() => {
     dispatch(actionCreators.getPostsByName(name));
   }, [name]);
@@ -45,7 +44,7 @@ const Search = () => {
       ? element?.classList.add(`${styles.categories}`)
       : element?.classList.remove(`${styles.categories}`);
   }, [name]);
-  console.log(filteredPostsByCategory)
+  console.log(filteredPostByCategory)
 
   const setCategories = (e) => {
     let index = chosenCategories.findIndex((index) => index === Number(e.target.value));

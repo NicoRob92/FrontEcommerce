@@ -19,8 +19,7 @@ export default function Product(state = initialState, action) {
   switch (action.type) {
     case actionTypes.GET_POSTS:
       return {
-        ...state,
-        posts: action.payload,
+        ...state,posts: action.payload,
       };
     case actionTypes.GET_POSTS_BY_NAME:
       return {

@@ -5,7 +5,8 @@ import FormProductDescription from "./FormProductDescription";
 import Confirm from "./Confirm";
 import Success from "./Success";
 import validate from "./Validation";
-import {getPostByIdUrl,getCategoriesUrl,api}  from '../../ducks/actions/actionCreators'
+import {getPostByIdUrl,getCategoriesUrl}  from '../../ducks/actions/actionCreators'
+import {api} from '../../credentials'
 
 import { useParams,Redirect } from "react-router-dom";
 
@@ -15,8 +16,6 @@ function removePost(id) {
     headers: {
       "Content-Type": "application/json",
       "token": localStorage.getItem("token")
-
-
     }
   })
     .then((res) => res.text()) // or res.json()

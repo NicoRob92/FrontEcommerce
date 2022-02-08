@@ -1,11 +1,10 @@
 import { Switch, Route, NavLink } from "react-router-dom";
 import AdminButtonLink from "../../components/AdminButtonLink/AdminButtonLink";
 import styles from "./Admin.module.scss";
-import DashBoard from "../../Views/AdminViews/DashBoard/DashBoard";
-import AdminCategory from "../../Views/AdminViews/CreateCategory/AdminCategory";
 import {OrderHistoryAdmin} from '../../containers/OrderHistoryAdmin/OrderHistoryAdmin'
 import {UsersAdmin} from '../../containers/UsersAdmin/UsersAdmin'
 import {PostAdmin} from '../../containers/PostAdmin/PostAdmin'
+import {CategoriesAdmin} from '../../containers/CategoriesAdmin/CategoriesAdmin'
 export default function Admin() {
 
   const rol = localStorage.getItem('rol')
@@ -25,7 +24,7 @@ export default function Admin() {
       <div className={styles.containerRight}>
         <Switch>
           <Route path="/admin/category">
-            <AdminCategory />
+            <CategoriesAdmin />
           </Route>          
           <Route exact path="/admin/user">
           <UsersAdmin/>
