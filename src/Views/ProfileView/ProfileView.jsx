@@ -68,7 +68,7 @@ const ProfileView = () => {
                             <Divider />
                             <ListItems label={`PHONE`} text={user.phone} />
                             <Divider />
-                            <ListItems label={`COUNTRY`} text={user.Country} />
+                            <ListItems label={`COUNTRY`} text={user.Country?.name} />
                         </List>
                     </nav>
                 </Card>

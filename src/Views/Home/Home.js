@@ -4,11 +4,12 @@ import styles from "./_Home.module.scss";
 import Carrousel from "../../containers/Carrousel/Carrousel";
 import CarrouselOfertas from "../../containers/CarrouselOfertas/CarrouselOfertas";
 import { Link } from "react-router-dom";
-import {getOrders} from '../../ducks/actions/actionCreators'
+import {getOrders,getUserById} from '../../ducks/actions/actionCreators'
 
 const Home = () => {
-  const posts = useSelector((state) => state.reducer.posts.filter(post => post.postStatus === 'Activo'));  
-  console.log(posts)
+  const posts = useSelector((state) => state.reducer.posts.filter(post => post.postStatus === 'Activo')); 
+  const userId = localStorage.getItem('userId') 
+  const user = useSelector((state) => state.user.user)
   const images = ["1", "2", "3", "4", "5"];
   const dispatch = useDispatch();
   const token = localStorage.getItem('token')
@@ -20,8 +21,10 @@ const Home = () => {
       ? element?.classList.add(`${styles.categories}`)
       : element?.classList.remove(`${styles.categories}`);
       dispatch(getOrders(token))
-  },[]);
+     dispatch(getUserById(userId, token));
 
+  },[]);
+  console.log(user)
   return (
     <div className={styles.container}>
       {/* Navbar */}
