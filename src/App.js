@@ -10,12 +10,10 @@ import Register from "./Views/Register/Register";
 import FormNewPost from "./components/FormNewPost/FormNewPost";
 import Order from "./Views/Order/Order";
 import Checkout from "./Views/Checkout/Checkout";
-
 import ProfileView from "./Views/ProfileView/ProfileView";
-
 import FormUpdatePost from "./components/EditPost/FormUpdatePost";
 import Compras from "./Views/Compras/Compras.js";
-
+import {LoginView} from './Views/Login/LoginView'
 
 import * as actionCreators from "./ducks/actions/actionCreators";
 
@@ -37,6 +35,9 @@ const App = () => {
       <Switch>
         <Route exact path="/">
           <Home />
+        </Route>
+        <Route exact path="/login">
+          <LoginView/>
         </Route>
         <Route exact path="/market">
           <Market />

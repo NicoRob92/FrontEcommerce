@@ -4,9 +4,8 @@ import { Link } from 'react-router-dom';
 import { CLIENT_ID, REDIRECT_URI, SCOPE } from './cred';
 
 function Google() {
-    window.onload = function() {};
     return (
-        <div>
+        <div id="google">
             <div
                 id='g_id_onload'
                 data-client_id='586990699149-mf4qeqt0f33bine5135ai4t4feibkp2c.apps.googleusercontent.com'
