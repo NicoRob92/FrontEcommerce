@@ -19,9 +19,7 @@ export function getPosts() {
     fetch(getPostsUrl)
       .then((res) => res.json())
       .then((res) => {
-        res.forEach((e) => {
-          e.image = faker.image.image(350, 350, true);
-        });
+        res.forEach((e) => {e.image = faker.image.image(350, 350, true);});
         dispatch({ type: actionTypes.GET_POSTS, payload: res });
       })
       .catch((err) => console.error(err));
@@ -113,6 +111,13 @@ export function chooseCategories(category, info, index) {
   };
 }
 
+export function filterPostsByCategory(info) {
+  return {
+    type: actionTypes.FILTER_POSTS_BY_CATEGORY,
+    info,
+  };
+}
+
 export function resetCategories() {
   return {
     type: actionTypes.RESET_CATEGORIES,
@@ -126,12 +131,6 @@ export function setCart(post) {
   };
 }
 
-export function filterPostByCategory(info = "market") {
-  return {
-    type: actionTypes.FILTER_POSTS_BY_CATEGORY,
-    info,
-  };
-}
 
 export function getCategoryPost(categoryId) {
   return { type: actionTypes.GET_CATEGORY_POST, payload: categoryId };
@@ -159,7 +158,6 @@ export function filterOrder(payload) {
 }
 
 export function postReview(payload, token) {
-  console.log(`I'm the payload ${JSON.stringify(payload)}`);
   return async () => {
     return await fetch(Review, {
       method: "POST",
@@ -186,6 +184,13 @@ export function getReview(id, token) {
         dispatch({ type: actionTypes.GET_REVIEW, payload: json });
       })
       .catch((e) => console.error(e));
+  };
+}
+
+export function filterReview(payload) {
+  return {
+    type: actionTypes.FILTER_REVIEW,
+    payload,
   };
 }
 
