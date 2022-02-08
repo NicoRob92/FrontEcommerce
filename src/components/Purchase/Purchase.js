@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import EmailAddress from "../EmailAddress/EmailAddress";
 import * as actionCreators from "../../ducks/actions/actionCreators";
-
+import {api} from '../../credentials'
 import styles from "./_Purchase.module.scss";
 
 const Purchase = ({ postById }) => {
@@ -20,7 +20,7 @@ const Purchase = ({ postById }) => {
     if (!loggin) return setLogginStatus((prevState) => (prevState = loggin));
     if (loggin) {
       setLogginStatus((prevState) => (prevState = loggin));
-      fetch("https://api-ec.herokuapp.com/api/checkout", {
+      fetch(`${api}checkout`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
