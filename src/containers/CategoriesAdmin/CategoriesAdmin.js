@@ -1,20 +1,28 @@
 import styles from './_CategoriesAdmin.module.scss';
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
-import { getOrders } from '../../ducks/actions/actionCreators';
+import { getOrders, getCategories } from '../../ducks/actions/actionCreators';
 import Paginado from '../Post/paginado';
+import axios from 'axios';
+import { api } from '../../credentials';
+
 export const CategoriesAdmin = () => {
   const token = localStorage.getItem('token');
-  const orders = useSelector((state) => state.reducer.categories);
+  const categories = useSelector((state) => state.reducer.categories);
   const dispatch = useDispatch();
   const [filter, setFilter] = useState(null);
   const [current, setCurrent] = useState(1);
-  const pages = filter ? filter?.length / 27 : orders?.length / 272;
+  const pages = filter ? filter?.length / 27 : categories?.length / 272;
   const lastIndex = current * 27;
   const first = lastIndex - 27;
   const toShow = filter
     ? filter.slice(first, lastIndex)
-    : orders?.slice(first, lastIndex);
+    : categories?.slice(first, lastIndex);
+
+  const [category, setCategory] = useState({
+    category: ''
+  });
+
   const paginate = (e) => {
     setCurrent(e);
   };
@@ -33,25 +41,52 @@ export const CategoriesAdmin = () => {
     option: '',
     value: '',
   });
+  console.log(categories);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    input.option === 'id'
-      ? setFilter(
-          orders?.filter((e) => e[input.option] === Number(input.value))
-        )
-      : input.option === 'userId'
-      ? setFilter(orders?.filter((e) => e.User.id === Number(input.value)))
-      : setFilter(orders?.filter((e) => e.User[input.option] === input.value));
+    if (input.option === 'id')
+      setFilter(categories.filter((x) => x.id === Number(input.value)));
+    if (input.option === 'name')
+      setFilter(categories.filter((x) => x.name.includes(input.value)));
+    else {
+      setFilter(null);
+    }
   };
   const reset = (e) => {
     e.preventDefault();
     setFilter(null);
   };
+  useEffect(() => {
+    dispatch(getCategories());
+  }, []);
+
+  let idTochange;
+
+  const deleteCategory = async (e) => {
+    idTochange = e.id;
+    return await axios.delete(`${api}admin/category/${idTochange}`, {
+      headers: {
+        'Content-Type': 'application/json',
+        token: token,
+      },
+    });
+  };
+
+  const createCategory = async (e) => {
+    e.preventDefault();
+    return await axios.post(`${api}admin/category`,JSON.stringify(category), {
+      headers: {
+        'Content-Type': 'application/json',
+        token: token,
+      },
+    });
+  };
 
   useEffect(() => {
-    dispatch(getOrders(token));
-  }, []);
+    dispatch(getCategories());
+  }, [idTochange]);
+
   return (
     <div className={styles.orderHistory}>
       <form onSubmit={(e) => handleSubmit(e)} className={styles.Form}>
@@ -59,17 +94,12 @@ export const CategoriesAdmin = () => {
           <select
             name='options'
             onChange={(e) => setInput({ ...input, option: e.target.value })}>
-            <option disabled='disabled' defaultValue={true}>
-              Filtro
+            <option defaultValue={true}>Filtro</option>
+            <option key='id' value='id'>
+              Id Category
             </option>
-            <option key='postID' value='id'>
-              Post ID
-            </option>
-            <option key='userpname' value='username'>
-              Username
-            </option>
-            <option key='userpID' value='userId'>
-              User ID
+            <option key='name' value='name'>
+              Nombre
             </option>
           </select>
           <input
@@ -107,7 +137,15 @@ export const CategoriesAdmin = () => {
         </div>
       </form>
       <div className={styles.grid}>
-        <div className={styles.boxOne}>Categorias</div>
+        <div className={styles.boxOne}>
+          Categorias{' '}
+          <div>
+            <input
+              type='text'
+              onChange={(e) => setCategory({...category,category:e.target.value})}></input>
+            <button onClick={(e) => createCategory(e)}>Add Category</button>
+          </div>
+        </div>
         <div className={styles.boxTwo}>
           <div className={styles.title}>Category Id</div>
           {toShow
@@ -126,67 +164,7 @@ export const CategoriesAdmin = () => {
           {toShow ? (
             toShow.map((e) => (
               <div key={e.id} className={styles.actions}>
-                <button>
-                  <svg
-                    width='25'
-                    height='25'
-                    viewBox='0 0 33 33'
-                    fill='none'
-                    xmlns='http://www.w3.org/2000/svg'>
-                    <path
-                      d='M12.7125 27.1647H6.71253C6.44731 27.1647 6.19296 27.0593 6.00542 26.8718C5.81789 26.6843 5.71253 26.4299 5.71253 26.1647V20.5772C5.71208 20.4473 5.73723 20.3187 5.78657 20.1986C5.8359 20.0784 5.90844 19.9692 6.00003 19.8772L21 4.87719C21.0931 4.7827 21.204 4.70767 21.3263 4.65645C21.4486 4.60523 21.5799 4.57886 21.7125 4.57886C21.8451 4.57886 21.9764 4.60523 22.0987 4.65645C22.2211 4.70767 22.332 4.7827 22.425 4.87719L28 10.4522C28.0945 10.5452 28.1695 10.6561 28.2208 10.7785C28.272 10.9008 28.2984 11.0321 28.2984 11.1647C28.2984 11.2973 28.272 11.4286 28.2208 11.5509C28.1695 11.6732 28.0945 11.7841 28 11.8772L12.7125 27.1647Z'
-                      stroke='white'
-                      strokeWidth='2'
-                      strokeLinecap='round'
-                      strokeLinejoin='round'
-                    />
-                    <path
-                      d='M17.7125 8.16467L24.7125 15.1647'
-                      stroke='white'
-                      strokeWidth='2'
-                      strokeLinecap='round'
-                      strokeLinejoin='round'
-                    />
-                    <path
-                      d='M27.7125 27.1647H12.7125L5.77502 20.2272'
-                      stroke='white'
-                      strokeWidth='2'
-                      strokeLinecap='round'
-                      strokeLinejoin='round'
-                    />
-                    <path
-                      d='M21.2125 11.6647L9.21252 23.6647'
-                      stroke='white'
-                      strokeWidth='2'
-                      strokeLinecap='round'
-                      strokeLinejoin='round'
-                    />
-                  </svg>
-                </button>
-                <button>
-                  <svg
-                    width='25'
-                    height='25'
-                    viewBox='0 0 33 33'
-                    fill='none'
-                    xmlns='http://www.w3.org/2000/svg'>
-                    <path
-                      d='M6.71252 26.1647L16.7125 16.1647L26.7125 26.1647'
-                      stroke='white'
-                      strokeWidth='2'
-                      strokeLinecap='round'
-                      strokeLinejoin='round'
-                    />
-                    <path
-                      d='M6.71252 16.1647L16.7125 6.16467L26.7125 16.1647'
-                      stroke='white'
-                      strokeWidth='2'
-                      strokeLinecap='round'
-                      strokeLinejoin='round'
-                    />
-                  </svg>
-                </button>
-                <button>
+                <button onClick={(x) => deleteCategory(e)}>
                   <svg
                     width='25'
                     height='25'
@@ -241,7 +219,7 @@ export const CategoriesAdmin = () => {
         <button onClick={(e) => prev(e)}>Prev</button>
         <Paginado
           items={27}
-          array={filter?.length || orders.length}
+          array={filter?.length || categories.length}
           paginate={paginate}
         />
         <button onClick={(e) => next(e)}>Next</button>

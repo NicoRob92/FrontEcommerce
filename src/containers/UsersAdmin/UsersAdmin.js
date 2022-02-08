@@ -72,6 +72,10 @@ export const UsersAdmin = () => {
     dispatch(getUsers(token));
   }, [dispatch]);
 
+  useEffect(() => {
+    dispatch(getUsers(token));
+  }, [show]);
+
   const [input, setInput] = useState({
     option: '',
     value: '',
@@ -94,7 +98,7 @@ export const UsersAdmin = () => {
           <select
             name='options'
             onChange={(e) => setInput({ ...input, option: e.target.value })}>
-            <option disabled='disabled' defaultValue={true}>
+            <option defaultValue={true}>
               Filtro
             </option>
             <option key={'id'} value='id'>User ID</option>

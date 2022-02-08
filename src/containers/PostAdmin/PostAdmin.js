@@ -20,10 +20,8 @@ export const PostAdmin = () => {
   const [current, setCurrent] = useState(1);
   const [currentStatus, setCurrentStatus] = useState(0);
   const  [currentId , setCurrentId] = useState(0)
-  const [changeStatus, setChangeStatus] = useState({
-    id:'',
-    status:'',
-  })
+  const [number,setNumber] = useState()
+  
   const lastIndex = current * 27;
   const first = lastIndex - 27;
   let toShow = filter
@@ -35,7 +33,10 @@ export const PostAdmin = () => {
     dispatch(getPosts());
   }, [dispatch]);
 
-  console.log(array[0]);
+  useEffect(() => {
+    dispatch(getPosts());
+  }, [number]);
+
 
   const [input, setInput] = useState({
     option: '',
@@ -94,7 +95,6 @@ export const PostAdmin = () => {
 
   const filterById = (e) => {
     e.preventDefault();
-    console.log(currentId);
     currentId < 2
       ? setCurrentId(currentId + 1)
       : setCurrentId(0);
@@ -109,16 +109,17 @@ export const PostAdmin = () => {
   
 
   const handleStatus = async (e) => {
-    console.log(e)
-    setChangeStatus({...changeStatus,id:e.id})
-    e.postStatus === 'Activo' ? setChangeStatus({...changeStatus,status:'Inactivo'}) : setChangeStatus({...changeStatus,status:'Activo'});
-    let change = await axios.put(`${api}admin/post/updateStatus`,changeStatus,{
+    setNumber(e.id)
+    let body = {
+      id:e.id,
+      status: e.postStatus === 'Activo' ? 'Inactivo' : 'Activo'
+    }
+    let change = await axios.put(`${api}admin/post/updateStatus`,JSON.stringify(body),{
       headers:{
         'Content-Type': 'application/json',
         'token' : token
       }
     })
-     console.log(change.data)
   }
 
   return (
@@ -128,7 +129,7 @@ export const PostAdmin = () => {
           <select
             name='options'
             onChange={(e) => setInput({ ...input, option: e.target.value })}>
-            <option disabled='disabled' defaultValue={true}>
+            <option defaultValue={true}>
               Filtro
             </option>
             <option key='postID' value='id'>
