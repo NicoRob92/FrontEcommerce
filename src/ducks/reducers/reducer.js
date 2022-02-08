@@ -47,64 +47,64 @@ export default function Product(state = initialState, action) {
         postById: action.payload,
       };
 
-    case actionTypes.CHOOSE_CATEGORIES:
-      if (action.info === "add") {
+      case actionTypes.CHOOSE_CATEGORIES:
+        if (action.info === "add") {
+          return {
+            ...state,
+            chosenCategories: [...state.chosenCategories, action.payload],
+          };
+        } else if (action.info === "remove") {
+          return {
+            ...state,
+            chosenCategories: state.chosenCategories.filter((e, i) => i !== action.index),
+          };
+        }
+        break;
+  
+      case actionTypes.RESET_CATEGORIES:
         return {
           ...state,
-          chosenCategories: [...state.chosenCategories, action.payload],
+          chosenCategories: [],
+          filteredPostsByCategory: [],
         };
-      } else if (action.info === "remove") {
-        return {
-          ...state,
-          chosenCategories: state.chosenCategories.filter((e, i) => i !== action.index),
-        };
-      }
-      break;
-
-    case actionTypes.RESET_CATEGORIES:
-      return {
-        ...state,
-        chosenCategories: [],
-        filteredPostsByCategory: [],
-      };
-
-    case actionTypes.FILTER_POSTS_BY_CATEGORY:
-      if (action.info === "market") {
-        const categoriesInOrder = state.chosenCategories.sort();
-        return {
-          ...state,
-          filteredPostsByCategory: state.posts.filter((post) => {
-            if (
-              categoriesInOrder
-                .toString()
-                .includes(String(post.Categories[0].id))
-            )
-              return true;
-            else return false;
-          }),
-        };
-      }
-      if (action.info === "search") {
-        console.log("antes", state.chosenCategories)
-        const categoriesInOrder = state.chosenCategories.sort((a,b) => a-b).toString();
-        
-        return {
-          ...state,
-          filteredPostsByCategory: state.postsByName.filter((post) => {
-            let categories = post.Categories.map((category) => category.id);
-            categories = categories.sort((a, b) => a - b).toString();
-            console.log("categorias elegidas en orden",categoriesInOrder)
-            console.log("categorias de cada post en orden",categories)
-            console.log("coinciden?", categories === categoriesInOrder)
-            if (categoriesInOrder.includes(categories)) {
-              return true
-            } else {
-              return false
-            }
-          })
-        };
-      }
-
+  
+      case actionTypes.FILTER_POSTS_BY_CATEGORY:
+        if (action.info === "market") {
+          const categoriesInOrder = state.chosenCategories.sort();
+          return {
+            ...state,
+            filteredPostsByCategory: state.posts.filter((post) => {
+              if (
+                categoriesInOrder
+                  .toString()
+                  .includes(String(post.Categories[0].id))
+              )
+                return true;
+              else return false;
+            }),
+          };
+        }
+        if (action.info === "search") {
+          console.log("antes", state.chosenCategories)
+          const categoriesInOrder = state.chosenCategories.sort((a,b) => a-b).toString();
+          
+          return {
+            ...state,
+            filteredPostsByCategory: state.postsByName.filter((post) => {
+              let categories = post.Categories.map((category) => category.id);
+              categories = categories.sort((a, b) => a - b).toString();
+              console.log("categorias elegidas en orden",categoriesInOrder)
+              console.log("categorias de cada post en orden",categories)
+              console.log("coinciden?", categories === categoriesInOrder)
+              if (categoriesInOrder.includes(categories)) {
+                return true
+              } else {
+                return false
+              }
+            })
+          };
+        }
+      break
     case actionTypes.SET_CART:
       return {
         ...state,
