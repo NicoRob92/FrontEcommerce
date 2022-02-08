@@ -1,8 +1,8 @@
-const getPostToShow = (currentPage, postPerPage) => {
+const getPostsToShow = (currentPage, postPerPage) => {
   return {
     first: currentPage * postPerPage - postPerPage,
     last: currentPage * postPerPage,
   };
 };
 
-export { getPostToShow };
+export { getPostsToShow };

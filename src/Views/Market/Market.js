@@ -6,7 +6,7 @@ import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import { getPages } from "../../helpers/getPages";
-import { getPostToShow } from "../../helpers/getPostToShow";
+import { getPostsToShow } from "../../helpers/getPostsToShow";
 
 import * as actionCreators from "../../ducks/actions/actionCreators";
 
@@ -18,45 +18,43 @@ const Market = () => {
   const categories = useSelector((state) => state.reducer.categories);
   const posts = useSelector((state) => state.reducer.posts);
   const chosenCategories = useSelector((state) => state.reducer.chosenCategories);
-  const filteredPostByCategory = useSelector((state) => state.reducer.filteredPostByCategory);
+  const filteredPostsByCategory = useSelector((state) => state.reducer.filteredPostsByCategory);
   const dispatch = useDispatch();
 
 
-  let postToShow = filteredPostByCategory.length === 0 ? posts : filteredPostByCategory;
+  let postsToShow = !filteredPostsByCategory.length ? posts : filteredPostsByCategory;
 
 
   const [currentPage, setCurrentPage] = useState(1);
   const postPerPage = 20;
 
-  // useEffect(() => {
-  //   let element = document.getElementById("categories");
-  //   element
-  //     ? element?.classList.add(`${styles.categories}`)
-  //     : element?.classList.remove(`${styles.categories}`);
-  // }, []);
+  useEffect(() => {
+    let element = document.getElementById("categories");
+    element
+      ? element?.classList.add(`${styles.categories}`)
+      : element?.classList.remove(`${styles.categories}`);
+  }, []);
 
-  const totalPages = getPages(postToShow?.length, postPerPage);
+  const totalPages = getPages(postsToShow.length, postPerPage);
 
-  let toSlice = getPostToShow(currentPage, postPerPage);
+  let toSlice = getPostsToShow(currentPage, postPerPage);
 
-  let finalPostToShow = postToShow?.slice(toSlice.first, toSlice.last);
+  let finalPostsToShow = postsToShow?.slice(toSlice.first, toSlice.last);
 
   const setPage = (e) => setCurrentPage((prevState) => (prevState = e.target.value));
-
   const setCategories = (e) => {
-    const target = e.target;
-    let index = chosenCategories.findIndex((e) => e === Number(target.value));
-
-    if (target.checked && index === -1)
-      dispatch(actionCreators.chooseCategories(Number(target.value), "add category"));
-    else if (!target.checked && index !== -1)
-      dispatch(actionCreators.chooseCategories(Number(target.value), "remove category", index));
-    else if (target.id === "reset-chosenCategories")
-      dispatch(actionCreators.resetCategories());
-    else if (target.id === "search")
-      dispatch(actionCreators.filterPostByCategory());
+    let index = chosenCategories.findIndex((index) => index === Number(e.target.value));
+    if (e.target.checked && index === -1) dispatch(actionCreators.chooseCategories(Number(e.target.value), "add"));
+    else if (!e.target.checked && index !== -1) dispatch(actionCreators.chooseCategories(Number(e.target.value), "remove", index));
+    else if (e.target.id === "reset") dispatch(actionCreators.resetCategories());
+    else if (e.target.id === "filter") dispatch(actionCreators.filterPostsByCategory("market"));
   };
- 
+  
+  useEffect(() => {
+    return () => {
+      dispatch(actionCreators.resetCategories());
+    };
+  }, []);
 
   return (
     <>
@@ -66,7 +64,7 @@ const Market = () => {
           setCategories={setCategories}
           chosenCategories={chosenCategories}
         />
-        <Products products={finalPostToShow} />
+        <Products products={finalPostsToShow} />
       </div>
       <div className={styles.Paginate}>
         <Paginate totalPages={totalPages} setPage={setPage} />

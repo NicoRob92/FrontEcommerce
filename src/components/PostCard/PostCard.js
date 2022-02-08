@@ -1,7 +1,6 @@
 import styles from './_PostCard.module.scss';
 import {Link} from 'react-router-dom'
 export const PostCard = ({ post }) => {
-  console.log(post)
   return (
     <Link to={`/detail/${post.id}`} className={styles.container}>
       <div className={styles.image}>
