@@ -15,7 +15,7 @@ const Search = () => {
 
   const categories = useSelector((state) => state.reducer.categories);
   const chosenCategories = useSelector((state) => state.reducer.chosenCategories);
-  const postsByName = useSelector(state => state.reducer.postsByName)
+  const postsByName = useSelector(state => state.reducer.postsByName.filter(post => post.postStatus === 'Activo'))
   const filteredPostByCategory = useSelector(state => state.reducer.filteredPostByCategory)
   console.log(filteredPostByCategory)
 

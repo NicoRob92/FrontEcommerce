@@ -1,39 +1,45 @@
-import Categories from "../../containers/Categories/Categories";
-import Products from "../../containers/Products/Products";
-import Paginate from "../../containers/Paginate/Paginate";
+import Categories from '../../containers/Categories/Categories';
+import Products from '../../containers/Products/Products';
+import Paginate from '../../containers/Paginate/Paginate';
 
-import { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 
-import { getPages } from "../../helpers/getPages";
-import { getPostToShow } from "../../helpers/getPostToShow";
+import { getPages } from '../../helpers/getPages';
+import { getPostToShow } from '../../helpers/getPostToShow';
 
-import * as actionCreators from "../../ducks/actions/actionCreators";
+import * as actionCreators from '../../ducks/actions/actionCreators';
 
-import styles from "./_Market.module.scss";
+import styles from './_Market.module.scss';
 
 // import faker from "faker";
 
 const Market = () => {
   const categories = useSelector((state) => state.reducer.categories);
-  const posts = useSelector((state) => state.reducer.posts);
-  const chosenCategories = useSelector((state) => state.reducer.chosenCategories);
-  const filteredPostByCategory = useSelector((state) => state.reducer.filteredPostByCategory);
+  const posts = useSelector((state) => state.reducer.posts.filter(post => post.postStatus === 'Activo'));
+  const chosenCategories = useSelector(
+    (state) => state.reducer.chosenCategories
+  );
+  const filteredPostByCategory = useSelector(
+    (state) => state.reducer.filteredPostByCategory
+  );
   const dispatch = useDispatch();
+  // console.log(posts)
+  // console.log(filteredPostByCategory)
+  console.log(chosenCategories);
 
-
-  let postToShow = filteredPostByCategory.length === 0 ? posts : filteredPostByCategory;
-
+  let postToShow =
+    filteredPostByCategory.length === 0 ? posts : filteredPostByCategory;
 
   const [currentPage, setCurrentPage] = useState(1);
   const postPerPage = 20;
 
-  // useEffect(() => {
-  //   let element = document.getElementById("categories");
-  //   element
-  //     ? element?.classList.add(`${styles.categories}`)
-  //     : element?.classList.remove(`${styles.categories}`);
-  // }, []);
+  useEffect(() => {
+    let element = document.getElementById('categories');
+    element
+      ? element?.classList.add(`${styles.categories}`)
+      : element?.classList.remove(`${styles.categories}`);
+  }, []);
 
   const totalPages = getPages(postToShow?.length, postPerPage);
 
@@ -41,22 +47,30 @@ const Market = () => {
 
   let finalPostToShow = postToShow?.slice(toSlice.first, toSlice.last);
 
-  const setPage = (e) => setCurrentPage((prevState) => (prevState = e.target.value));
+  const setPage = (e) =>
+    setCurrentPage((prevState) => (prevState = e.target.value));
 
   const setCategories = (e) => {
     const target = e.target;
     let index = chosenCategories.findIndex((e) => e === Number(target.value));
 
     if (target.checked && index === -1)
-      dispatch(actionCreators.chooseCategories(Number(target.value), "add category"));
+      dispatch(
+        actionCreators.chooseCategories(Number(target.value), 'add category')
+      );
     else if (!target.checked && index !== -1)
-      dispatch(actionCreators.chooseCategories(Number(target.value), "remove category", index));
-    else if (target.id === "reset-chosenCategories")
+      dispatch(
+        actionCreators.chooseCategories(
+          Number(target.value),
+          'remove category',
+          index
+        )
+      );
+    else if (target.id === 'reset-chosenCategories')
       dispatch(actionCreators.resetCategories());
-    else if (target.id === "search")
+    else if (target.id === 'search')
       dispatch(actionCreators.filterPostByCategory());
   };
- 
 
   return (
     <>

@@ -1,17 +1,27 @@
 import styles from './_Modal.module.scss';
 import { useState } from 'react';
-import axios from 'axios'
+import { resetPassword } from '../../ducks/actions/actionCreators';
+import { useDispatch } from 'react-redux';
 import {api} from '../../credentials'
 
-
-
-export const ModalDeletePost = ({ id, hidden, show }) => {
+import axios from 'axios'
+export const ModalStateOrder = ({ id, hidden, show }) => {
   console.log(id)
+  const dispatch = useDispatch()
   const token = localStorage.getItem('token')
-  const [success, setSuccess] = useState(false)  
+  const [success, setSuccess] = useState(false)
+  const [status, setStatus] = useState('');
 
-  const updateRol = async () => {
-   return await axios.delete(`${api}admin/post/${id}`,{
+  const onChange = (e) => {
+    setStatus(e.target.value)
+  };
+
+  const body = {
+    status:status
+  }
+
+  const changeStatus = async () => {
+   return await axios.put(`${api}admin/order/${id}`,body,{
       headers:{
         'Content-Type': 'application/json',
         'token' : token
@@ -21,9 +31,9 @@ export const ModalDeletePost = ({ id, hidden, show }) => {
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    let prueba = await updateRol()
-    console.log(prueba)
-    if(prueba.data.msg === 'Post Destroyed'){
+    let prueba = await changeStatus()
+    console.log(prueba.data)
+    if(prueba.data.msg === 'Password Restore '){
       setSuccess(true)
       console.log(success)
        setTimeout(()=> setSuccess(false),3000)
@@ -33,8 +43,7 @@ export const ModalDeletePost = ({ id, hidden, show }) => {
   return (
     <div className={styles.modal} hidden={hidden}>
       <div className={styles.container}>
-        <h2 className={styles.title}>Eliminar post</h2>
-
+        <h2 className={styles.title}>Modificar Password</h2>
         <button className={styles.close} onClick={(e) => show()}>
           <svg
             width='32'
@@ -66,11 +75,17 @@ export const ModalDeletePost = ({ id, hidden, show }) => {
         </button>
         <form className={styles.form} onSubmit={(e)=>onSubmit(e)}>
           <div className={styles.item}>
-            <h1 className={styles.danger}>Seguro quiere eliminar el post</h1>
-            </div>
-          <button type='submit'>Eliminar Post</button>
+            <label>Select an option</label>
+            <select onChange={(e) => onChange(e)}>
+            <option type='checkbox' value='creada' key='creada'>Creada</option>
+            <option type='checkbox' value='procesada' key='procesada'>procesada</option>
+            <option type='checkbox' value='completada' key='completada'>completada</option>
+            </select>
+          </div>
+
+          <button type='submit'>Change Status</button>
         </form>
-        {success === true ? <h2 className={styles.success}>Post eliminado</h2> : null}
+        {success === true ? <h1 className={styles.success}>Status Changed</h1> : null}
       </div>
     </div>
   );

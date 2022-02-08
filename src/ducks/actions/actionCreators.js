@@ -43,7 +43,7 @@ export function getPostsByName(name) {
 }
 export function getPostById(id) {
   return function (dispatch) {
-    fetch(`${getPostsUrl}/${id}`)
+    fetch(`${getPostByIdUrl}/${id}`)
       .then((res) => res.json())
       .then((res) => {
         while (res.Images.length < 5) {
