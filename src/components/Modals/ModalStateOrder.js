@@ -1,13 +1,10 @@
 import styles from './_Modal.module.scss';
 import { useState } from 'react';
-import { resetPassword } from '../../ducks/actions/actionCreators';
-import { useDispatch } from 'react-redux';
 import {api} from '../../credentials'
 
 import axios from 'axios'
 export const ModalStateOrder = ({ id, hidden, show }) => {
   console.log(id)
-  const dispatch = useDispatch()
   const token = localStorage.getItem('token')
   const [success, setSuccess] = useState(false)
   const [status, setStatus] = useState('');

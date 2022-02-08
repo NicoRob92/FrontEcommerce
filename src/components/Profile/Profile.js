@@ -3,8 +3,10 @@ import style from './_Profile.module.scss';
 import { Login } from '../Login/Login';
 import { resetLogin } from '../../services/auth';
 import { Menu } from '../Menu/Menu'
+import { useHistory} from 'react-router-dom';
 
 export const Profile = ({ show }) => {
+  const history = useHistory()
   const logged = localStorage.getItem('logged');
   const [name, setName] = useState(localStorage.getItem('username'));
   const [showMenu, setShowMenu] =useState(false);
@@ -13,6 +15,7 @@ export const Profile = ({ show }) => {
     e.preventDefault();
     resetLogin();
     show();
+   history.push('/')
   };
 
   const handleMenu = (e) => {
