@@ -2,6 +2,8 @@ import styles from './_Modal.module.scss';
 import { useState } from 'react';
 import { resetPassword } from '../../ducks/actions/actionCreators';
 import { useDispatch } from 'react-redux';
+import {api} from '../../credentials'
+
 import axios from 'axios'
 export const ModalPass = ({ id, hidden, show }) => {
   console.log(id)
@@ -26,7 +28,7 @@ export const ModalPass = ({ id, hidden, show }) => {
   }
 
   const resetPassword = async () => {
-   return await axios.put(`https://api-ec.herokuapp.com/api/admin/user/reset-password-force`,body,{
+   return await axios.put(`${api}admin/user/reset-password-force`,body,{
       headers:{
         'Content-Type': 'application/json',
         'token' : token

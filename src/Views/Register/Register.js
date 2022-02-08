@@ -2,7 +2,7 @@ import { useState } from "react"
 import style from "./Register.module.scss"
 import { NavLink } from "react-router-dom"
 import { connect } from "react-redux"
-import { api } from "../../ducks/actions/actionCreators"
+import { api } from "../../credentials"
 import firebase from "../../services/firebaseStorage";
 import Google from "../../components/GoogleAuth/Google"
 

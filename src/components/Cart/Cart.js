@@ -1,5 +1,6 @@
 import { useRef, useEffect, useState } from "react";
 import EmailAddress from "../EmailAddress/EmailAddress";
+import {api} from '../../credentials'
 
 import CartItem from "./CartItem";
 
@@ -37,7 +38,11 @@ const Cart = ({
     let postsInLS = JSON.parse(localStorage.getItem("posts"));
     postsInLS.payer.address.street_name = address;
     postsInLS.payer.email = email;
-    fetch("https://api-ec.herokuapp.com/api/checkout", {
+
+    console.log(postsInLS)
+
+    fetch(`${api}checkout`, {
+
       method: "POST",
       body: JSON.stringify(postsInLS),
       headers: {

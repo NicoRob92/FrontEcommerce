@@ -9,14 +9,11 @@ import {getOrders} from '../../ducks/actions/actionCreators'
 const Home = () => {
   const posts = useSelector((state) => state.reducer.posts);  
   const images = ["1", "2", "3", "4", "5"];
-  const orders = useSelector((state) => state.reducer.orders);
   const dispatch = useDispatch();
   const token = localStorage.getItem('token')
-  console.log(orders)
  let recientes = posts.map(e => e)
   recientes = recientes.sort((a, b) => b.id - a.id);
-
-  console.log(recientes)
+  console.log(posts)
   useEffect(() => {
     let element = document.getElementById("categories");
     element
