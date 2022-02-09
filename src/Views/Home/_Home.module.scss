@@ -61,9 +61,11 @@
   width: 100%;
   outline: 1px solid black;
   height: 15%;
-  position: relative;
-  top: 5%;
-  background-color: $CPrimary;
+  position:relative;
+  bottom: -7.4%;
+  background: rgb(176,203,34);
+  background: linear-gradient(90deg, rgba(176,203,34,1) 0%, rgba(72,138,74,0.9808298319327731) 49%, rgba(0,116,62,1) 78%);
+  
 }
 
 @media screen and (min-width: $width-notebook) {

@@ -3,14 +3,17 @@ import style from './_Profile.module.scss';
 import { Login } from '../Login/Login';
 import { resetLogin } from '../../services/auth';
 import { Menu } from '../Menu/Menu'
-import { useHistory} from 'react-router-dom';
+import { useHistory , useLocation} from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 export const Profile = ({ show }) => {
   const history = useHistory()
+  const userName = useSelector((state) => state.reducer.name)
+  console.log(userName)
   const logged = localStorage.getItem('logged');
-  const [name, setName] = useState(localStorage.getItem('username'));
+  const [name, setName] = useState('');
   const [showMenu, setShowMenu] =useState(false);
-
+  
   const handleLogOut = (e) => {
     e.preventDefault();
     resetLogin();
@@ -27,6 +30,10 @@ export const Profile = ({ show }) => {
     setShowMenu(!showMenu);
   }
   
+  useEffect(() => {
+    setName(userName)
+  },[userName])
+   
   return (
     <div className={style.container}>
       {logged === 'true' ? (

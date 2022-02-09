@@ -90,11 +90,7 @@ const Navbar = () => {
                 />
               </svg>
             </button>
-          </div>
-
-          <NavLink to='/register' className={styles.register}>
-            Register
-          </NavLink>
+          </div>       
 
           <Cart
             showCart={showCart}

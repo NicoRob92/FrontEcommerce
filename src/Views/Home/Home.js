@@ -22,9 +22,7 @@ const Home = () => {
       : element?.classList.remove(`${styles.categories}`);
       dispatch(getOrders(token))
      dispatch(getUserById(userId, token));
-
   },[]);
-  console.log(user)
   return (
     <div className={styles.container}>
       {/* Navbar */}
