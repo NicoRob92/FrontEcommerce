@@ -39,7 +39,7 @@ const FormProductDescription = ({
             );
           })}
         </select>
-        <ul className="column m-1">
+        <ul className="column m-1 d-flex flex-wrap justify-content-center">
           {input.Categories?.map((c, i) => {
             let name = allCategories.filter(e=>e.id==c)
             return (
@@ -47,7 +47,7 @@ const FormProductDescription = ({
               <span className="p-1">{name[0].name} </span>
               <div type="button"
                 name="Categories"
-                className="rounded d-inline  bg-danger h-100"
+                className="px-1 rounded d-inline  bg-danger"
                 value={c}
                 onClick={()=>deleteMultiOption("Categories",c)}
                 >{" x "}</div>
