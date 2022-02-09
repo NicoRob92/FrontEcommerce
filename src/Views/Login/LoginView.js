@@ -13,7 +13,7 @@ export const LoginView = () => {
         <div className={styles.logs}>
           <Login setName={setName}/>
           <span className={styles.separador}/>
-          <Google hidden={true}/>
+          <Google/>
         </div >
         <span className={styles.separadorH}/>
         <div  className={styles.register}>

@@ -5,6 +5,8 @@ import { useHistory } from 'react-router-dom';
 import styles from './_Login.module.scss';
 import {changeName} from '../../ducks/actions/actionCreators'
 import {useDispatch} from 'react-redux'
+
+
 export const Login = ({ show, handleUser}) => {
   const history = useHistory()
   const dispatch = useDispatch()
@@ -33,8 +35,8 @@ export const Login = ({ show, handleUser}) => {
       dispatch(changeName(login.username))
       setToken(login.token);
       setUsers(loggedUser);
-      history.push('/')
-    } else {
+      window.location.href="http://localhost:3000/"
+      } else {
       resetLogin();
       alert('Wrong username o password');
     }

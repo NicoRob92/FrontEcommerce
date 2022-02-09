@@ -49,10 +49,18 @@
 }
 
 .menu{
-  position: absolute;
+  position: fixed;
   width:12%;
+  height:100%;
   right:0;
   top:7%;
   z-index: 3;
+  transition: all 0.5s;
+  transform: translateX(100%)
+}
+
+.visible{
+  transform: translateX(0%);
+  transition: all 0.5s;
 
 }

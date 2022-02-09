@@ -13,7 +13,8 @@ const initialState = {
   postById: [],
   orders: [],
   reviews: [],
-  name:''
+  name:'',
+  google:''
 };
 
 export default function Product(state = initialState, action) {
@@ -135,6 +136,13 @@ export default function Product(state = initialState, action) {
       ...state,
       name: action.payload
     }
+    case 'GOOGLE':
+    console.log("GOOGLE", action.payload)  
+    return{
+      ...state,
+      google:action.payload
+    }
+
 
     default:
       return state;
