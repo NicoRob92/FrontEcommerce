@@ -1,31 +1,17 @@
+@import '../../sass/variables.scss';
 .card {
-  width: 100%;
-  height: 80%;
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  background: #c4c4c4;
-  transition: all ease 0.2s;
+  width: 300px;
+  height: 380px;
+}
+
+.card_image{
+  height: 180px;
 }
 
 .link {
-  // text-decoration: none;
-  // color: rgb(0, 0, 0);
-  // transition: all 0.3s ease;
-  // min-width: 15%;
-  // background-color: #c4c4c4;
-  // height: 100%;
-  // box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.4);
-  // margin: 0.5%;
-  // display: flex;
-  // align-items: center;
-  // flex-direction: column;
-  // border:none;
-  // outline:1px solid black;
   text-decoration: none;
   margin-left: 10px;
   margin-right: 10px;
-  
 }
 .link:hover {
   color: black;
@@ -34,21 +20,28 @@
   cursor: pointer;
   background-color: rgb(223, 221, 221);
 }
-.card img {
-  min-width: 100%;
-  min-height: 100%;
-}
-.cardText {
-  min-width: 90%;
-  text-align: left;
-  font-family: 'Roboto';
-  font-size: 1rem;
-  font-weight: 400;
+
+.price_title{
+  font-weight: 300;
+  color: rgb(59, 59, 184);
 }
 
-.cardImg {
-  min-width: 100;
-  max-height: 70%;
-  width: 100%;
-  object-fit: cover;
+
+@media screen and (min-width: $width-notebook) {
+  .card {
+    max-width: 350px;
+    max-height: 335px;
+  }
+  .card_image{
+    height: 200px;
+  }
+}
+@media screen and (max-width: $width-mobile) {
+  .card {
+    max-width: 310px;
+    max-height: 300px;
+  }
+  .card_image{
+    height: 180px;
+  }
 }
