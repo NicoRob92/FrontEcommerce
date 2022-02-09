@@ -1,8 +1,13 @@
 import { useState } from 'react';
 import { setToken, setUsers, resetLogin } from '../../services/auth';
 import { UserLogin } from '../../services/login';
+import { useHistory } from 'react-router-dom';
 import styles from './_Login.module.scss';
-export const Login = ({ show, handleUser, setName }) => {
+import {setName} from '../../ducks/actions/actionCreators'
+import {useDispatch} from 'react-redux'
+export const Login = ({ show, handleUser}) => {
+  const history = useHistory()
+  const dispatch = useDispatch()
   const [user, setUser] = useState({
     username: '',
     password: '',
@@ -18,22 +23,22 @@ export const Login = ({ show, handleUser, setName }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const login = await UserLogin(user);
-    const logged = localStorage.getItem('logged');
-    console.log(logged);
-    if (logged === 'true') {
+    if (login.msg === 'user logged') {
       let loggedUser = {
         username: login.username,
         rol: login.rol,
         id: login.id,
         email: login.email,
       };
-      setName(login.username);
+      dispatch(setName(login.username))
       setToken(login.token);
       setUsers(loggedUser);
+      history.push('/')
     } else {
       resetLogin();
       alert('Wrong username o password');
     }
+
   };
 
   return (

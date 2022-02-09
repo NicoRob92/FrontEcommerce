@@ -36,7 +36,6 @@ function Google() {
                 buttonText="Login"
                 onSuccess={onSuccess}
                 onFailure={onFailure}
-                isSignedIn={true}
                 data-login_uri='http://localhost:4000/api/auth/callback'
                 data-auto_prompt='false'
                 callback='onSignInCallback'
