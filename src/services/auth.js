@@ -26,13 +26,7 @@ export function deleteUser() {
 }
 
 export function resetLogin() {
-  localStorage.removeItem('token');
-  localStorage.removeItem('rol');
-  localStorage.removeItem('username');
-  localStorage.removeItem('logged');
-  localStorage.removeItem('email');
-  localStorage.removeItem('userId');
-  localStorage.removeItem('posts')
+  localStorage.clear()
 
 }
 

@@ -13,6 +13,7 @@ const initialState = {
   postById: [],
   orders: [],
   reviews: [],
+  name:''
 };
 
 export default function Product(state = initialState, action) {
@@ -130,6 +131,10 @@ export default function Product(state = initialState, action) {
         ...state,
         postById: action.payload,
       };
+    case 'SETNAME': return {
+      ...state,
+      name: action.payload
+    }
 
     default:
       return state;

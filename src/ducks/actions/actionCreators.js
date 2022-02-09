@@ -289,3 +289,10 @@ export function replyQuestion(input, token){
   }
 }
 
+export function setName(input){
+  return{ 
+    type:'SETNAME',
+    payload:input
+  
+  }
+}
