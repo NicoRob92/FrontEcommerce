@@ -13,9 +13,9 @@ import Collapse from '@mui/material/Collapse';
 import TextField from "@mui/material/TextField";
 import SendIcon from '@mui/icons-material/Send';
 import styles from './_Questions.module.scss'
-import { replyQuestion } from "../../ducks/actions/actionCreators";
+import { replyQuestion, getPostById } from "../../ducks/actions/actionCreators";
 
-const QuestionCard = ({ id, description, reply }) => {
+const QuestionCard = ({ postId,id, description, reply }) => {
     const role = "Admin"
     const token = localStorage.getItem('token')
     const dispatch = useDispatch()
@@ -33,6 +33,9 @@ const QuestionCard = ({ id, description, reply }) => {
     const handleSubmit = (e) => {
         e.preventDefault()
         dispatch(replyQuestion({ reply: input, id: id }, token))
+        dispatch(getPostById(postId))
+        dispatch(getPostById(postId))
+        setInput("")
     }
 
     return (
@@ -44,7 +47,7 @@ const QuestionCard = ({ id, description, reply }) => {
                 <CardActions>
                     {
                         role === "Admin" ?
-                            <Button size="small" startIcon={<ReplyIcon />} onClick={() => handleExpandClick()}>Reply</Button>
+                            <Button size="small" startIcon={<ReplyIcon />} onClick={() => handleExpandClick()}>Responder</Button>
                             : null
                     }
                 </CardActions>
@@ -79,7 +82,7 @@ const QuestionCard = ({ id, description, reply }) => {
                 <AccordionSummary
                     expandIcon={<ExpandMoreIcon />}
                 >
-                    <p>See replies</p>
+                    <p>Ver respuestas</p>
                 </AccordionSummary>
 
                 <AccordionDetails>
