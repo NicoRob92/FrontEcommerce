@@ -1,1 +1,57 @@
 @import "../../sass/variables.scss";
+
+body {
+    background-color: #eee
+}
+
+.container {
+    height: 100vh
+}
+
+.upload-button {
+  position: relative;
+
+    height: 50px;
+    width: 250px;
+    border: none;
+    color: #fff
+}
+
+.upload-button:focus {
+    outline: none
+}
+
+.upload-icon {
+    background-color: #09ad50;
+    width: 60px;
+    height: 100%;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px
+}
+
+.upload-text {
+    background-color: #0ac55c;
+    height: 100%;
+    width: 190px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px
+}
+
+.upload-button:hover .upload-icon {
+    background-color: #0ac55c
+}
+
+.upload-button:hover .upload-text {
+    background-color: #09ad50
+}
+.btn_subir{
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  opacity: 0
+}
