@@ -39,6 +39,12 @@ export function getPostsByName(name) {
       .catch((err) => console.error(err));
   };
 }
+export function resetPostByName() {
+  return {
+    type: actionTypes.RESET_POST_BY_NAME
+  }
+}
+
 export function getPostById(id) {
   return function (dispatch) {
     fetch(`${getPostByIdUrl}/${id}`)
@@ -103,15 +109,17 @@ export function create_post(payload, token) {
 }
 
 export function chooseCategories(category, info, index) {
-  console.log("category", category)
-  console.log("category", info)
-  console.log("category", index)
-
   return {
     type: actionTypes.CHOOSE_CATEGORIES,
     payload: category,
     info,
     index,
+  };
+}
+
+export function resetChosenCategories() {
+  return {
+    type: actionTypes.RESET_CHOSEN_CATEGORIES,
   };
 }
 
@@ -122,11 +130,7 @@ export function filterPostsByCategory(info) {
   };
 }
 
-export function resetCategories() {
-  return {
-    type: actionTypes.RESET_CATEGORIES,
-  };
-}
+
 
 export function setCart(post) {
   return {
