@@ -8,7 +8,7 @@ import { getReview, getUsers } from '../../ducks/actions/actionCreators'
 
 const Review = ({ ProductId }) => {
     const dispatch = useDispatch()
-    const reviews = useSelector((state) => state.review.pureReviews)
+    const reviews = useSelector((state) => state.review.pureReviews).slice(0,3)
     const [order, setOrder] = useState('')
     let token = localStorage.getItem('token')
 
@@ -16,18 +16,16 @@ const Review = ({ ProductId }) => {
         dispatch(getReview(ProductId, token))
         dispatch(getUsers(token))
     }, [dispatch])
-  
+
     return (
         <div className={st.container}>
-            <div>
-                <h5>Reseñas y preguntas</h5>
-            </div>
+            
             <div className={st.btns}>
                 <ReviewBar Order={setOrder} />
             </div>
             <div>
                 {reviews ? (
-                    reviews.map((e) => {
+                    reviews.reverse().map((e) => {
                         return <ReviewCard key={e.id} description={e.description} rating={e.rating} name={e.author} />;
                     })
                 ) : (
