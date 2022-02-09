@@ -19,7 +19,7 @@ const Market = () => {
   let postsToShow = !filteredPostsByCategory.length ? posts : filteredPostsByCategory;
 
   const [currentPage, setCurrentPage] = useState(1);
-  const postPerPage = 20;
+  const postPerPage = 12;
 
   useEffect(() => {
     let element = document.getElementById("categories");
@@ -47,7 +47,9 @@ const Market = () => {
     };
   }, []);
   return (
-    <>
+      <div className={styles.container}>
+
+      
       <div className={styles.Market}>
         <Categories
           categories={categories}
@@ -57,9 +59,12 @@ const Market = () => {
         <Products products={finalPostsToShow} />
       </div>
       <div className={styles.Paginate}>
+        <button onClick={(e) => currentPage > 1 && setCurrentPage(prev => currentPage - 1)}>Prev</button>
         <Paginate totalPages={totalPages} setPage={setPage} />
+        <button onClick={(e) => currentPage < totalPages && setCurrentPage(prev => currentPage + 1)}>Next</button>
+
       </div>
-    </>
+      </div>
   );
 };
 export default Market;

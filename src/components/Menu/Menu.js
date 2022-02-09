@@ -1,15 +1,13 @@
-import React from 'react';
 import style from './_Menu.module.scss';
-
- 
- 
+import { useEffect, useState } from 'react';
 
 import { NavLink } from 'react-router-dom';
-export const Menu = ({ user, handleLogOut, close }) => {
+export const Menu = ({ user, handleLogOut, close, show }) => {
   const rol = localStorage.getItem('rol');
   const id = localStorage.getItem('userId');
+
   return (
-    <div className={style.menu} id='menu'>
+    <div className={style.menu}>
       <div className={style.tittle}>
         <h5> {user} </h5>
         <button
@@ -18,8 +16,8 @@ export const Menu = ({ user, handleLogOut, close }) => {
             close();
           }}>
           <svg
-            width='25'
-            height='25'
+            width='32'
+            height='32'
             viewBox='0 0 32 32'
             fill='none'
             xmlns='http://www.w3.org/2000/svg'>
@@ -46,35 +44,36 @@ export const Menu = ({ user, handleLogOut, close }) => {
           </svg>
         </button>
       </div>
-      <menu>
-        <li key='0' type='none'>
-          <NavLink to={`/user/profile/${id}`}>Perfil</NavLink>
-        </li>
+      <hr />
+      <div className={style.articles}>
+        <NavLink className={style.link} to={`/user/profile/${id}`}>
+          Perfil
+        </NavLink>
 
-        <li key='2' type='none'>
-          <NavLink to={'/new-post'}>Post</NavLink>
-        </li>
-        <li key='3' type='none'>
-          <NavLink to={"/compras"}>Compras</NavLink>
-        </li>
-        <li key='4' type='none'>
+        <NavLink className={style.link} to={'/new-post'}>
+          Post
+        </NavLink>
+
+        <NavLink className={style.link} to={'/compras'}>
+          Compras
+        </NavLink>
+
+        <NavLink className={style.link} to={'/compras'}>
           Ventas
-        </li>
-        <li key='5' type='none'>
-          Ayuda
-        </li>
+        </NavLink>
+
         {rol === 'admin' ? (
-          <li key='1' type='none'>
-            <NavLink to={'/admin'}>Administracion</NavLink>
-          </li>
+          <NavLink className={style.link} to={'/admin'}>
+            Administracion
+          </NavLink>
         ) : null}
-      </menu>
+      </div>
 
       <button className={style.logout} onClick={(e) => handleLogOut(e)}>
         <svg
-          width='32'
-          height='32'
-          viewBox='0 0 32 32'
+          width='75'
+          height='75'
+          viewBox='0 0 45 35'
           fill='none'
           xmlns='http://www.w3.org/2000/svg'>
           <path

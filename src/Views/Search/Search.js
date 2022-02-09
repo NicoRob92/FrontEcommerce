@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import Post from "../../containers/Post/Post";
 import Categories from "../../containers/Categories/Categories";
 import styles from "./_Search.module.scss";
+import { Loader } from "../../components/Loader/loader";
 import NotFound from "../../components/NotFound/NotFound";
 import * as actionCreators from "../../ducks/actions/actionCreators";
 const Search = () => {
@@ -46,7 +47,7 @@ const Search = () => {
         setCategories={setCategories}
         chosenCategories={chosenCategories}
       />
-      {postsByName?.length > 0 ? <Post array={toShow} /> : <NotFound />}
+      {postsByName?.length > 0 && <Post array={toShow} /> }
     </div>
   );
 };
