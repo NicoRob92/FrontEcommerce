@@ -5,7 +5,8 @@
   display: flex;
   width: 100%;
   height: 7vh;  
-  background-color: $CPrimary;
+  background: rgb(176,203,34);
+background: linear-gradient(90deg, rgba(176,203,34,1) 0%, rgba(72,138,74,0.9808298319327731) 49%, rgba(0,116,62,1) 78%);
 
 }
 
@@ -76,7 +77,6 @@
 
 .containertitle{
   width: 50%;
-  background-color:$CPrimary ;
   display: flex;
   height: 100%;
   justify-content: space-between;
@@ -88,7 +88,6 @@
 
 .containerLogin{
   width: 50%;
-  background-color:$CPrimary ;
   display: flex;
   height: 100%;
   justify-content: space-between;
@@ -98,7 +97,6 @@
 }
 .containerProfile{
   width: 50%;
-  background-color:$CPrimary ;
   display: flex;
   height: 100%;
   justify-content: space-between;

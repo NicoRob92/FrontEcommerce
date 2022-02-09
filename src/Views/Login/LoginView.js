@@ -1,27 +1,24 @@
 import styles from './_LoginView.module.scss';
 import { Login } from '../../components/Login/Login';
 import Google from '../../components/GoogleAuth/Google.jsx';
-import {useEffect, useState} from 'react';
-import {useLocation} from 'react-router-dom'
+import { useEffect, useState } from 'react';
+import { NavLink, useLocation } from 'react-router-dom';
 export const LoginView = () => {
-    
-    const location = useLocation()
-    const path = location.pathname
-    const reload = ()=>{
-        window.location.reload();
-    }
-    useEffect(() => {
-        
-    },[path])
-    
-    
+
+  const [name, setName] = useState(localStorage.getItem('username'));
+
   return (
-    <div className={styles.container} >
+    <div className={styles.container}>
       <div className={styles.center}>
         <div className={styles.logs}>
-          <Login />        
-        <div onclick={(e) => reload(e)}>x</div>
+          <Login setName={setName}/>
+          <span className={styles.separador}/>
           <Google hidden={true}/>
+        </div >
+        <span className={styles.separadorH}/>
+        <div  className={styles.register}>
+            <h4>No tienes cuenta?</h4>
+            <NavLink to='/register' className={styles.link}> Registrarse </NavLink>
         </div>
       </div>
     </div>
