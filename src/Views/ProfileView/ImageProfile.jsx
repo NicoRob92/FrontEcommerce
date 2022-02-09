@@ -1,24 +1,62 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
+import { useDispatch } from "react-redux";
 import Avatar from '@mui/material/Avatar';
 import IconButton from "@mui/material/IconButton";
 import EditIcon from '@mui/icons-material/Edit';
 import SaveAltIcon from '@mui/icons-material/SaveAlt';
 import Badge from '@mui/material/Badge';
+import CircularProgress from '@mui/material/CircularProgress';
+import Stack from '@mui/material/Stack';
+import AddAPhotoIcon from '@mui/icons-material/AddAPhoto';
 import { styled } from '@mui/material/styles';
+import { putUser } from '../../ducks/actions/actionCreators'
+import firebase from '../../services/firebaseStorage'
 
 const ImageProfile = ({ image }) => {
-    const initialState = []
-    // Input file image save file on state
-    const [profileImage, setProfileImage] = useState([])
+    const dispatch = useDispatch()
+    const userId = localStorage.getItem("userId")
+    const token = localStorage.getItem("token")
+    const type = "IMAGE"
     // Show different icon when image is selected
     const [show, setShow] = useState(false)
-    // State for image and set image to the Avatar in case one to edit is selected
-    const [PImage, setPImage] = useState('')
-    let defaultImage = "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
+    // State for image
+    const [PImage, setPImage] = useState(image)
+    // state to track when file is upload to firebase
+    const [uploadValue, setUploadValue] = useState()
 
-    const handleInput = (e) => {
-        const pImage = e.target.files
-        setProfileImage({ profileImage: pImage[0] })
+    const Input = styled('input')({
+        display: 'none',
+    });
+
+    const onSubmit = (e) => {
+        e.preventDefault()
+        dispatch(putUser(userId, PImage, type, token))
+        setShow(false)
+    }
+
+    const handleUploadOnChange = (e) => {
+        const file = e.target.files[0];
+        let storageRef = firebase.storage().ref("/ecommerce/" + file.name);
+        let task = storageRef.put(file);
+        task.on(
+            "state_changed",
+            (snapshot) => {
+                let percentage =
+                    (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                setUploadValue(percentage);
+            },
+            (err) => {
+                console.log(err.message);
+            },
+            () => {
+                setUploadValue(100);
+
+                storageRef.getDownloadURL().then((url) => {
+                    setPImage(url);
+                    setShow(true)
+                });
+            }
+        );
     }
 
     const SmallButton = styled(IconButton)(({ theme }) => ({
@@ -35,28 +73,52 @@ const ImageProfile = ({ image }) => {
     }));
 
     return (
-        <Badge
-            overlap="circular"
-            anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-            badgeContent={
-                show
+        <form onSubmit={onSubmit}>
+            <Badge
+                overlap="circular"
+                variant="standard"
+                anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+                badgeContent={
+                    show
+                        ?
+                        <Stack direction="row" spacing={5.8}>
+                            <SmallButton type='submit' edge="end" aria-label="edit">
+                                <SaveAltIcon />
+                            </SmallButton>
+                            <label htmlFor="icon-button-file">
+                                <Input accept="image/*" id="icon-button-file" type="file" onChange={handleUploadOnChange} />
+                                <SmallButton color="primary" aria-label="upload picture" component="span">
+                                    <EditIcon />
+                                </SmallButton>
+                            </label>
+                        </Stack>
+                        :
+                        <label htmlFor="icon-button-file">
+                            <Input accept="image/*" id="icon-button-file" type="file" onChange={handleUploadOnChange} />
+                            <SmallButton color="primary" aria-label="upload picture" component="span">
+                                <AddAPhotoIcon />
+                            </SmallButton>
+                        </label>
+                }
+            >
+
+                {uploadValue == 0 || uploadValue == 99
                     ?
-                    <SmallButton edge="end" aria-label="edit">
-                        <SaveAltIcon />
-                    </SmallButton>
+                    <Avatar
+                        sx={{ width: 250, height: 250 }}
+                        alt="loading"
+                    >
+                        <CircularProgress />
+                    </Avatar>
                     :
-                    <SmallButton variant="contained" edge="end" aria-label="edit" component="label" >
-                        <input type="file" hidden onChange={e => handleInput(e)} />
-                        <EditIcon />
-                    </SmallButton>
-            }
-        >
-            <Avatar
-                sx={{ width: 250, height: 250 }}
-                alt="Profile Picture"
-                src={image ? image : defaultImage}
-            />
-        </Badge>
+                    <Avatar
+                        sx={{ width: 250, height: 250 }}
+                        alt="Profile Picture"
+                        src={PImage}
+                    />
+                }
+            </Badge>
+        </form>
     )
 }
 export default ImageProfile;

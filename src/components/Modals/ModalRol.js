@@ -3,6 +3,8 @@ import { useState } from 'react';
 import { resetPassword } from '../../ducks/actions/actionCreators';
 import { useDispatch } from 'react-redux';
 import axios from 'axios'
+import {api} from '../../credentials'
+
 export const ModalRol = ({ id, hidden, show }) => {
   console.log(id)
   const dispatch = useDispatch()
@@ -23,7 +25,7 @@ export const ModalRol = ({ id, hidden, show }) => {
   
 
   const updateRol = async () => {
-   return await axios.put(`http://localhost:4000/api/admin/user/${id}`,rol,{
+   return await axios.put(`${api}admin/user/${id}`,rol,{
       headers:{
         'Content-Type': 'application/json',
         'token' : token

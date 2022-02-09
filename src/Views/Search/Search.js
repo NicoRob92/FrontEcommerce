@@ -1,83 +1,53 @@
-import { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
-import axios from 'axios';
-import faker from 'faker';
-import Post from '../../containers/Post/Post';
-import Categories from '../../containers/Categories/Categories';
-import styles from './_Search.module.scss';
-import * as actionsCreators from '../../ducks/actions/actionCreators';
-import NotFound from '../../components/NotFound/NotFound';
-
+import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import Post from "../../containers/Post/Post";
+import Categories from "../../containers/Categories/Categories";
+import styles from "./_Search.module.scss";
+import NotFound from "../../components/NotFound/NotFound";
+import * as actionCreators from "../../ducks/actions/actionCreators";
 const Search = () => {
-  const { name } = useParams();
-  const state = useSelector((state) => state.reducer.categories);
-  const chosenCategories = useSelector(
-    (state) => state.reducer.chosenCategories
-  );
   const dispatch = useDispatch();
-  const [filter, setFilter] = useState(null);
-  const [category, setCategory] = useState(null);
-  let arrayId = [];
-
-  const getPostByName = async () => {
-    const arr = await axios.get(`http://localhost:4000/api/post?name=${name}`);
-    let array = arr.data;
-    array.forEach((e) => {
-      e.image = faker.image.image(350, 350, true);
-    });
-    setFilter(array);
-  };
-
-  let categories = filter ? filter?.map((e) => e.Categories) : null;
-  let categoriesId = categories?.flat().map((e) => e.id);
-  let id = new Set(categoriesId);
-  for (const num of id) {
-    arrayId.push(num);
-  }
-  let arrayCategory = [];
-  arrayId.forEach((e) => arrayCategory.push(state.filter((x) => x.id === e)));
-
+  const { name } = useParams();
+  const categories = useSelector((state) => state.reducer.categories);
+  const chosenCategories = useSelector((state) => state.reducer.chosenCategories);
+  const postsByName = useSelector((state) => state.reducer.postsByName);
+  const filteredPostsByCategory = useSelector((state) => state.reducer.filteredPostsByCategory);
+  
+  const toShow = filteredPostsByCategory.length
+    ? filteredPostsByCategory
+    : postsByName;
   useEffect(() => {
-    getPostByName();
+    dispatch(actionCreators.getPostsByName(name));
   }, [name]);
-
   useEffect(() => {
-    setCategory(arrayCategory.flat());
-  }, [state]);
-
-  useEffect(() => {
-    let element = document.getElementById('categories');
+    let element = document.getElementById("categories");
     element
-      ? element?.classList
-          .add(`${styles.categories}`)
-          
+      ? element?.classList.add(`${styles.categories}`)
       : element?.classList.remove(`${styles.categories}`);
   }, [name]);
-
-  const setCategoriesToFilter = (e) => {
-    const target = e.target;
-    let index = chosenCategories.findIndex((e) => e === target.id);
-    if (target.checked && index === -1) {
-      dispatch(actionsCreators.chooseCategories(target.id, 'add category'));
-    } else if (!target.checked && index !== -1) {
-      dispatch(
-        actionsCreators.chooseCategories(target.id, 'remove category', index)
-      );
-    }
+  console.log(filteredPostsByCategory)
+  const setCategories = (e) => {
+    let index = chosenCategories.findIndex((index) => index === Number(e.target.value));
+    if (e.target.checked && index === -1) dispatch(actionCreators.chooseCategories(Number(e.target.value), "add"));
+    else if (!e.target.checked && index !== -1) dispatch(actionCreators.chooseCategories(Number(e.target.value), "remove", index));
+    else if (e.target.id === "reset") dispatch(actionCreators.resetCategories());
+    else if (e.target.id === "filter") dispatch(actionCreators.filterPostsByCategory("search"));
   };
-
+  useEffect(() => {
+    return () => {
+      dispatch(actionCreators.resetCategories());
+    };
+  }, []);
   return (
     <div className={styles.container}>
-      <Categories        
-        categories={arrayCategory.flat()}
-        setCategoriesToFilter={setCategoriesToFilter}
+      <Categories
+        categories={categories}
+        setCategories={setCategories}
         chosenCategories={chosenCategories}
       />
-
-      {filter?.length > 0 ? <Post array={filter} /> : <NotFound />}
+      {postsByName?.length > 0 ? <Post array={toShow} /> : <NotFound />}
     </div>
   );
 };
-
 export default Search;

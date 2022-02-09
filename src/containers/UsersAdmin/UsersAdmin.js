@@ -72,6 +72,10 @@ export const UsersAdmin = () => {
     dispatch(getUsers(token));
   }, [dispatch]);
 
+  useEffect(() => {
+    dispatch(getUsers(token));
+  }, [show]);
+
   const [input, setInput] = useState({
     option: '',
     value: '',
@@ -94,12 +98,12 @@ export const UsersAdmin = () => {
           <select
             name='options'
             onChange={(e) => setInput({ ...input, option: e.target.value })}>
-            <option disabled='disabled' defaultValue={true}>
+            <option defaultValue={true}>
               Filtro
             </option>
-            <option value='id'>User ID</option>
-            <option value='username'>Username</option>
-            <option value='email'>Email</option>
+            <option key={'id'} value='id'>User ID</option>
+            <option key={'user'} value='username'>Username</option>
+            <option key={'emai'} value='email'>Email</option>
           </select>
           <input
             type='text'
@@ -204,7 +208,7 @@ export const UsersAdmin = () => {
           {toShow ? (
             toShow.map((e) => (
               <div key={e.id} className={styles.actions}>
-                <button key={e.id} onClick={(x) => handleEditPass(e.id)}>
+                <button key={e.name} onClick={(x) => handleEditPass(e.id)}>
                   <svg
                     width='25'
                     height='25'
@@ -241,7 +245,7 @@ export const UsersAdmin = () => {
                     />
                   </svg>
                 </button>
-                <button key={e.id} onClick={(x) => handleEditRol(e.id)}>
+                <button key={e.name+'key'} onClick={(x) => handleEditRol(e.id)}>
                   <svg
                     width='25'
                     height='25'

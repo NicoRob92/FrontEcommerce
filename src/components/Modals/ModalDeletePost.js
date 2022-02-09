@@ -1,6 +1,7 @@
 import styles from './_Modal.module.scss';
 import { useState } from 'react';
 import axios from 'axios'
+import {api} from '../../credentials'
 
 
 
@@ -10,7 +11,7 @@ export const ModalDeletePost = ({ id, hidden, show }) => {
   const [success, setSuccess] = useState(false)  
 
   const updateRol = async () => {
-   return await axios.delete(`http://localhost:4000/api/admin/post/${id}`,{
+   return await axios.delete(`${api}admin/post/${id}`,{
       headers:{
         'Content-Type': 'application/json',
         'token' : token

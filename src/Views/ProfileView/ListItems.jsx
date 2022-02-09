@@ -10,7 +10,7 @@ import TextField from '@mui/material/TextField';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 import {putUser} from '../../ducks/actions/actionCreators'
 import styles from './_ProfileView.module.scss'
-
+import validate from "./Validation";
 
 const ListItems = ({ label, text }) => {
   const dispatch = useDispatch()
@@ -18,6 +18,7 @@ const ListItems = ({ label, text }) => {
   const token = localStorage.getItem("token")
   const [visible, setVisible] = useState(false)
   const [input, setInput] = useState('')
+  const [errors, setErrors] = useState('')
   const type = label
 
   const handleShowForm = (e) => {
@@ -37,6 +38,11 @@ const ListItems = ({ label, text }) => {
     setVisible(false)
   }
 
+  const handleBlur = () => {
+    setErrors(validate(label, input));
+  };
+
+
   return (
     <ListItem sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center', padding: '20px' }}>
       <ListItem disablePadding>
@@ -53,8 +59,22 @@ const ListItems = ({ label, text }) => {
         <ListItem disablePadding>
           <form onSubmit={(e) => handleSubmit(e)}>
             <div className={styles.button_container}>
-            <TextField size="small" id="outlined-basic" label={label} variant="outlined" value={input} onChange={handleChangeInput} />
+            <TextField 
+            size="small" 
+            id="outlined-basic" 
+            label={label} 
+            variant="outlined" 
+            value={input} 
+            onChange={handleChangeInput} 
+            onBlur={handleBlur} 
+            error = {errors ? true : false}
+            helperText={errors ? errors : null}/>
+            {input 
+            ?
             <Button type="submit" size="small" sx={{marginLeft: '5px'}} variant="outlined">Save</Button>
+            : 
+            <Button disabled type="submit" size="small" sx={{ marginLeft: '5px' }} variant="outlined">Save</Button>
+          }
             </div>
           </form>
         </ListItem>

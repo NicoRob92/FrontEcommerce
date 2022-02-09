@@ -1,14 +1,15 @@
 import * as actionTypes from "../actions/actionTypes";
 
 const initialState = {
+  posts: [],
+  postsByName: [],
   categories: [],
   chosenCategories: [],
   categoryPost: [],
-  posts: [],
   cart: [],
   users: [],
   countries: [],
-  filteredPostByCategory: [],
+  filteredPostsByCategory: [],
   postById: [],
   orders: [],
   reviews: [],
@@ -18,8 +19,12 @@ export default function Product(state = initialState, action) {
   switch (action.type) {
     case actionTypes.GET_POSTS:
       return {
+        ...state,posts: action.payload,
+      };
+    case actionTypes.GET_POSTS_BY_NAME:
+      return {
         ...state,
-        posts: action.payload,
+        postsByName: action.payload,
       };
     case actionTypes.GET_CATEGORIES:
       return { ...state, categories: action.payload };
@@ -42,37 +47,64 @@ export default function Product(state = initialState, action) {
         postById: action.payload,
       };
 
-    case actionTypes.CHOOSE_CATEGORIES:
-      if (action.info === "add category") {
+      case actionTypes.CHOOSE_CATEGORIES:
+        if (action.info === "add") {
+          return {
+            ...state,
+            chosenCategories: [...state.chosenCategories, action.payload],
+          };
+        } else if (action.info === "remove") {
+          return {
+            ...state,
+            chosenCategories: state.chosenCategories.filter((e, i) => i !== action.index),
+          };
+        }
+        break;
+  
+      case actionTypes.RESET_CATEGORIES:
         return {
           ...state,
-          chosenCategories: [...state.chosenCategories, action.payload],
+          chosenCategories: [],
+          filteredPostsByCategory: [],
         };
-      } else if (action.info === "remove category") {
-        return {
-          ...state,
-          chosenCategories: state.chosenCategories.filter(
-            (e, i) => i !== action.index
-          ),
-        };
-      }
-      break;
-    case actionTypes.RESET_CATEGORIES:
-      return {
-        ...state,
-        chosenCategories: [],
-        filteredPostByCategory: [],
-      };
+  
       case actionTypes.FILTER_POSTS_BY_CATEGORY:
-      const categoriesInOrder = state.chosenCategories.sort();
-      return {
-        ...state,
-        filteredPostByCategory: state.posts.filter((post) => {
-          console.log(String(post.Categories[0].id))
-          if (categoriesInOrder.toString().includes(String(post.Categories[0].id))) return true;
-          else return false;
-        }),
-      };
+        if (action.info === "market") {
+          const categoriesInOrder = state.chosenCategories.sort();
+          return {
+            ...state,
+            filteredPostsByCategory: state.posts.filter((post) => {
+              if (
+                categoriesInOrder
+                  .toString()
+                  .includes(String(post.Categories[0].id))
+              )
+                return true;
+              else return false;
+            }),
+          };
+        }
+        if (action.info === "search") {
+          console.log("antes", state.chosenCategories)
+          const categoriesInOrder = state.chosenCategories.sort((a,b) => a-b).toString();
+          
+          return {
+            ...state,
+            filteredPostsByCategory: state.postsByName.filter((post) => {
+              let categories = post.Categories.map((category) => category.id);
+              categories = categories.sort((a, b) => a - b).toString();
+              console.log("categorias elegidas en orden",categoriesInOrder)
+              console.log("categorias de cada post en orden",categories)
+              console.log("coinciden?", categories === categoriesInOrder)
+              if (categoriesInOrder.includes(categories)) {
+                return true
+              } else {
+                return false
+              }
+            })
+          };
+        }
+      break
     case actionTypes.SET_CART:
       return {
         ...state,
@@ -91,14 +123,13 @@ export default function Product(state = initialState, action) {
           : state.orders.filter((e) => e.status === action.payload);
       return {
         ...state,
-        orders: sortedOrder
-      }
+        orders: sortedOrder,
+      };
     case actionTypes.CREATE_POST:
-    
       return {
         ...state,
-        postById:action.payload
-      }
+        postById: action.payload,
+      };
 
     default:
       return state;

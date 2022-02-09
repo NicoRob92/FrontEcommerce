@@ -21,10 +21,7 @@ const Categories = ({ categories, setCategories, chosenCategories }) => {
           />
         ))}
        
-          <FilterReset setCategories={setCategories} />
-      
-
-       
+          <FilterReset setCategories={setCategories} />      
           <FilterSubmit setCategories={setCategories} />
      
       </form>
