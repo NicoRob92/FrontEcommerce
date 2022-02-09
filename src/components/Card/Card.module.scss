@@ -9,19 +9,22 @@
 }
 
 .link {
+  // text-decoration: none;
+  // color: rgb(0, 0, 0);
+  // transition: all 0.3s ease;
+  // min-width: 15%;
+  // background-color: #c4c4c4;
+  // height: 100%;
+  // box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.4);
+  // margin: 0.5%;
+  // display: flex;
+  // align-items: center;
+  // flex-direction: column;
+  // border:none;
+  // outline:1px solid black;
   text-decoration: none;
-  color: rgb(0, 0, 0);
-  transition: all 0.3s ease;
-  min-width: 15%;
-  background-color: #c4c4c4;
-  height: 100%;
-  box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.4);
-  margin: 0.5%;
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  border:none;
-  outline:1px solid black;
+  margin-left: 10px;
+  margin-right: 10px;
   
 }
 .link:hover {
