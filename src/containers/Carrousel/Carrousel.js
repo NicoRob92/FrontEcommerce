@@ -60,6 +60,7 @@ const [array,setArray] = useState(arr)
             detail={e.detail}
             price={e.price}
             id={e.id}
+            ratingProm={e.ratingProm}
           />
         ))}
       </div>
