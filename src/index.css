@@ -1,3 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Bebas+Neue&family=EB+Garamond:wght@500&family=Gruppo&family=Kaushan+Script&family=Michroma&family=Mitr:wght@500&family=Sriracha&display=swap');
+/* 
+font-family: 'Anton', sans-serif;
+font-family: 'Bebas Neue', cursive;
+font-family: 'EB Garamond', serif;
+font-family: 'Gruppo', cursive;
+font-family: 'Mitr', sans-serif;
+font-family: 'Kaushan Script', cursive;
+font-family: 'Michroma', sans-serif;
+font-family: 'Sriracha', cursive; 
+*/
+
 html {
   box-sizing: border-box;
   
@@ -10,7 +22,7 @@ html {
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    'Mitr',"Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale; 

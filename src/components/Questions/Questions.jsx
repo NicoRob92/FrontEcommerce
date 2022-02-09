@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { createQuestion } from '../../ducks/actions/actionCreators';
+import { useDispatch,useSelector } from 'react-redux';
+import { createQuestion,getPostById } from '../../ducks/actions/actionCreators';
 import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
@@ -11,11 +11,11 @@ import QuestionCard from './QuestionCard';
 import SendIcon from '@mui/icons-material/Send';
 import styles from './_Questions.module.scss'
 
-const Questions = ({ Questions, PostId }) => {
+function Questions ({ PostId }){
     const dispatch = useDispatch()
     const token = localStorage.getItem('token')
     const [input, setInput] = useState('')
-
+    const lQuestions = useSelector((state) => state.reducer.postById.Questions)
     const handleInputChange = (e) => {
         setInput(e.target.value)
     }
@@ -23,22 +23,25 @@ const Questions = ({ Questions, PostId }) => {
     const handleSubmit = (e) => {
         e.preventDefault()
         dispatch(createQuestion({ PostId: PostId, description: input }, token))
+        dispatch(getPostById(PostId))
+        dispatch(getPostById(PostId))
+        setInput("")
     }
     return (
         <div>
-            <h5 className={styles.title_questions}>Do you have any question?</h5>
+            <h5 className={styles.title_questions}>¿Tienes alguna duda?</h5>
             {/* Display questions */}
             <div>
-                {Questions ?
-                    Questions.map((q) => (
-                        <QuestionCard key={q.id} id={q.id} description={q.description} reply={q.reply} />
+                {lQuestions.length>0 ?
+                    lQuestions.map((q) => (
+                        <QuestionCard postId={PostId}key={q.id} id={q.id} description={q.description} reply={q.reply} />
                     ))
-                    : <h6>This product does not have any questions yet</h6>
+                    : <h6>Este producto no tiene preguntas aun.</h6>
                 }
             </div>
             <Accordion>
                 <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                    <h6>Write your Question </h6>
+                    <h6>Escribe tu pregunta</h6>
                 </AccordionSummary>
                 <AccordionDetails>
                     <form onSubmit={handleSubmit}>

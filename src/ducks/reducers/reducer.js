@@ -13,7 +13,12 @@ const initialState = {
   postById: [],
   orders: [],
   reviews: [],
+<<<<<<< HEAD
   name: "",
+=======
+  name:'',
+  google:''
+>>>>>>> 872e6d2e4edbfed6f64bb3afc4947298664fcd14
 };
 
 export default function Product(state = initialState, action) {
@@ -146,11 +151,25 @@ export default function Product(state = initialState, action) {
         ...state,
         postById: action.payload,
       };
+<<<<<<< HEAD
     case "SETNAME":
       return {
         ...state,
         name: action.payload,
       };
+=======
+    case 'SETNAME': return {
+      ...state,
+      name: action.payload
+    }
+    case 'GOOGLE':
+    console.log("GOOGLE", action.payload)  
+    return{
+      ...state,
+      google:action.payload
+    }
+
+>>>>>>> 872e6d2e4edbfed6f64bb3afc4947298664fcd14
 
     default:
       return state;

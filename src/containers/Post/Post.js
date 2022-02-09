@@ -2,6 +2,7 @@ import { PostCard } from '../../components/PostCard/PostCard';
 import styles from './_Post.module.scss';
 import { useState, useEffect } from 'react';
 import Paginado from './paginado';
+import { Loader } from '../../components/Loader/loader';
 
 const Post = ({ array }) => {
   const [current, setCurrent] = useState(1);
@@ -33,12 +34,12 @@ const Post = ({ array }) => {
       {array ? (
         postToShow?.map((e) => <PostCard key={e.id} post={e} />)
       ) : (
-        <h1>Loading</h1>
+        <Loader/>
       )}
       </div>
       <div className={styles.buttons}>
 
-          <button onClick={(e)=> prev(e)}>Prev</button>
+        <button onClick={(e)=> prev(e)}>Prev</button>
         <Paginado itemsP={postPerPage} array={posts} paginate={paginate} />
         <button onClick={(e)=> next(e)}>Next</button>
 
