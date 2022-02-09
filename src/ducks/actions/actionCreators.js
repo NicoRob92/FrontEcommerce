@@ -289,7 +289,7 @@ export function replyQuestion(input, token){
   }
 }
 
-export function setName(input){
+export function changeName(input){
   return{ 
     type:'SETNAME',
     payload:input

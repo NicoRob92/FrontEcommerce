@@ -3,7 +3,7 @@ import { setToken, setUsers, resetLogin } from '../../services/auth';
 import { UserLogin } from '../../services/login';
 import { useHistory } from 'react-router-dom';
 import styles from './_Login.module.scss';
-import {setName} from '../../ducks/actions/actionCreators'
+import {changeName} from '../../ducks/actions/actionCreators'
 import {useDispatch} from 'react-redux'
 export const Login = ({ show, handleUser}) => {
   const history = useHistory()
@@ -30,7 +30,7 @@ export const Login = ({ show, handleUser}) => {
         id: login.id,
         email: login.email,
       };
-      dispatch(setName(login.username))
+      dispatch(changeName(login.username))
       setToken(login.token);
       setUsers(loggedUser);
       history.push('/')
