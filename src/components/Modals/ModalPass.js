@@ -10,6 +10,7 @@ export const ModalPass = ({ id, hidden, show }) => {
   const dispatch = useDispatch()
   const token = localStorage.getItem('token')
   const [success, setSuccess] = useState(false)
+  const [errors, setErrors] = useState({})
   const [password, setPassword] = useState({
     password: '',
     confirmPassword: '',    
@@ -46,6 +47,28 @@ export const ModalPass = ({ id, hidden, show }) => {
     }
   }
 
+  const validate = (input) => {
+    let errors = {}
+    if (!input.password) {
+      errors.password = "a password is required";
+    } else if (
+      !/^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}$/.test(input)
+    ) {
+      errors.password =
+        "A valid password is required, at least one number, at least one special character, 6-16 characters";
+    }
+
+    if (input.password !== input.confirmPassword) {
+      errors.confirmPassword = "Password is different"
+    }
+    return errors
+  }
+
+
+  const handleBlur = () => {
+    setErrors(validate(password))
+  }
+   
   return (
     <div className={styles.modal} hidden={hidden}>
       <div className={styles.container}>
@@ -87,8 +110,10 @@ export const ModalPass = ({ id, hidden, show }) => {
               name='password'
               value={password.password}
               onChange={(e) => onChange(e)}
+              onBlur={handleBlur}
             />
           </div>
+          {errors.password ? <p>{errors.password}</p> : null}
           <div className={styles.item}>
             <label>Confirm Password</label>
             <input
@@ -96,10 +121,11 @@ export const ModalPass = ({ id, hidden, show }) => {
               name='confirmPassword'
               value={password.confirmPassword}
               onChange={(e) => onChange(e)}
+              onBlur={handleBlur}
             />
           </div>
-
-          <button type='submit'>Change Password</button>
+            {errors.confirmPassword ? <p>{errors.confirmPassword}</p> : null}
+          <button disabled={errors ? true : false} type='submit'>Change Password</button>
         </form>
         {success === true ? <h1 className={styles.success}>Succesfully changed password</h1> : null}
       </div>
