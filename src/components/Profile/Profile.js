@@ -17,6 +17,7 @@ export const Profile = ({ show }) => {
   const [showMenu, setShowMenu] = useState(false);
   const usuario = useSelector((state) => state.user.user)
   console.log(usuario)
+
   const handleLogOut = (e) => {
     e.preventDefault();
     resetLogin();
@@ -31,11 +32,13 @@ export const Profile = ({ show }) => {
 
   const closeMenu = () => {
     setShowMenu(!showMenu);
+
   };
 
   useEffect(() => {
     dispatch(getUserById(id, token))
-  },[name])
+  },[name])  
+  
 
   return (
     <div className={style.container}>

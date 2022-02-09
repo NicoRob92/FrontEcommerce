@@ -290,6 +290,7 @@ export function replyQuestion(input, token){
 }
 
 export function changeName(input){
+
   return{ 
     type:'SETNAME',
     payload:input

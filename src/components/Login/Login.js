@@ -30,7 +30,9 @@ export const Login = ({ show, handleUser}) => {
         id: login.id,
         email: login.email,
       };
+
       dispatch(changeName(login.username))
+
       setToken(login.token);
       setUsers(loggedUser);
       history.push('/')
