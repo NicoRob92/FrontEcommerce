@@ -6,15 +6,11 @@ import { NavLink, useLocation } from 'react-router-dom';
 export const LoginView = () => {
 
   const [name, setName] = useState(localStorage.getItem('username'));
-
-
   return (
     <div className={styles.container}>
       <div className={styles.center}>
         <div className={styles.logs}>
-
           <Login setName={setName}/>
-
           <span className={styles.separador}/>
           <Google/>
         </div >

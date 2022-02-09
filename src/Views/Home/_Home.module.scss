@@ -14,14 +14,17 @@
   background-size: 100% 100%;
 }
 
-.separador {
+.separadorH {
+  position: relative;
+  top:5%;
   width: 90%;
   border: solid 1px;
 }
 .carrousel {
   width: 80%;
   height: 50%;
-  margin: 0;
+  margin-top: 5%;
+  margin-bottom: 5%;
 
   h1 {
     align-self: center;
@@ -33,6 +36,11 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  h1{
+
+    font-family: 'Kaushan Script', cursive;
+  }
+
   
 }
 
@@ -47,7 +55,7 @@
   border-radius: 8px;
   box-shadow: 0px 10px 15px -3px rgba(0,0,0,0.4);
   transition: all 0.3s;
- 
+  margin-bottom: 20px;
 }
 
 .link:hover{

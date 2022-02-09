@@ -18,7 +18,7 @@ const Confirm = ({ nextStep, prevStep, input,errors, handleSubmit,allCategories 
 
 
     }
-
+    let withoutData= <span className="text-danger">No especifícado</span>
     const back = e => {
         e.preventDefault()
         prevStep()
@@ -34,28 +34,30 @@ const Confirm = ({ nextStep, prevStep, input,errors, handleSubmit,allCategories 
                     </li>
                     <li className="list-group-item" name="categoryId" >
                       <h2>Categorias</h2>
-                    {input.Categories?.map((c,i)=>{
+                    {input.Categories.length==0?
+                      withoutData
+                      : input.Categories?.map((c,i)=>{
                       let cat = allCategories.filter(e=>e.id==c)
                       return(
                         <span className="card d-inline" key={i}>
                            {` ${cat[0].name} `}
                         </span>
                       )
-                    })}
+                    }) }
                     </li>
 
                     <li className="list-group-item" name="stock" >
                     <h2>Stock</h2>
-                       {input.stock}
+                       {input.stock || withoutData}
                     </li>
 
                     <li className="list-group-item" name="description" >
                     <h2>Description</h2>
-                    {input.description}
+                    {input.description|| withoutData}
                     </li>
                     <li className="list-group-item" name="price" >
                     <h2>Precio</h2>
-                    $ {input.price}
+                    $ {input.price|| withoutData}
                     </li>
                 </ul>
                 <button type="submit" className="btn btn-primary" onClick={continues}>Confirmar</button>

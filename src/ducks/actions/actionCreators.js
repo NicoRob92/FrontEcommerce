@@ -9,6 +9,7 @@ const getUsersUrl = api + 'admin/users';
 const User = api + 'user/'
 const getCountriesUrl = api + 'countries';
 const Review = api + 'admin/review/';
+const publicReview = api + 'review/';
 const Orders = api + 'admin/orders';
 const questions = api + 'customer/question'
 
@@ -172,7 +173,7 @@ export function postReview(payload, token) {
 
 export function getReview(id, token) {
   return function (dispatch) {
-    return fetch(Review + id, {
+    return fetch(publicReview + id, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -295,9 +296,9 @@ export function replyQuestion(input, token){
 
 export function changeName(input){
 
-  return{ 
+  return{
     type:'SETNAME',
     payload:input
-  
+
   }
 }

@@ -81,7 +81,7 @@ const FormProductDetail = ({
             </div>
             <div className="upload-text">
 
-              <span>Subir</span>{" "}
+              <span>Subir foto</span>{" "}
             </div>
             <input
               type="file"

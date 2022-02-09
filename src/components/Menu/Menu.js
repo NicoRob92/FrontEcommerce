@@ -1,10 +1,8 @@
 import style from './_Menu.module.scss';
-import {useEffect, useState} from 'react';
- 
- 
+import { useEffect, useState } from 'react';
 
 import { NavLink } from 'react-router-dom';
-export const Menu = ({ user, handleLogOut, close,show }) => {
+export const Menu = ({ user, handleLogOut, close, show }) => {
   const rol = localStorage.getItem('rol');
   const id = localStorage.getItem('userId');
 
@@ -46,25 +44,28 @@ export const Menu = ({ user, handleLogOut, close,show }) => {
           </svg>
         </button>
       </div>
-      <hr/>
+      <hr />
       <div className={style.articles}>
-     
-          <NavLink  className={style.link} to={`/user/profile/${id}`}>Perfil</NavLink>
-      
+        <NavLink className={style.link} to={`/user/profile/${id}`}>
+          Perfil
+        </NavLink>
 
-      
-          <NavLink className={style.link} to={'/new-post'}>Post</NavLink>
-       
-     
-          <NavLink className={style.link} to={"/compras"}>Compras</NavLink>
-    
-       
-          <NavLink className={style.link} to={"/compras"}>Ventas</NavLink>
-      
+        <NavLink className={style.link} to={'/new-post'}>
+          Post
+        </NavLink>
+
+        <NavLink className={style.link} to={'/compras'}>
+          Compras
+        </NavLink>
+
+        <NavLink className={style.link} to={'/compras'}>
+          Ventas
+        </NavLink>
+
         {rol === 'admin' ? (
-          
-            <NavLink className={style.link} to={'/admin'}>Administracion</NavLink>
-         
+          <NavLink className={style.link} to={'/admin'}>
+            Administracion
+          </NavLink>
         ) : null}
       </div>
 

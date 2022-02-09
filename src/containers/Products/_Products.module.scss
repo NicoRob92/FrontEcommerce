@@ -1,13 +1,9 @@
 .productsContainer {
   display: flex;
-  position: relative;
-  flex-flow: row wrap;
+  flex-flow: wrap;
   justify-content: center;
-  align-items: center;
-  height: auto;
-  width: 1200px;
-  margin: 0 auto;
-  box-shadow: 5px 5px 8px #34344a;
-  background-color: white;
+  align-items: flex-start;
+  height: 98%;
+  width: 70%;
 }
 
