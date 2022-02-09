@@ -8,10 +8,23 @@ export const ModalStateOrder = ({ id, hidden, show }) => {
   const token = localStorage.getItem('token')
   const [success, setSuccess] = useState(false)
   const [status, setStatus] = useState('');
-
+  const [errors, setErrors] = useState('')
+ 
   const onChange = (e) => {
     setStatus(e.target.value)
   };
+
+  const validate = (input) => {
+    let errors = ''
+    if (!input) {
+      errors = 'Status for the order is required'
+    }
+    return errors
+  }
+
+  const handleBlurError = () => {
+    setErrors(validate(status))
+  }
 
   const body = {
     status:status
@@ -73,14 +86,14 @@ export const ModalStateOrder = ({ id, hidden, show }) => {
         <form className={styles.form} onSubmit={(e)=>onSubmit(e)}>
           <div className={styles.item}>
             <label>Select an option</label>
-            <select onChange={(e) => onChange(e)}>
+            <select onChange={(e) => onChange(e)} onBlur={handleBlurError}>
             <option type='checkbox' value='creada' key='creada'>Creada</option>
             <option type='checkbox' value='procesada' key='procesada'>procesada</option>
             <option type='checkbox' value='completada' key='completada'>completada</option>
             </select>
           </div>
-
-          <button type='submit'>Change Status</button>
+          {errors ? <p>{errors}</p> : null }
+          <button disabled={errors ? true : false} type='submit'>Change Status</button>
         </form>
         {success === true ? <h1 className={styles.success}>Status Changed</h1> : null}
       </div>

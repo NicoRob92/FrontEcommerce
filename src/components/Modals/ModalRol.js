@@ -10,6 +10,7 @@ export const ModalRol = ({ id, hidden, show }) => {
   const dispatch = useDispatch()
   const token = localStorage.getItem('token')
   const [success, setSuccess] = useState(false)
+  const [errors, setErrors] = useState('')
   const [rol, setRol] = useState({
     input: '',
     id: id,    
@@ -44,6 +45,18 @@ export const ModalRol = ({ id, hidden, show }) => {
     }
   }
 
+  const validate = (input) => {
+    let error = ''
+    if (!input.input) {
+      error = "A role is required"
+    }
+    return error
+  }
+
+  const handleBlurErrors = () => {
+    setErrors(validate(rol))
+  }
+ 
   return (
     <div className={styles.modal} hidden={hidden}>
       <div className={styles.container}>
@@ -81,13 +94,14 @@ export const ModalRol = ({ id, hidden, show }) => {
         <form className={styles.form} onSubmit={(e)=>onSubmit(e)}>
           <div className={styles.itemrol}>
             <label> Elegir Rol </label>
-            <select onChange={(e)=> onChange(e)} name='input'>
+            <select onChange={(e)=> onChange(e)} name='input' onBlur={handleBlurErrors}>
                 <option key='0' defaultValue={true}>Select</option>
                 <option key='1' value='user'>User</option>
                 <option key='2' value='admin'>Admin</option>
             </select>
             </div>
-          <button type='submit'>Change Rol</button>
+            {errors ? <p>{errors}</p> : null}
+          <button disabled={errors ? true : false} type='submit'>Change Rol</button>
         </form>
         {success === true ? <h1 className={styles.success}>Succesfully changed Rol</h1> : null}
       </div>
