@@ -55,7 +55,7 @@ const [array,setArray] = useState(arr)
         {selectedImage?.map((e) => (
           <Card
             key={e.id}
-            image={e.image}
+            image={e.Images[0].link}
             title={e.name}
             detail={e.detail}
             price={e.price}

@@ -1,44 +1,95 @@
 @import '../../sass/variables.scss';
 
 .menu {
+  position:sticky;
   width: 100%;
-  background-color: $CPrimary;
-  color: $CFourth;
+  background-color: rgba(0,0,0,.5);
+  backdrop-filter: blur(6px);
   transition: 0.4s;
   display:flex;
   flex-direction: column;
   align-items: flex-start;
-  
+  height:100%;
 }
+
 
 .tittle{
   display: flex;
   justify-content: space-around;
-  align-items: flex-start;
+  align-items: center;
   align-content: center;
   width: 100%;
-  border-bottom: 1px solid white;
+  height: 7%;
   h5{
     display: flex;
     align-items: center;
+    font-size:1.4rem;
+    width: 80%;
+    height: 80%;
+    margin-left: 3%;
+    font-family: 'Mitr', sans-serif;  
   }
+}
+
+hr{
+  color:white;
+  border:1px solid white;
+  width: 100%;
+}
+
+.articles{
+  
+  width: 100%;
+  height: 30%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content:flex-start;
+}
+
+.link{
+  width: 90%;
+  display: flex;
+  height:15%;
+  justify-content:center;
+  align-items:center;
+  color: black;
+  font-weight:600;
+  text-decoration: none;
+  text-align: center;  
+  background-color: white;
+  box-shadow: 0px 10px 15px -3px rgba(0,0,0,0.5);
+  transition: all 0.3s;
+  border-bottom: 1px solid black;
+  border-radius: 4px;
+  margin:2%
+}
+.link:hover{
+  transform: scale(1.1,1.1);
+  transition: all 0.3s;
+  color:black;
+
 }
 
 .closeButton{
   border-radius:50px;
+  border:none;
   display:flex;
   align-items: center;
   justify-content: center;
   background-color: transparent;
-  border:none;
 }
 
 .logout{
-  justify-self: flex-end;
   background-color: transparent;
   border:none;
-  align-self: flex-end;
+  width:30%;
+  height:15%;  
+  margin-top: 30%;
+  align-self: center;
 }
+
+
 
 @media screen and (min-width:$width-notebook){
   .menu{

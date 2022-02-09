@@ -34,18 +34,20 @@ const ReviewForm = ({ ProductId, token }) => {
     e.preventDefault();
     dispatch(postReview({description: input, rating: value, PostId: ProductId, author: userName}, token));
     dispatch(getReview(ProductId,""))
+    setInput("")
+    setValue(1)
   };
 
   return (
     <div>
       <Accordion>
         <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-          <h6>Leave a comment</h6>
+          <h6>Dejar una reseña</h6>
         </AccordionSummary>
         <AccordionDetails>
           <form onSubmit={handleSubmit}>
             {/* <div> */}
-            <h6>Rate Product</h6>
+            <h6>Califica el producto</h6>
             <Rating
                 sx={{marginBottom: '10px'}}
                 name="simple-controlled"
@@ -60,6 +62,7 @@ const ReviewForm = ({ ProductId, token }) => {
                 label="Comment"
                 multiline
                 maxRows={8}
+                value={input}
                 onChange={handleInput}
                 className={st.input_description}
               />

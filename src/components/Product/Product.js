@@ -1,14 +1,17 @@
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom';
+import Rating from "@mui/material/Rating";
 
-import styles from "./_Product.module.scss";
-const Product = ({ name, price, image, id }) => {
+import styles from './_Product.module.scss';
+const Product = ({ name, price, image, id ,ratingProm}) => {
   return (
     <Link className={styles.link} to={`/detail/${id}`}>
-      <div className={styles.productContainer}>
         <img className={styles.image} src={image} alt={name} />
-        <h5>{name}</h5>
-        <h2>{price}$</h2>
-      </div>
+        <div className={styles.about}>
+          <Rating name="read-only" value={ratingProm} readOnly />
+          <h2>$ {price}ºº</h2>
+          <h5>{name?.length > 20 ? `${name?.substring(0,20)}...`: name }</h5>
+          
+        </div>
     </Link>
   );
 };
