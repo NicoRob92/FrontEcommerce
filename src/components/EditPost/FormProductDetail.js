@@ -1,4 +1,4 @@
-import { useState } from "react/cjs/react.development";
+import { useState } from "react";
 import firebase from "../../services/firebaseStorage";
 import ConfirmDeletion  from './ConfirmDeletion'
 
@@ -68,14 +68,26 @@ const FormProductDetail = ({
       <progress value={uploadValue} max="100"></progress>
       <div className="col mb-3">
         <label className="form-label">Añade o quita imagenes</label>
+        <button className="upload-button d-flex flex-row align-items-center">
+          <div className="d-flex justify-content-center align-items-center upload-icon">
 
+            <img alt=""
+            className="d-flex justify-content-center align-items-center upload-icon"
+            src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fpngimage.net%2Fwp-content%2Fuploads%2F2018%2F06%2Ficono-nube-png-2.png&f=1&nofb=1" />
+          </div>
+          <div className="upload-text">
+
+            <span>Subir</span>{" "}
+          </div>
           <input
             type="file"
-            className="form-control form-control-sm"
+            className="btn_subir form-control form-control-sm"
             name="images"
             onChange={handleUpload}
             required
           />
+        </button>
+          
 
 
 
