@@ -13,6 +13,7 @@ export const PostAdmin = () => {
   const token = localStorage.getItem('token')
   const array = useSelector((state) => state.reducer.posts);
   const Post = array;
+  console.log(array)
   const dispatch = useDispatch();
   const [filter, setFilter] = useState(null);
   const [show, setShow] = useState(true);

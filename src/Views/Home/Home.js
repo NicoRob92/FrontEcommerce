@@ -8,6 +8,7 @@ import {getOrders,getUserById} from '../../ducks/actions/actionCreators'
 
 const Home = () => {
   const posts = useSelector((state) => state.reducer.posts.filter(post => post.postStatus === 'Activo')); 
+  
   const userId = localStorage.getItem('userId') 
   const user = useSelector((state) => state.user.user)
   const images = ["1", "2", "3", "4", "5"];
