@@ -40,6 +40,12 @@ export function getPostsByName(name) {
       .catch((err) => console.error(err));
   };
 }
+export function resetPostByName() {
+  return {
+    type: actionTypes.RESET_POST_BY_NAME
+  }
+}
+
 export function getPostById(id) {
   return function (dispatch) {
     fetch(`${getPostByIdUrl}/${id}`)
@@ -112,6 +118,12 @@ export function chooseCategories(category, info, index) {
   };
 }
 
+export function resetChosenCategories() {
+  return {
+    type: actionTypes.RESET_CHOSEN_CATEGORIES,
+  };
+}
+
 export function filterPostsByCategory(info) {
   return {
     type: actionTypes.FILTER_POSTS_BY_CATEGORY,
@@ -119,11 +131,7 @@ export function filterPostsByCategory(info) {
   };
 }
 
-export function resetCategories() {
-  return {
-    type: actionTypes.RESET_CATEGORIES,
-  };
-}
+
 
 export function setCart(post) {
   return {

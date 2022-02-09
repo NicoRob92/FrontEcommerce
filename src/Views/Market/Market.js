@@ -33,19 +33,26 @@ const Market = () => {
   let finalPostsToShow = postsToShow?.slice(toSlice.first, toSlice.last);
   
   const setPage = (e) => setCurrentPage((prevState) => (prevState = e.target.value));
+
   const setCategories = (e) => {
     let index = chosenCategories.findIndex((index) => index === Number(e.target.value));
     if (e.target.checked && index === -1) dispatch(actionCreators.chooseCategories(Number(e.target.value), "add"));
     else if (!e.target.checked && index !== -1) dispatch(actionCreators.chooseCategories(Number(e.target.value), "remove", index));
-    else if (e.target.id === "reset") dispatch(actionCreators.resetCategories());
-    else if (e.target.id === "filter") dispatch(actionCreators.filterPostsByCategory("market"));
+    else if (e.target.id === "reset") dispatch(actionCreators.resetChosenCategories());
+    else if (e.target.id === "filter") {
+      dispatch(actionCreators.filterPostsByCategory('reset'))
+      dispatch(actionCreators.filterPostsByCategory("market"))
+    };
   };
   
   useEffect(() => {
     return () => {
-      dispatch(actionCreators.resetCategories());
+      dispatch(actionCreators.resetChosenCategories());
+      dispatch(actionCreators.filterPostsByCategory('reset'));
     };
   }, []);
+
+
   return (
       <div className={styles.container}>
 
