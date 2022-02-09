@@ -1,6 +1,6 @@
 import { Fragment, useState, useRef } from "react";
 import { useDispatch } from "react-redux";
-import { postReview } from "../../ducks/actions/actionCreators";
+import { postReview,getReview } from "../../ducks/actions/actionCreators";
 import st from "./_Review.module.scss";
 // buttons
 import Stack from "@mui/material/Stack";
@@ -33,6 +33,7 @@ const ReviewForm = ({ ProductId, token }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(postReview({description: input, rating: value, PostId: ProductId, author: userName}, token));
+    dispatch(getReview(ProductId,""))
   };
 
   return (
