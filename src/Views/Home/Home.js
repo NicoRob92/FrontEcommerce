@@ -49,7 +49,7 @@ const Home = () => {
         <Carrousel cards='5' arr={destacados} />
       </div>
 
-      <span className={styles.separadorH}/>
+      <span className={styles.separadorH} />
       <div className={styles.carrousel}>
         {/* Carousel  component */}
 
@@ -63,7 +63,6 @@ const Home = () => {
       </div>
 
       {/* Footer */}
-      <div className={styles.footer}>Varias cosas aqui</div>
     </div>
   );
 };
