@@ -31,8 +31,8 @@ export default function Product(state = initialState, action) {
     case actionTypes.RESET_POST_BY_NAME:
       return {
         ...state,
-        postsByName: []
-      }
+        postsByName: [],
+      };
     case actionTypes.GET_CATEGORIES:
       return { ...state, categories: action.payload };
     case actionTypes.GET_USERS:
@@ -44,7 +44,9 @@ export default function Product(state = initialState, action) {
     case actionTypes.GET_CATEGORY_POST:
       return {
         ...state,
-        categoryPost: state.posts.filter((post) => post.categoryId === action.payload),
+        categoryPost: state.posts.filter(
+          (post) => post.categoryId === action.payload
+        ),
       };
     case actionTypes.GET_POST_BY_ID:
       return {
@@ -76,32 +78,32 @@ export default function Product(state = initialState, action) {
 
     case actionTypes.FILTER_POSTS_BY_CATEGORY:
       if (action.info === "market") {
-        const categoriesInOrder = state.chosenCategories.sort();
+        const categoriesInOrder = state.chosenCategories.sort((a, b) => a - b).toString();
         return {
           ...state,
           filteredPostsByCategory: state.posts.filter((post) => {
-            if (
-              categoriesInOrder
-                .toString()
-                .includes(String(post.Categories[0].id))
-            )
+            let categories;
+            if (post.Categories.length) {
+              categories = post.Categories?.map((category) => category.id);
+            } else if (!post.Categories.length) categories = [];
+            categories = categories.sort((a, b) => a - b).toString();
+            console.log("categorias de los posts en orden ", categories);
+            if (categories.includes(categoriesInOrder)) {
               return true;
-            else return false;
+            } else {
+              return false;
+            }
           }),
         };
       }
       if (action.info === "search") {
-        const categoriesInOrder = state.chosenCategories
-          .sort((a, b) => a - b)
-          .toString();
-
+        const categoriesInOrder = state.chosenCategories.sort((a, b) => a - b).toString();
         return {
           ...state,
           filteredPostsByCategory: state.postsByName.filter((post) => {
             let categories;
             if (post.Categories.length) {
               categories = post.Categories?.map((category) => category.id);
-            
             } else if (!post.Categories.length) categories = [];
             categories = categories.sort((a, b) => a - b).toString();
             if (categories.includes(categoriesInOrder)) {
