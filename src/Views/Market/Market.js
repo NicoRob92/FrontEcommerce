@@ -13,19 +13,25 @@ const Market = () => {
   const posts = useSelector((state) => state.reducer.posts.filter((e)=> e.postStatus === 'Activo'));
   const chosenCategories = useSelector((state) => state.reducer.chosenCategories);
   const filteredPostsByCategory = useSelector((state) => state.reducer.filteredPostsByCategory);
+
   const dispatch = useDispatch();
+
   let postsToShow = !filteredPostsByCategory.length ? posts : filteredPostsByCategory;
+
   const [currentPage, setCurrentPage] = useState(1);
   const postPerPage = 20;
+
   useEffect(() => {
     let element = document.getElementById("categories");
     element
       ? element?.classList.add(`${styles.categories}`)
       : element?.classList.remove(`${styles.categories}`);
   }, []);
+
   const totalPages = getPages(postsToShow.length, postPerPage);
   let toSlice = getPostsToShow(currentPage, postPerPage);
   let finalPostsToShow = postsToShow?.slice(toSlice.first, toSlice.last);
+  
   const setPage = (e) => setCurrentPage((prevState) => (prevState = e.target.value));
   const setCategories = (e) => {
     let index = chosenCategories.findIndex((index) => index === Number(e.target.value));

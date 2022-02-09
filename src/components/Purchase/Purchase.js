@@ -19,6 +19,7 @@ const Purchase = ({ postById }) => {
     const loggin = Boolean(localStorage.getItem("logged"));
     if (!loggin) return setLogginStatus((prevState) => (prevState = loggin));
     if (loggin) {
+      console.log(Number(localStorage.getItem("userId")))
       setLogginStatus((prevState) => (prevState = loggin));
       fetch(`${api}checkout`, {
         method: "POST",
@@ -48,6 +49,7 @@ const Purchase = ({ postById }) => {
         .then((res) => {
           if (res.status === 200 && res.statusText === "OK") return res;
         })
+        
         .then((res) => res.json())
         .then((res) => {
           setPayLink((prevState) => (prevState = res.res));
