@@ -9,7 +9,7 @@ import { useSelector } from 'react-redux';
 export const Profile = ({ show }) => {
   const history = useHistory()
   const userName = useSelector((state) => state.reducer.name)
-  console.log(userName)
+  // console.log(userName)
   const logged = localStorage.getItem('logged');
   const [name, setName] = useState('');
   const [showMenu, setShowMenu] =useState(false);
@@ -36,14 +36,10 @@ export const Profile = ({ show }) => {
    
   return (
     <div className={style.container}>
-      {logged === 'true' ? (
         <div className={style.profile}>
           <button className={style.button} onClick={(e)=> handleMenu(e)}>{name?.toUpperCase()}</button>
           {showMenu === true ? <div className={style.menu}><Menu user={name?.toUpperCase()} handleLogOut={handleLogOut} close= {closeMenu}/> </div>: null }
           </div>
-      ) : (
-        <Login show={show} setName={setName} />
-      )}
     </div>
   );
 };

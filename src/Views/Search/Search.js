@@ -13,7 +13,7 @@ const Search = () => {
   const chosenCategories = useSelector((state) => state.reducer.chosenCategories);
   const postsByName = useSelector((state) => state.reducer.postsByName);
   const filteredPostsByCategory = useSelector((state) => state.reducer.filteredPostsByCategory);
-  
+  console.log("holaaa",postsByName)
   const toShow = filteredPostsByCategory.length
     ? filteredPostsByCategory
     : postsByName;
@@ -26,7 +26,7 @@ const Search = () => {
       ? element?.classList.add(`${styles.categories}`)
       : element?.classList.remove(`${styles.categories}`);
   }, [name]);
-  console.log(filteredPostsByCategory)
+
   const setCategories = (e) => {
     let index = chosenCategories.findIndex((index) => index === Number(e.target.value));
     if (e.target.checked && index === -1) dispatch(actionCreators.chooseCategories(Number(e.target.value), "add"));

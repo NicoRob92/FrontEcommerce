@@ -86,8 +86,9 @@ export default function Product(state = initialState, action) {
           };
         }
         if (action.info === "search") {
-          console.log("antes", state.chosenCategories)
-          const categoriesInOrder = state.chosenCategories.sort((a,b) => a-b).toString();
+          // console.log("antes", state.chosenCategories)
+          const categoriesInOrder = state.chosenCategories.sort((a,b) => a-b)
+          console.log("categorias en orden", categoriesInOrder)
           
           return {
             ...state,

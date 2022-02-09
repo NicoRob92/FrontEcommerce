@@ -103,6 +103,10 @@ export function create_post(payload, token) {
 }
 
 export function chooseCategories(category, info, index) {
+  console.log("category", category)
+  console.log("category", info)
+  console.log("category", index)
+
   return {
     type: actionTypes.CHOOSE_CATEGORIES,
     payload: category,
