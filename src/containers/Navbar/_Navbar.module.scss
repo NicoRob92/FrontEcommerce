@@ -26,11 +26,18 @@
   text-decoration: none;
   text-align: center;
   border: none;
-  border-radius: 14px;
-  background-color: rgba(30, 215, 96, 1);
+  border-radius:4px;
+  background-color:#AAAAAA;
   box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.4);
-  transition: 0.3s;
+  transition: 0.3s;  
 }
+
+.login:hover {
+
+    color: black;
+
+}
+
 .cart {
   width: 35%;
   // position: relative;
@@ -44,17 +51,16 @@
     background-color: transparent;
   }
 }
-.tittle {
-  width: auto;
-  text-decoration: none;
-  color: goldenrod;
-}
-.title :focus {
-  text-decoration: none;
-}
+
+
 .market {
   text-decoration: none;
-  color: goldenrod;
+  color: black;
+  font-family: 'Kaushan Script', cursive;
+  :hover {
+    text-decoration: none;
+    color: black;
+  }
 }
 .register {
   width: 15%;

@@ -23,9 +23,10 @@
     display: flex;
     align-items: center;
     font-size:1.4rem;
-    outline: 1px solid black;
     width: 80%;
     height: 80%;
+    margin-left: 3%;
+    font-family: 'Mitr', sans-serif;  
   }
 }
 
@@ -36,31 +37,41 @@ hr{
 }
 
 .articles{
-  outline: 1px solid black;
   width: 100%;
   height: 30%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content:space-around;
+  justify-content:flex-start;
 }
 
 .link{
-  width: 60%;
+  width: 90%;
   display: flex;
-  outline: 1px solid black;
-  height:10%;
+  height:15%;
   justify-content:center;
   align-items:center;
-  color: white;
+  color: black;
+  font-weight:600;
   text-decoration: none;
   text-align: center;  
+  background-color: white;
+  box-shadow: 0px 10px 15px -3px rgba(0,0,0,0.5);
+  transition: all 0.3s;
+  border-bottom: 1px solid black;
   border-radius: 4px;
+  margin:2%
+}
+.link:hover{
+  transform: scale(1.1,1.1);
+  transition: all 0.3s;
+  color:black;
+
 }
 
 .closeButton{
   border-radius:50px;
-
+  border:none;
   display:flex;
   align-items: center;
   justify-content: center;
@@ -68,11 +79,15 @@ hr{
 }
 
 .logout{
-  justify-self: flex-end;
   background-color: transparent;
   border:none;
-  align-self: flex-end;
+  width:30%;
+  height:15%;  
+  margin-top: 30%;
+  align-self: center;
 }
+
+
 
 @media screen and (min-width:$width-notebook){
   .menu{

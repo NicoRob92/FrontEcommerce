@@ -18,8 +18,8 @@ export const Menu = ({ user, handleLogOut, close,show }) => {
             close();
           }}>
           <svg
-            width='25'
-            height='25'
+            width='32'
+            height='32'
             viewBox='0 0 32 32'
             fill='none'
             xmlns='http://www.w3.org/2000/svg'>
@@ -59,7 +59,7 @@ export const Menu = ({ user, handleLogOut, close,show }) => {
           <NavLink className={style.link} to={"/compras"}>Compras</NavLink>
     
        
-          Ventas
+          <NavLink className={style.link} to={"/compras"}>Ventas</NavLink>
       
         {rol === 'admin' ? (
           
@@ -70,9 +70,9 @@ export const Menu = ({ user, handleLogOut, close,show }) => {
 
       <button className={style.logout} onClick={(e) => handleLogOut(e)}>
         <svg
-          width='32'
-          height='32'
-          viewBox='0 0 32 32'
+          width='75'
+          height='75'
+          viewBox='0 0 45 35'
           fill='none'
           xmlns='http://www.w3.org/2000/svg'>
           <path

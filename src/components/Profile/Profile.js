@@ -15,7 +15,7 @@ export const Profile = ({ show }) => {
   const [name, setName] = useState(localStorage.getItem('username'));
   const [showMenu, setShowMenu] = useState(false);
   const usuario = useSelector((state) => state.user.user)
-  console.log(usuario)
+ 
 
   const handleLogOut = (e) => {
     e.preventDefault();
