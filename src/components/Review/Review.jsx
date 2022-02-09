@@ -16,11 +16,11 @@ const Review = ({ ProductId }) => {
         dispatch(getReview(ProductId, token))
         dispatch(getUsers(token))
     }, [dispatch])
-
+  
     return (
         <div className={st.container}>
             <div>
-                <h5>Rating and Reviews</h5>
+                <h5>Reseñas y preguntas</h5>
             </div>
             <div className={st.btns}>
                 <ReviewBar Order={setOrder} />
