@@ -1,4 +1,4 @@
-import { useState,useEffect } from "react";
+import {useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getUserById } from "../../ducks/actions/actionCreators";
 import styles from "./_ProfileView.module.scss";
@@ -17,16 +17,12 @@ import ListItemCountry from "./ListItemCountry";
 const ProfileView = () => {
     const dispatch = useDispatch();
     const user = useSelector((state) =>state.user.user);
-
-    // const user1 = useSelector((state) => state.user.user);
-
-    // const user = []
     const token = localStorage.getItem("token");
     const userId = localStorage.getItem("userId");
 
     useEffect(() => {
         dispatch(getUserById(userId, token));
-    }, []);
+    }, [dispatch]);
 
     function onSubmit() {
       dispatch(getUserById(userId, token));
