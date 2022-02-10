@@ -1,6 +1,9 @@
 @import "../../sass/variables.scss";
 .product_content {
   padding: 2rem 1rem;
+  width: 50%;
+  display: flex;
+  flex-direction: column;
   .product_title {
       font-size: 3rem;
       text-transform: capitalize;

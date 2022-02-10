@@ -32,12 +32,17 @@ const CardDetail = () => {
   return (
     <div className={styles.container}>
       <Card className={styles.detail_container}>
+        <div className={styles.left}>
         {postById.Images?.length > 0 ? (
           <DetailLeftCard postById={postById} />
         ) : null}
+        </div>
+        <div className={styles.right}>
         {postById ? <DetailRightCard postById={postById} /> : null}
         {postById ? <Purchase postById={postById} /> : null}
+        </div>
         {/* Review section */}
+
       </Card>
       <div>
           <h4>Reseñas y preguntas</h4>

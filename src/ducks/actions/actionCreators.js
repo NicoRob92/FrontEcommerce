@@ -32,10 +32,7 @@ export function getPostsByName(name) {
   return function (dispatch) {
     fetch(getPostsUrl + "?name=" + name)
       .then((res) => res.json())
-      .then((res) => {
-        res.forEach((e) => {
-          e.image = faker.image.image(350, 350, true);
-        });
+      .then((res) => {        
         dispatch({ type: actionTypes.GET_POSTS_BY_NAME, payload: res });
       })
       .catch((err) => console.error(err));
@@ -55,7 +52,7 @@ export function getPostById(id) {
         while (res.Images.length < 5) {
           res.Images = [
             ...res.Images,
-            { link: faker.image.image(350, 350, true) },
+            { link: 'https://www.haedosrl.com.ar/images/frontend/notfound.png' },
           ];
         }
         return res;
