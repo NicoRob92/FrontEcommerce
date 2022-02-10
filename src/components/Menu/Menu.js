@@ -57,11 +57,11 @@ export const Menu = ({ user, handleLogOut, close, show }) => {
         <NavLink className={style.link} to={'/compras'}>
           Compras
         </NavLink>
-
+        {rol !== 'admin' ? (
         <NavLink className={style.link} to={'/ventas'}>
           Ventas
         </NavLink>
-
+        ) : null}
         <NavLink className={style.link} to={'/my-posts'}>
           My Posts
         </NavLink>

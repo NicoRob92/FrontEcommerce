@@ -11,6 +11,7 @@ const MyPosts = () => {
     const userPosts = useSelector((state) => state.posts.UserPosts)
     const userId = localStorage.getItem('userId')
     const token = localStorage.getItem('token')
+    console.log(userPosts)
     useEffect(() => {
         dispatch(getUserPosts(userId, token))
     }, [])

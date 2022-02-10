@@ -231,7 +231,7 @@ export const PostAdmin = () => {
           {toShow ? (
             toShow.map((e) => (
               <div className={styles.item} key={e.id}>
-                {e.name}
+                {e.name.length > 15 ? `${e.name.substring(0,15)}...` : e.name}
               </div>
             ))
           ) : (
@@ -244,7 +244,7 @@ export const PostAdmin = () => {
             toShow.map((e) => (
               <div key={e.id} className={styles.item}>
                 <a
-                  href={`https://kwik-e-mart.netlify.app/detail/${e.id}`}>{`https://kwik-e-mart.netlify.app/detail/${e.id}`}</a>
+                  href={`http://localhost:3000/detail/${e.id}`}>Detail</a>
               </div>
             ))
           ) : (

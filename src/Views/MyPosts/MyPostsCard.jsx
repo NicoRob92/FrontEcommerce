@@ -20,7 +20,7 @@ const MyPostsCard = ({ id, name, Images, postStatus, price, ratingProm, stock, c
                         <h5>USD${price}</h5>
                         <Rating name="read-only" value={ratingProm} readOnly />
                         <p>Stock <span>{stock}</span></p>
-                        <p>Stado <span>{postStatus}</span></p>
+                        <p>Estado: <span>{postStatus}</span></p>
                     </CardContent>
                     <Box sx={{ display: 'flex', alignItems: 'center', pl: 1, pb: 1 }}>
                         <p>Creado: <span>{createdAt.substring(0,10)}</span></p>

@@ -15,7 +15,7 @@ export const Profile = ({ show }) => {
   const [name, setName] = useState(localStorage.getItem('username'));
   const [showMenu, setShowMenu] = useState(false);
   const usuario = useSelector((state) => state.user.user)
- 
+  console.log(usuario)
 
   const handleLogOut = (e) => {
     e.preventDefault();
@@ -24,7 +24,7 @@ export const Profile = ({ show }) => {
     history.push('/');
   };
 
-
+  const image = usuario.image || 'https://i.pinimg.com/564x/49/c5/33/49c53331d19be74b52d47fcce7e97468.jpg'
 
   const handleMenu = (e) => {
     e.preventDefault();
@@ -46,7 +46,7 @@ export const Profile = ({ show }) => {
   return (
     <div className={style.container}>
       <div className={style.profile}>
-        <img className={style.pic} src={usuario.image || 'https://i.pinimg.com/564x/49/c5/33/49c53331d19be74b52d47fcce7e97468.jpg'} alt='Not found'/>
+        <img className={style.pic} src={image} alt='not found'/>
         <button className={style.button} onClick={(e) => handleMenu(e)}>
           {usuario?.first_name?.toUpperCase() || usuario?.username?.toUpperCase() }
         </button>
