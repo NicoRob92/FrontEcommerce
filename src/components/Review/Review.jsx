@@ -11,7 +11,6 @@ const Review = ({ ProductId }) => {
     const reviews = useSelector((state) => state.review.pureReviews)
     const [order, setOrder] = useState('')
     let token = localStorage.getItem('token')
-
     useEffect(() => {
         dispatch(getReview(ProductId, token))
         dispatch(getUsers(token))
