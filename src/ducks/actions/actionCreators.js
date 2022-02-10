@@ -6,7 +6,7 @@ const getPostsUrl = api + 'post';
 export const getPostByIdUrl = api + 'posts';
 export const getCategoriesUrl = api + 'category';
 const getUsersUrl = api + 'admin/users';
-const User = api + 'admin/user/'
+const User = api + 'user/'
 const getCountriesUrl = api + 'countries';
 const Review = api + 'admin/review/';
 const publicReview = api + 'review/';
@@ -41,6 +41,12 @@ export function getPostsByName(name) {
       .catch((err) => console.error(err));
   };
 }
+export function resetPostByName() {
+  return {
+    type: actionTypes.RESET_POST_BY_NAME
+  }
+}
+
 export function getPostById(id) {
   return function (dispatch) {
     fetch(`${getPostByIdUrl}/${id}`)
@@ -113,6 +119,12 @@ export function chooseCategories(category, info, index) {
   };
 }
 
+export function resetChosenCategories() {
+  return {
+    type: actionTypes.RESET_CHOSEN_CATEGORIES,
+  };
+}
+
 export function filterPostsByCategory(info) {
   return {
     type: actionTypes.FILTER_POSTS_BY_CATEGORY,
@@ -120,11 +132,7 @@ export function filterPostsByCategory(info) {
   };
 }
 
-export function resetCategories() {
-  return {
-    type: actionTypes.RESET_CATEGORIES,
-  };
-}
+
 
 export function setCart(post) {
   return {
@@ -213,21 +221,25 @@ export function getUsers(token) {
   };
 }
 
-export function getUserById(id, token) {
+export function getUserById(id) {
   return (dispatch) => {
     return fetch(User + id, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        token: token,
-      },
+      method: "GET",     
     })
       .then((response) => response.json())
       .then((json) => {
+        console.log(json)
         dispatch({ type: actionTypes.GET_USER_BY_ID, payload: json });
       })
       .catch((e) => console.error(e));
   };
+}
+
+export function getUserGoogle(user){
+  return {
+    type:'GOOGLE',
+    payload: user
+  }
 }
 
 export function putUser(id, input, type, token) {

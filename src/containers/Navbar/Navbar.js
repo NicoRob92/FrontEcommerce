@@ -55,8 +55,8 @@ const Navbar = () => {
     <div className={styles.navbar}>
       {/* Ecommerce */}
       <div className={styles.containertitle}>
-        <Link to={'/'} className={styles.tittle}>
-          <h2>Kwik-E-Mart</h2>
+        <Link to={'/'} className={styles.market}>
+          <h1>Kwik-E-Mart</h1>
         </Link>
         <Link to={'/market'} className={styles.market}>
           <h4>Market</h4>

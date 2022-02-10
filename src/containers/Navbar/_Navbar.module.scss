@@ -1,39 +1,47 @@
-@import "../../sass/variables.scss";
-@import "../../sass/mixins.scss";
+@import '../../sass/variables.scss';
+@import '../../sass/mixins.scss';
 
 .navbar {
   display: flex;
   width: 100%;
-  height: 7vh;  
-  background: rgb(176,203,34);
-background: linear-gradient(90deg, rgba(176,203,34,1) 0%, rgba(72,138,74,0.9808298319327731) 49%, rgba(0,116,62,1) 78%);
-
+  height: 7vh;
+  background: rgb(176, 203, 34);
+  background: linear-gradient(
+    90deg,
+    rgba(176, 203, 34, 1) 0%,
+    rgba(72, 138, 74, 0.9808298319327731) 49%,
+    rgba(0, 116, 62, 1) 78%
+  );
+ z-index: 1;
 }
 
-
-
-
-
-.login{
+.login {
   margin-left: 15%;
   width: 15%;
-  height:40%;
+  height: 40%;
   font-weight: 600;
   color: black;
   font-weight: 600;
   text-decoration: none;
   text-align: center;
   border: none;
-  border-radius: 14px;
-  background-color: rgba(30, 215, 96, 1);
+  border-radius:4px;
+  background-color:#AAAAAA;
   box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.4);
-  transition: 0.3s;
+  transition: 0.3s;  
 }
+
+.login:hover {
+
+    color: black;
+
+}
+
 .cart {
-  width:35%;
+  width: 35%;
   // position: relative;
   height: 100%;
-  display:flex;
+  display: flex;
   align-items: center;
   justify-content: center;
   // left: 0;
@@ -42,22 +50,20 @@ background: linear-gradient(90deg, rgba(176,203,34,1) 0%, rgba(72,138,74,0.98082
     background-color: transparent;
   }
 }
-.tittle {
-  width: auto;
+
+
+.market {
   text-decoration: none;
-  color: goldenrod;
-  
-}
-.title :focus{
-  text-decoration: none;
-}
-.market{
-  text-decoration: none;
-  color: goldenrod;
+  color: black;
+  font-family: 'Kaushan Script', cursive;
+  :hover {
+    text-decoration: none;
+    color: black;
+  }
 }
 .register {
   width: 15%;
-  height:40%;
+  height: 40%;
   font-weight: 600;
   color: black;
   font-weight: 600;
@@ -75,42 +81,42 @@ background: linear-gradient(90deg, rgba(176,203,34,1) 0%, rgba(72,138,74,0.98082
   transition: 0.3s;
 }
 
-.containertitle{
+.containertitle {
   width: 50%;
   display: flex;
   height: 100%;
   justify-content: space-between;
   margin-right: 3%;
-  margin-left:3%;
+  margin-left: 3%;
   padding-right: 3%;
   align-items: center;
 }
 
-.containerLogin{
+.containerLogin {
   width: 50%;
   display: flex;
   height: 100%;
   justify-content: space-between;
   margin-right: 3%;
-  margin-left:3%;
+  margin-left: 3%;
   align-items: center;
 }
-.containerProfile{
+.containerProfile {
   width: 50%;
   display: flex;
   height: 100%;
   justify-content: space-between;
   margin-right: 3%;
-  margin-left:3%;
+  margin-left: 3%;
   align-items: center;
   .profile {
     width: 60%;
-    height: 100%;  
+    height: 100%;
     transition: all 0.4s;
   }
 }
 
-.containersearch{
+.containersearch {
   width: 70%;
   display: flex;
   align-items: center;
@@ -123,15 +129,11 @@ background: linear-gradient(90deg, rgba(176,203,34,1) 0%, rgba(72,138,74,0.98082
     display: flex;
     justify-content: center;
     align-items: center;
-    
   }
 
   .cart {
-    
   }
 
   .tittle {
-    
   }
 }
-
