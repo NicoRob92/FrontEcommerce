@@ -62,6 +62,10 @@ export const Menu = ({ user, handleLogOut, close, show }) => {
           Ventas
         </NavLink>
 
+        <NavLink className={style.link} to={'/my-posts'}>
+          My Posts
+        </NavLink>
+
         {rol === 'admin' ? (
           <NavLink className={style.link} to={'/admin'}>
             Administracion

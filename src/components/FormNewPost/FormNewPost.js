@@ -25,8 +25,7 @@ export default function FormNewPost() {
     description: "",
     price: "",
     Images: [],
-    UserId:UserId,
-    status:false
+    UserId:UserId
   });
 
   const allCategories = useSelector((state) => state.reducer.categories)
