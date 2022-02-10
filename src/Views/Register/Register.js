@@ -64,9 +64,14 @@ function Register(props) {
         setUploadValue(100);
 
         storageRef.getDownloadURL().then((url) => {
+
           setData({...data,
             image:url
           })
+
+        setimageLink(url)
+
+
         });
       }
     );
