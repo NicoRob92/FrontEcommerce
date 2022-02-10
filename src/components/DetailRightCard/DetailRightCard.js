@@ -5,7 +5,7 @@ import styles from "./_DetailRightCard.module.scss";
 
 const DetailRightCard = ({ postById }) => {
   return (
-    <div className={`card ${styles.product_content}`}>
+    <div className={`${styles.product_content}`}>
       <h2 className={styles.product_title}>{postById?.name}</h2>
       <div className={styles.product_price}>
         <p className={styles.new_price}>

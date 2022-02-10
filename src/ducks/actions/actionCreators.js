@@ -15,6 +15,8 @@ const OrderUser = api + 'customer/order-user/'
 const questions = api + 'customer/question'
 const createPostUrl = api+"admin/post"
 const putUserURL = api+"admin/user/"
+const orderDetail = api+"customer/order-detail/"
+const UserPosts = api + "postbyuser/"
 
 export function getPosts() {
   return function (dispatch) {
@@ -41,6 +43,20 @@ export function getPostsByName(name) {
 export function resetPostByName() {
   return {
     type: actionTypes.RESET_POST_BY_NAME
+  }
+}
+
+export function setTotalAmount(value) {
+  return {
+    type: actionTypes.SET_TOTAL_AMOUNT,
+    payload: value
+  }
+}
+
+export function setTotalByProduct(value) {
+  return {
+    type: actionTypes.SET_TOTAL_AMOUNT_BY_PRODUCT,
+    payload: value
   }
 }
 
@@ -144,6 +160,7 @@ export function getCategoryPost(categoryId) {
 }
 
 export function getOrders(token) {
+  console.log('hola')
   return function (dispatch) {
     return fetch(Orders, {
       method: "GET",
@@ -151,6 +168,7 @@ export function getOrders(token) {
     })
       .then((response) => response.json())
       .then((json) => {
+        console.log(json);
         dispatch({ type: actionTypes.GET_ORDERS, payload: json });
       })
       .catch((e) => console.error(e));
@@ -225,7 +243,6 @@ export function getUserById(id) {
     })
       .then((response) => response.json())
       .then((json) => {
-        console.log(json)
         dispatch({ type: actionTypes.GET_USER_BY_ID, payload: json });
       })
       .catch((e) => console.error(e));
@@ -321,6 +338,37 @@ export function getOrdersUsers(userId, token) {
       .then((response) => response.json())
       .then((json) => {
         dispatch({ type: actionTypes.GET_ORDER_USERS, payload: json });
+      })
+      .catch((e) => console.error(e));
+  };
+}
+
+export function getOrderbyId(id,username,token) {
+  return function (dispatch) {
+    return fetch(orderDetail+id,{
+      method: "POST",
+      headers: { "Content-Type": "application/json", token: token },
+      body: JSON.stringify(username)
+    })
+      .then((response) => response.json())
+      .then((json) => {
+        dispatch({ type:'ORDER_ID', payload: json });
+      })
+      .catch((e) => console.error(e));
+  };
+}
+export function getUserPosts(userId, token) {
+  return function (dispatch) {
+    return fetch(UserPosts + userId, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        token: token,
+      },
+    })
+      .then((response) => response.json())
+      .then((json) => {
+        dispatch({ type: actionTypes.GET_USER_POSTS, payload: json });
       })
       .catch((e) => console.error(e));
   };

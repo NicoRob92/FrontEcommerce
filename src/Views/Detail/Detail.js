@@ -31,7 +31,7 @@ const CardDetail = () => {
   }
   return (
     <div className={styles.container}>
-      <Card className={styles.detail_container}>
+      <div className={styles.detail_container}>
         <div className={styles.left}>
         {postById.Images?.length > 0 ? (
           <DetailLeftCard postById={postById} />
@@ -43,11 +43,11 @@ const CardDetail = () => {
         </div>
         {/* Review section */}
 
-      </Card>
-      <div>
+      </div>
+      <div className={styles.resenias}>
           <h4>Reseñas y preguntas</h4>
           <hr/>
-      </div>
+      
 
       <div >
         <button value="review" name="review" onClick={handleQorR} className={QorR.tab=="review"?"btn btn-primary":"mx-1 p-2 card d-inline"}>Reseñas</button>
@@ -63,7 +63,7 @@ const CardDetail = () => {
           <Questions  PostId={id}/>
         </div>
       }
-
+      </div>
 
     </div>
   );

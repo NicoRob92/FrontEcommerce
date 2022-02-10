@@ -5,6 +5,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import Searchbar from '../../components/Searchbar/Searchbar';
 import Profile from '../../components/Profile/Profile';
 import Cart from '../../components/Cart/Cart';
+import { setAmount } from '../../helpers/setAmoun';
+import { setAmountProduct } from "../../helpers/getAmountProduct"
 
 import * as actionCreators from '../../ducks/actions/actionCreators';
 
@@ -14,7 +16,11 @@ const Navbar = () => {
   const dispatch = useDispatch();
   const [showCart, setShowCart] = useState(false);
   const [showLogin, setShowLogin] = useState(false);
+  const amount = useSelector(state => state.reducer.amount)
+  const amountByPost = useSelector(state => state.reducer.amountByPost)
   const cart = useSelector((state) => state.reducer.cart);
+  console.log(cart)
+
   const logged = localStorage.getItem('logged');
 
   const show = () => {
@@ -22,31 +28,35 @@ const Navbar = () => {
   };
 
   const removePost = (e) => {
-    let id = Number(e.target.id);
+    let id = Number(e);
     let posts = JSON.parse(localStorage.getItem('posts'));
     posts.item = posts?.item?.filter((e) => e.id !== Number(id));
     dispatch(actionCreators.setCart(posts));
     localStorage.setItem('posts', JSON.stringify(posts));
+    setAmount(dispatch,actionCreators)
   };
 
   const incrementQuantity = (e) => {
-    let id = Number(e.target.id);
+    let id = Number(e);
     let posts = JSON.parse(localStorage.getItem('posts'));
     posts.item.forEach((e) => {
       e.id === id && e.stock > e.quantity && e.quantity++;
     });
     dispatch(actionCreators.setCart(posts));
     localStorage.setItem('posts', JSON.stringify(posts));
+    setAmount(dispatch, actionCreators)
+
   };
 
   const decrementQuantity = (e) => {
-    let id = Number(e.target.id);
+    let id = Number(e);
     let posts = JSON.parse(localStorage.getItem('posts'));
     posts.item.forEach((e) => {
       e.id === id && e.quantity > 1 && e.quantity--;
     });
     dispatch(actionCreators.setCart(posts));
     localStorage.setItem('posts', JSON.stringify(posts));
+    setAmount(dispatch,actionCreators)
   };
 
  

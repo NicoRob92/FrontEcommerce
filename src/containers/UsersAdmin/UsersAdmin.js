@@ -17,25 +17,25 @@ export const UsersAdmin = () => {
   const [deleteUser, setDeleteUser] = useState(false);
   const [rol, setrol] = useState(0);
   const [id, setId] = useState(null);
-  const [current,setCurrent] = useState(1)
-  const lastIndex = current * 27
-  const first = lastIndex - 27
-  const pages = Math.ceil(filter ? filter?.length /27 : Users.length /27)
-  let toShow = filter ? filter?.slice(first, lastIndex) : Users.slice(first, lastIndex)
+  const [current, setCurrent] = useState(1);
+  const lastIndex = current * 27;
+  const first = lastIndex - 27;
+  const pages = Math.ceil(filter ? filter?.length / 27 : Users.length / 27);
+  let toShow = filter
+    ? filter?.slice(first, lastIndex)
+    : Users.slice(first, lastIndex);
   const paginate = (e) => {
-    setCurrent(e)
-  }
+    setCurrent(e);
+  };
   const next = (e) => {
     e.preventDefault();
     if (current < pages) setCurrent((current) => current + 1);
-
   };
   const prev = (e) => {
     e.preventDefault();
     if (current > 1) setCurrent((current) => current - 1);
-
   };
-  
+
   const handleEditPass = (e) => {
     setId(e);
     setEditUser(!editUser);
@@ -61,7 +61,7 @@ export const UsersAdmin = () => {
   };
 
   const changeRol = () => {
-    rol < 2 ? setrol(prev => rol + 1) : setrol(prev => 0);
+    rol < 2 ? setrol((prev) => rol + 1) : setrol((prev) => 0);
     if (rol === 0) setFilter(null);
     if (rol === 1) setFilter(Users.filter((e) => e.role === 'admin'));
     if (rol === 2) setFilter(Users.filter((e) => e.role === 'user'));
@@ -98,12 +98,16 @@ export const UsersAdmin = () => {
           <select
             name='options'
             onChange={(e) => setInput({ ...input, option: e.target.value })}>
-            <option defaultValue={true}>
-              Filtro
+            <option defaultValue={true}>Filtro</option>
+            <option key={'id'} value='id'>
+              User ID
             </option>
-            <option key={'id'} value='id'>User ID</option>
-            <option key={'user'} value='username'>Username</option>
-            <option key={'emai'} value='email'>Email</option>
+            <option key={'user'} value='username'>
+              Username
+            </option>
+            <option key={'emai'} value='email'>
+              Email
+            </option>
           </select>
           <input
             type='text'
@@ -158,7 +162,9 @@ export const UsersAdmin = () => {
           {toShow ? (
             toShow.map((e) => (
               <div key={e.id} className={styles.item}>
-                {e.username}
+                {e.username.indexOf('@') === -1
+                  ? e.username
+                  : e.username.substring(0, e.username.indexOf('@'))}
               </div>
             ))
           ) : (
@@ -178,7 +184,47 @@ export const UsersAdmin = () => {
           )}
         </div>
         <div className={styles.boxFive}>
-          <div className={styles.title} onClick={(e) => changeRol(e)}>Rol</div>
+          <div className={styles.title} >
+            Rol
+            <button onClick={(e) => changeRol(e)}>
+            <svg
+                width='24'
+                height='24'
+                viewBox='0 0 24 24'
+                fill='none'
+                xmlns='http://www.w3.org/2000/svg'>
+                <path
+                  d='M15 21V9'
+                  stroke='black'
+                  stroke-width='2'
+                  stroke-linecap='round'
+                  stroke-linejoin='round'
+                />
+                <path
+                  d='M9 15V3'
+                  stroke='black'
+                  stroke-width='2'
+                  stroke-linecap='round'
+                  stroke-linejoin='round'
+                />
+                <path
+                  d='M12 18L14.913 20.913C14.961 20.961 15.039 20.961 15.087 20.913L18 18'
+                  stroke='black'
+                  stroke-width='2'
+                  stroke-linecap='round'
+                  stroke-linejoin='round'
+                />
+                <path
+                  d='M6 5.99998L8.91296 3.08702C8.96103 3.03895 9.03897 3.03895 9.08704 3.08702L12 5.99998'
+                  stroke='black'
+                  stroke-width='2'
+                  stroke-linecap='round'
+                  stroke-linejoin='round'
+                />
+              </svg>
+            </button>
+
+          </div>
           {toShow ? (
             toShow.map((e) => (
               <div key={e.id} className={styles.item}>
@@ -190,9 +236,7 @@ export const UsersAdmin = () => {
           )}
         </div>
         <div className={styles.boxSix}>
-          <div className={styles.title}>
-            Status
-          </div>
+          <div className={styles.title}>Status</div>
           {toShow ? (
             toShow.map((e) => (
               <div key={e.id} className={styles.item}>
@@ -245,32 +289,62 @@ export const UsersAdmin = () => {
                     />
                   </svg>
                 </button>
-                <button key={e.name+'key'} onClick={(x) => handleEditRol(e.id)}>
-                  <svg
-                    width='25'
-                    height='25'
-                    viewBox='0 0 32 32'
-                    fill='none'
-                    xmlns='http://www.w3.org/2000/svg'>
-                    <path
-                      opacity='0.2'
-                      d='M16 20C20.4183 20 24 16.4183 24 12C24 7.58172 20.4183 4 16 4C11.5817 4 8 7.58172 8 12C8 16.4183 11.5817 20 16 20Z'
-                      fill='white'
-                    />
-                    <path
-                      d='M16 20C20.4183 20 24 16.4183 24 12C24 7.58172 20.4183 4 16 4C11.5817 4 8 7.58172 8 12C8 16.4183 11.5817 20 16 20Z'
-                      stroke='white'
-                      strokeWidth='2'
-                      strokeMiterlimit='10'
-                    />
-                    <path
-                      d='M3.875 27C5.10367 24.8714 6.87104 23.1038 8.99944 21.8749C11.1278 20.6459 13.5423 19.9989 16 19.9989C18.4577 19.9989 20.8722 20.6459 23.0006 21.8749C25.129 23.1038 26.8963 24.8714 28.125 27'
-                      stroke='white'
-                      strokeWidth='2'
-                      strokeLinecap='round'
-                      strokeLinejoin='round'
-                    />
-                  </svg>
+                <button
+                  key={e.name + 'key'}
+                  onClick={(x) => handleEditRol(e.id)}>
+                  {e.status ? (
+                    <svg
+                      width='25'
+                      height='25'
+                      viewBox='0 0 32 32'
+                      fill='none'
+                      xmlns='http://www.w3.org/2000/svg'>
+                      <path
+                        opacity='0.2'
+                        d='M16 20C20.4183 20 24 16.4183 24 12C24 7.58172 20.4183 4 16 4C11.5817 4 8 7.58172 8 12C8 16.4183 11.5817 20 16 20Z'
+                        fill='white'
+                      />
+                      <path
+                        d='M16 20C20.4183 20 24 16.4183 24 12C24 7.58172 20.4183 4 16 4C11.5817 4 8 7.58172 8 12C8 16.4183 11.5817 20 16 20Z'
+                        stroke='white'
+                        strokeWidth='2'
+                        strokeMiterlimit='10'
+                      />
+                      <path
+                        d='M3.875 27C5.10367 24.8714 6.87104 23.1038 8.99944 21.8749C11.1278 20.6459 13.5423 19.9989 16 19.9989C18.4577 19.9989 20.8722 20.6459 23.0006 21.8749C25.129 23.1038 26.8963 24.8714 28.125 27'
+                        stroke='white'
+                        strokeWidth='2'
+                        strokeLinecap='round'
+                        strokeLinejoin='round'
+                      />
+                    </svg>
+                  ) : (
+                    <svg
+                      width='25'
+                      height='25'
+                      viewBox='0 0 32 32'
+                      fill='none'
+                      xmlns='http://www.w3.org/2000/svg'>
+                      <path
+                        opacity='1'
+                        d='M16 20C20.4183 20 24 16.4183 24 12C24 7.58172 20.4183 4 16 4C11.5817 4 8 7.58172 8 12C8 16.4183 11.5817 20 16 20Z'
+                        fill='red'
+                      />
+                      <path
+                        d='M16 20C20.4183 20 24 16.4183 24 12C24 7.58172 20.4183 4 16 4C11.5817 4 8 7.58172 8 12C8 16.4183 11.5817 20 16 20Z'
+                        stroke='white'
+                        strokeWidth='2'
+                        strokeMiterlimit='10'
+                      />
+                      <path
+                        d='M3.875 27C5.10367 24.8714 6.87104 23.1038 8.99944 21.8749C11.1278 20.6459 13.5423 19.9989 16 19.9989C18.4577 19.9989 20.8722 20.6459 23.0006 21.8749C25.129 23.1038 26.8963 24.8714 28.125 27'
+                        stroke='white'
+                        strokeWidth='2'
+                        strokeLinecap='round'
+                        strokeLinejoin='round'
+                      />
+                    </svg>
+                  )}
                 </button>
                 <button key={e.id} onClick={(x) => handleDeleteUser(e.id)}>
                   <svg
@@ -325,7 +399,11 @@ export const UsersAdmin = () => {
       </div>
       <div className={styles.buttons}>
         <button onClick={(e) => prev(e)}>Prev</button>
-        <Paginado items={27} array={filter?.length || Users.length} paginate={paginate}/>
+        <Paginado
+          items={27}
+          array={filter?.length || Users.length}
+          paginate={paginate}
+        />
         <button onClick={(e) => next(e)}>Next</button>
       </div>
       {editUser ? <ModalPass id={id} show={handleShow} hidden={show} /> : null}

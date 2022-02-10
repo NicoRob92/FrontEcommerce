@@ -1,6 +1,6 @@
-import { Fragment, useState, useRef } from "react";
-import { useDispatch } from "react-redux";
-import { postReview,getReview } from "../../ducks/actions/actionCreators";
+import { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { postReview,getReview, getOrdersUsers } from "../../ducks/actions/actionCreators";
 import st from "./_Review.module.scss";
 // buttons
 import Stack from "@mui/material/Stack";
@@ -18,8 +18,11 @@ import TextField from "@mui/material/TextField";
 import Rating from "@mui/material/Rating";
 
 const ReviewForm = ({ ProductId, token , reviews}) => {
-  const logged = localStorage.getItem('logged')
   const dispatch = useDispatch()
+  const logged = localStorage.getItem('logged')
+  const orderUser = useSelector((state) => state.orderUser.orderUsers);
+
+  const userId = localStorage.getItem("userId");
   // rate stars state
   const [value, setValue] = useState(2)
   // get user name or author
@@ -46,6 +49,22 @@ const ReviewForm = ({ ProductId, token , reviews}) => {
 
      return  !reviewMade
   }
+  useEffect(() =>{
+    dispatch(getOrdersUsers(userId, token));
+  },[])
+
+  const validatePurchase = (id) => {
+    const checkData = orderUser.map((e) => {
+      const details = e.OrderDetail.map((e) =>{
+         return e.posts.id
+      })
+       return details[0]
+    })
+
+    return checkData.includes(parseInt(id))
+  }
+  // console.log(validatePurchase(ProductId));
+
   return (
     <div>
       <Accordion>
@@ -53,7 +72,8 @@ const ReviewForm = ({ ProductId, token , reviews}) => {
           <h6>Dejar una reseña</h6>
         </AccordionSummary>
         {
-          logged&&validatePermits()?
+          logged&&validatePermits() && validatePurchase(ProductId)?
+
           <AccordionDetails>
           <form onSubmit={handleSubmit}>
             {/* <div> */}
@@ -90,9 +110,11 @@ const ReviewForm = ({ ProductId, token , reviews}) => {
             {/* </div> */}
           </form>
         </AccordionDetails>
-        :
+        :<>
         <h5>No puedes hacer {validatePermits()||"más"} reseñas</h5>
-        }
+         <h5 className={st.no_purchase_Message}>Recuerda que para hacer reseñas, debes comprar</h5>
+         </>
+      }
       </Accordion>
     </div>
   );

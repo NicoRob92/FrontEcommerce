@@ -1,41 +1,37 @@
 .container {
   width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-around;
-  align-content: center;
-  
-}
-
-.grid {
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  background-color:rgba(0,0,0,0.5);
-  grid-template-rows: 5%;
-  grid-gap: 1%;
-  row-gap: 1%;
-  height: 80%;
-  width: 80%;
-  box-shadow: 0px 10px 15px 0px rgba(0, 0, 0, 0.2);
- 
-}
-
-.boxOne {
-  grid-column: 1/ 8;
-  grid-row: 1;
+  height: 80vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #5981bb;
+  background-image: url('https://wallpaperaccess.com/full/1216525.jpg');
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+}
+
+.parent {
+  width: 70%;
+  height: 80%;
+  box-shadow: 0px 10px 15px 0px rgba(0, 0, 0, 0.2);
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  grid-template-rows: repeat(11, 1fr);
+  grid-column-gap: 7px;
+  grid-row-gap: 5px;
+  backdrop-filter: blur(8px);
+}
+
+.div1 {
+  grid-area: 1 / 1 / 2 / 8;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(89, 130, 188, 1);
   box-shadow: 0px 10px 15px 0px rgba(0, 0, 0, 0.2);
   font-weight: 600;
-  row-gap: 1%;
 }
-.boxTwo {
-  grid-column: 1;
-  grid-row: 2 /5;
+.div2 {
+  grid-area: 2 / 1 / 12 / 2;
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -44,65 +40,56 @@
   background-color: rgba(0, 0, 0, .3);
   backdrop-filter: blur(4px);
 }
-.boxThree {
-  grid-column: 2;
-  grid-row: 2 / 5;
+.div3 {
+  grid-area: 2 / 2 / 12 / 4;
   display: flex;
-  flex-direction: column;
   align-items: center;
+  flex-direction: column;
   box-shadow: 0px 10px 15px 0px rgba(0, 0, 0, 0.2);
   row-gap: 0.3%;
   background-color: rgba(0, 0, 0, .3);
   backdrop-filter: blur(4px);
-
 }
-.boxFour {
-  grid-column: 3/5;
-  grid-row: 2 /5;
+.div4 {
+  grid-area: 2 / 4 / 12 / 5;
   display: flex;
+  align-items: center;
   flex-direction: column;
   box-shadow: 0px 10px 15px 0px rgba(0, 0, 0, 0.2);
-  align-items: center;
-  row-gap: 0.3%;
-  background-color: rgba(0, 0, 0, .3);
-  backdrop-filter: blur(4px);
-
-}
-
-.boxFive {
-  grid-column: 5;
-  grid-row: 2 /5;
-  display: flex;
-  flex-direction: column;
-  box-shadow: 0px 10px 15px 0px rgba(0, 0, 0, 0.2);
-  align-items: center;
   row-gap: 0.3%;
   background-color: rgba(0, 0, 0, .3);
   backdrop-filter: blur(4px);
 }
-.boxSix {
-  grid-column: 6;
-  grid-row: 2 /5;
+.div5 {
+  grid-area: 2 / 5 / 12 / 6;
   display: flex;
+  align-items: center;
   flex-direction: column;
+  box-shadow: 0px 10px 15px 0px rgba(0, 0, 0, 0.2);
+  row-gap: 0.3%;
   background-color: rgba(0, 0, 0, .3);
   backdrop-filter: blur(4px);
-  box-shadow: 0px 10px 15px 0px rgba(0, 0, 0, 0.2);
-  align-items: center;
-  row-gap: 0.3%;
 }
-.boxSeven {
-  grid-column: 7/8;
-  grid-row: 2 /5;
+.div6 {
+  grid-area: 2 / 6 / 12 / 7;
   display: flex;
+  align-items: center;
   flex-direction: column;
+  box-shadow: 0px 10px 15px 0px rgba(0, 0, 0, 0.2);
+  row-gap: 0.3%;
   background-color: rgba(0, 0, 0, .3);
   backdrop-filter: blur(4px);
-  box-shadow: 0px 10px 15px 0px rgba(0, 0, 0, 0.2);
-  align-items: center;
-  row-gap: 0.3%;
 }
-
+.div7 {
+  grid-area: 2 / 7 / 12 / 8;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  box-shadow: 0px 10px 15px 0px rgba(0, 0, 0, 0.2);
+  row-gap: 0.3%;
+  background-color: rgba(0, 0, 0, .3);
+  backdrop-filter: blur(4px);
+}
 .title {
   width: 100%;
   height: 5%;
@@ -112,12 +99,12 @@
   margin-bottom: 10px;
   font-weight: 600;
   background-color: rgba(89, 130, 188, 1);
-  button{
+  button {
     height: 70%;
     display: flex;
-    justify-content:center;
+    justify-content: center;
     align-items: center;
-    border:none;
+    border: none;
     background-color: transparent;
   }
 }
@@ -131,6 +118,7 @@
   box-shadow: 0px 10px 15px 0px rgba(0, 0, 0, 0.2);
   display: flex;
   align-items: center;
+  margin: 0.5%;
 }
 
 .actions {
@@ -139,6 +127,8 @@
   display: flex;
   justify-content: space-around;
   align-items: center;
+  margin: 0.5%;
+
   button {
     border: none;
     height: 70%;
@@ -146,56 +136,7 @@
     display: flex;
     align-items: center;
   }
-}
-
-.Form {
-  width: 40%;
-  height: 4%;
-}
-
-.containerForm {
-  width: 100%;
-  height: 100%;
-  background-color: #5981bb;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  input {
-    width: 60%;
+  svg {
+    justify-self: center;
   }
-
-  select{
-      border:none;
-      font-weight: 600;
-      option{
-      font-weight: 600;
-
-      }
-  }
-}
-
-.search {
-  border: none;
-  background-color: transparent;
-}
-svg {
-  transition: all 0.3s;
-}
-svg:hover {
-  transform: scale(1.2, 1.2);
-  transition: all 0.3s;
-}
-
-.reset{
-    border: none;
-    background-color: rgba(219, 64, 60, 1);
-    font-weight: 600;
-}
-
-.danger{
-  font-size: 1rem;
-}
-
-.buttons{
-  display: flex;
 }
