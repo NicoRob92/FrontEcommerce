@@ -34,7 +34,7 @@ export function getPostsByName(name) {
   return function (dispatch) {
     fetch(getPostsUrl + "?name=" + name)
       .then((res) => res.json())
-      .then((res) => {        
+      .then((res) => {
         dispatch({ type: actionTypes.GET_POSTS_BY_NAME, payload: res });
       })
       .catch((err) => console.error(err));
@@ -206,7 +206,7 @@ export function getReview(id, token) {
     })
       .then((response) => response.json())
       .then((json) => {
-        dispatch({ type: actionTypes.GET_REVIEW, payload: json });
+        dispatch({ type: actionTypes.GET_REVIEW, payload: {...json, Reviews:json.Reviews.reverse() } });
       })
       .catch((e) => console.error(e));
   };
