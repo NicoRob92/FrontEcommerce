@@ -1,14 +1,23 @@
 import React, { useState } from 'react';
 import style from './_Searchbar.module.scss';
 import { Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import * as actionCreators from "../../ducks/actions/actionCreators"
+
+
 
 const Searchbar = () => {
+  const dispatch = useDispatch()
   const [input, setInput] = useState('');
 
   const handleSubmit = (e) => {
     e.preventDefault();
     e.target.reset()
   };
+  
+  const clearFilteredPosts = () => {
+    dispatch(actionCreators.filterPostsByCategory("reset"))
+  }
 
   return (
     <div className={style.container}>
@@ -20,7 +29,7 @@ const Searchbar = () => {
           value={input}
         />
         <Link to={`/search/${input}`}>
-          <button type='submit'>
+          <button type='submit' onClick={clearFilteredPosts}>
             <svg
               width='18'
               height='18'

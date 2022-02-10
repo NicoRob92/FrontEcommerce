@@ -6,7 +6,7 @@ const initialState = {
 };
 
 export default function userReducer(state = initialState, action) {
-  console.log(initialState.name)
+  // console.log(initialState.name)
   switch (action.type) {
     case actionTypes.GET_USER_BY_ID:
       return{
