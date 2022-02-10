@@ -74,7 +74,7 @@ export default function FormUpdatePost() {
       let data = await fetch(getPostByIdUrl+"/"+id).then(res=>res.json())
       let allCategories = await fetch(getCategoriesUrl).then(res=>res.json())
       setAllCategories(allCategories)
-      if(data.User.username!=localStorage.getItem("username")){
+      if(data.User.username!=localStorage.getItem("username")&& "user"==localStorage.getItem("rol")){
         setStep(0)
       }
       setInput({
