@@ -40,25 +40,6 @@ const Market = () => {
   let toSlice = getPostsToShow(currentPage, postPerPage);
   let finalPostsToShow = postsToShow?.slice(toSlice.first, toSlice.last);
 
-
-//   const setPage = (e) =>
-//     setCurrentPage((prevState) => (prevState = e.target.value));
-//   const setCategories = (e) => {
-//     let index = chosenCategories.findIndex(
-//       (index) => index === Number(e.target.value)
-//     );
-//     if (e.target.checked && index === -1)
-//       dispatch(actionCreators.chooseCategories(Number(e.target.value), 'add'));
-//     else if (!e.target.checked && index !== -1)
-//       dispatch(
-//         actionCreators.chooseCategories(Number(e.target.value), 'remove', index)
-//       );
-//     else if (e.target.id === 'reset')
-//       dispatch(actionCreators.resetCategories());
-//     else if (e.target.id === 'filter')
-//       dispatch(actionCreators.filterPostsByCategory('market'));
-
-  
   const setPage = (e) => setCurrentPage((prevState) => (prevState = e.target.value));
 
   const setCategories = (e) => {
@@ -70,7 +51,6 @@ const Market = () => {
       dispatch(actionCreators.filterPostsByCategory('reset'))
       dispatch(actionCreators.filterPostsByCategory("market"))
     };
-
   };
 
   useEffect(() => {
