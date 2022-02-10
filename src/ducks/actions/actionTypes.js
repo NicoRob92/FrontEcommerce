@@ -17,3 +17,4 @@ export const SET_CART = "SET_CART";
 export const GET_REVIEW = "GET_REVIEW";
 export const FILTER_REVIEW = "FILTER_REVIEW";
 export const RESET_POST_BY_NAME = "RESET_POST_BY_NAME";
+export const SET_TOTAL_AMOUNT = "SET_TOTAL_AMOUNT"

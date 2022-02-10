@@ -1,10 +1,13 @@
 import { useRef, useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import EmailAddress from "../EmailAddress/EmailAddress";
 import {api} from '../../credentials'
+import { setAmount } from "../../helpers/setAmoun";
 
 import CartItem from "./CartItem";
 
 import styles from "./_Cart.module.scss";
+import * as actionCreators from "../../ducks/actions/actionCreators"
 
 const Cart = ({
   showCart,
@@ -17,6 +20,14 @@ const Cart = ({
   const [logginStatus, setLogginStatus] = useState(false);
   const [payLink, setPayLink] = useState(null);
   const [postsLength, setPostsLength] = useState(false);
+  const amount = useSelector(state => state.reducer.amount)
+
+  const dispatch = useDispatch()
+
+  useEffect(()=>{
+    setAmount(dispatch,actionCreators)
+  },[])
+
 
   const cart = useRef(null);
   useEffect(() => {
@@ -39,8 +50,6 @@ const Cart = ({
     postsInLS.payer.address.street_name = address;
     postsInLS.payer.email = email;
 
-    console.log(postsInLS)
-
     fetch(`${api}checkout`, {
 
       method: "POST",
@@ -61,6 +70,7 @@ const Cart = ({
 
   return (
     <>
+    {console.log("me renderizo")}
       <div className={styles.cartContainer}>
         <section className={styles.cart} ref={cart}>
           <div>
@@ -73,6 +83,13 @@ const Cart = ({
           </div>
           <div className={styles.title}>
             <h1>Tu carrito</h1>
+            
+          </div>
+          <div className={styles.amount}>
+            <h5>Tu total: ${amount}</h5>
+          </div>
+          <div className={styles.title}>
+            
           </div>
           <div className={styles.cartList}>
             {cartState?.item?.map((post) => (

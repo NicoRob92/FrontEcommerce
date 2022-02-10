@@ -46,6 +46,14 @@ export function resetPostByName() {
   }
 }
 
+export function setTotalAmount(value) {
+  console.log("desde action")
+  return {
+    type: actionTypes.SET_TOTAL_AMOUNT,
+    payload: value
+  }
+}
+
 export function getPostById(id) {
   return function (dispatch) {
     fetch(`${getPostByIdUrl}/${id}`)

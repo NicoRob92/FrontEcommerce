@@ -14,11 +14,18 @@ const initialState = {
   orders: [],
   reviews: [],
   name:'',
-  google:''
+  google:'',
+  amount: 5
 };
 
 export default function Product(state = initialState, action) {
   switch (action.type) {
+
+    case actionTypes.SET_TOTAL_AMOUNT:
+      return {
+        ...state,
+        amount: action.payload
+      }
     case actionTypes.GET_POSTS:
       return {
         ...state,
