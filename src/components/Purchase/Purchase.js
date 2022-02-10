@@ -1,9 +1,10 @@
-import { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import EmailAddress from '../EmailAddress/EmailAddress';
-import * as actionCreators from '../../ducks/actions/actionCreators';
-import { api } from '../../credentials';
-import styles from './_Purchase.module.scss';
+import { useState } from "react";
+import { useDispatch } from "react-redux";
+import EmailAddress from "../EmailAddress/EmailAddress";
+import * as actionCreators from "../../ducks/actions/actionCreators";
+import {api} from '../../credentials'
+import { setAmount } from "../../helpers/setAmoun";
+import styles from "./_Purchase.module.scss";
 
 const Purchase = ({ postById }) => {
   const dispatch = useDispatch();
@@ -50,7 +51,6 @@ const Purchase = ({ postById }) => {
         .then((res) => {
           if (res.status === 200 && res.statusText === 'OK') return res;
         })
-
         .then((res) => res.json())
         .then((res) => {
           setPayLink((prevState) => (prevState = res.res));
@@ -101,7 +101,8 @@ const Purchase = ({ postById }) => {
       posts.item.push(post);
       localStorage.setItem('posts', JSON.stringify(posts));
     }
-    dispatch(actionCreators.setCart(JSON.parse(localStorage.getItem('posts'))));
+    dispatch(actionCreators.setCart(JSON.parse(localStorage.getItem("posts"))));
+    setAmount(dispatch,actionCreators)
   };
 
   return (

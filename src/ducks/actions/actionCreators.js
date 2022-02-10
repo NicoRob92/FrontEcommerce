@@ -15,7 +15,12 @@ const OrderUser = api + 'customer/order-user/'
 const questions = api + 'customer/question'
 const createPostUrl = api+"admin/post"
 const putUserURL = api+"admin/user/"
+<<<<<<< HEAD
 const orderDetail = api+"customer/order-detail/"
+=======
+const UserPosts = api + "postbyuser/"
+
+>>>>>>> ac35d2efb4b6308dad8c3dc775b1377e6d6fe72a
 export function getPosts() {
   return function (dispatch) {
     fetch(getPostsUrl)
@@ -41,6 +46,20 @@ export function getPostsByName(name) {
 export function resetPostByName() {
   return {
     type: actionTypes.RESET_POST_BY_NAME
+  }
+}
+
+export function setTotalAmount(value) {
+  return {
+    type: actionTypes.SET_TOTAL_AMOUNT,
+    payload: value
+  }
+}
+
+export function setTotalByProduct(value) {
+  return {
+    type: actionTypes.SET_TOTAL_AMOUNT_BY_PRODUCT,
+    payload: value
   }
 }
 
@@ -335,6 +354,22 @@ export function getOrderbyId(id,username,token) {
       .then((response) => response.json())
       .then((json) => {
         dispatch({ type:'ORDER_ID', payload: json });
+      })
+      .catch((e) => console.error(e));
+  };
+}
+export function getUserPosts(userId, token) {
+  return function (dispatch) {
+    return fetch(UserPosts + userId, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        token: token,
+      },
+    })
+      .then((response) => response.json())
+      .then((json) => {
+        dispatch({ type: actionTypes.GET_USER_POSTS, payload: json });
       })
       .catch((e) => console.error(e));
   };

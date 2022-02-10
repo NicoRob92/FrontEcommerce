@@ -1,10 +1,14 @@
 import { useRef, useEffect, useState } from "react";
-import EmailAddress from "../EmailAddress/EmailAddress";
-import {api} from '../../credentials'
+import { useDispatch, useSelector } from "react-redux";
 
+import EmailAddress from "../EmailAddress/EmailAddress";
 import CartItem from "./CartItem";
 
+import { api } from '../../credentials'
+import { setAmount } from "../../helpers/setAmoun";
+
 import styles from "./_Cart.module.scss";
+import * as actionCreators from "../../ducks/actions/actionCreators"
 
 const Cart = ({
   showCart,
@@ -17,6 +21,14 @@ const Cart = ({
   const [logginStatus, setLogginStatus] = useState(false);
   const [payLink, setPayLink] = useState(null);
   const [postsLength, setPostsLength] = useState(false);
+  const amount = useSelector(state => state.reducer.amount)
+  const dispatch = useDispatch()
+
+  useEffect(()=>{
+    setAmount(dispatch,actionCreators)
+  },[])
+  console.log(cartState)
+
 
   const cart = useRef(null);
   useEffect(() => {
@@ -39,8 +51,6 @@ const Cart = ({
     postsInLS.payer.address.street_name = address;
     postsInLS.payer.email = email;
 
-    console.log(postsInLS)
-
     fetch(`${api}checkout`, {
 
       method: "POST",
@@ -58,9 +68,10 @@ const Cart = ({
       })
       .catch((error) => console.error(error));
   };
+ 
 
   return (
-    <>
+    
       <div className={styles.cartContainer}>
         <section className={styles.cart} ref={cart}>
           <div>
@@ -73,6 +84,7 @@ const Cart = ({
           </div>
           <div className={styles.title}>
             <h1>Tu carrito</h1>
+            <h5>Tu total: ${amount}</h5>
           </div>
           <div className={styles.cartList}>
             {cartState?.item?.map((post) => (
@@ -81,6 +93,7 @@ const Cart = ({
                 name={post.title}
                 id={post.id}
                 quantity={post.quantity}
+                price={post.unit_price}
                 decrementQuantity={decrementQuantity}
                 incrementQuantity={incrementQuantity}
                 removePost={removePost}
@@ -96,7 +109,7 @@ const Cart = ({
           </div>
         </section>
       </div>
-    </>
+    
   );
 };
 
