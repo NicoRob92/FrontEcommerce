@@ -13,13 +13,14 @@ import Checkout from "./Views/Checkout/Checkout";
 import ProfileView from "./Views/ProfileView/ProfileView";
 import FormUpdatePost from "./components/EditPost/FormUpdatePost";
 import { LoginView } from './Views/Login/LoginView'
-import {OrderDetail} from './containers/orderDetail/orderDetail'
+import { OrderDetail } from './containers/orderDetail/orderDetail'
 import MyPosts from "./Views/MyPosts/MyPosts";
 import Ventas from "./Views/Ventas/Ventas";
 import * as actionCreators from "./ducks/actions/actionCreators";
 
 import "./App.css";
 import Footer from "./components/Footer/Footer";
+import NotFound from "./components/NotFound/NotFound";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -81,7 +82,7 @@ const App = () => {
         </Route>
 
          <Redirect to="/"/>
-      
+
       </Switch>
       <Footer />
 

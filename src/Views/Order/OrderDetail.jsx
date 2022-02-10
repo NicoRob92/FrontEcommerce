@@ -4,10 +4,9 @@ import styles from './_Order.module.scss'
 
 const OrderDetail = ({ id, OrderDetail, created, status, total }) => {
 
-
     return (
         <div className={`card w-100 ${styles.order_detail_container}`}>
-            <div class="card-header">
+            <div className="card-header">
             Order ID:<span> {id}</span> 
             </div>
             <ul className="list-group list-group-flush">
@@ -20,7 +19,7 @@ const OrderDetail = ({ id, OrderDetail, created, status, total }) => {
                 <h5 className={`h4 ${styles.title_product}`}>Products ({OrderDetail.length})</h5>
                 <div className={styles.detail_container}>
                     {OrderDetail.map((e) => {
-                        return <Link to={`/detail/${id}`} style={{textDecoration: 'none'}}><OrderCard id={e.posts.id} name={e.posts.name} price={e.posts.price}/></Link>
+                        return <Link to={`/detail/${e.posts.id}`} style={{textDecoration: 'none'}}><OrderCard id={e.posts.id} name={e.posts.name} price={e.posts.price}/></Link>
                     })}
                 </div>
             </div>

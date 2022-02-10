@@ -1,17 +1,14 @@
 import styles from './_NotFound.module.scss'
+import img from "../../Assets/3.png";
 const NotFound = () => {
   return (
     <div className={styles.container}>
       <div className={styles.imagen}>
-    
+        <img src={img} />
       </div>
       <div className={styles.parrafo}>
-        <h1>No hay publicaciones que coincidan con tu búsqueda.</h1>
-        <ul>
-          <li>Revisá la ortografía de la palabra.</li>
-          <li>Utilizá palabras más genéricas o menos palabras.</li>
-          <li>Navegá por las categorías para encontrar un producto similar</li>
-        </ul>
+        <h1>404</h1>
+        <p>Verifica que la URL sea correcta</p>
       </div>
     </div>
   );
