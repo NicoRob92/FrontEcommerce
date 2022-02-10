@@ -34,3 +34,27 @@
   bottom: 50px;
   padding: 10px;
 }
+
+.msgCont {
+  position: relative;
+  top: 10px;
+  display: flex;
+  flex-flow: wrap row;
+}
+
+.msg {
+  top: 20px;
+  background-color: white;
+  border-radius: 5px;
+  padding: 10px 20px;
+  box-shadow: 10px;
+}
+
+
+.close {
+  top: 20px;
+  background-color: red;
+  border-radius: 5px;
+  padding: 10px;
+  box-shadow: 10px;
+}
