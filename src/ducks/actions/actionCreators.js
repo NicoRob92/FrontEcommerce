@@ -12,8 +12,8 @@ const Review = api + 'admin/review/';
 const publicReview = api + 'review/';
 const Orders = api + 'admin/orders';
 const questions = api + 'customer/question'
-
-
+const createPostUrl = api+"admin/post"
+const putUserURL = api+"admin/user/"
 
 export function getPosts() {
   return function (dispatch) {
@@ -93,7 +93,7 @@ export function getCountries() {
 
 export function create_post(payload, token) {
   return async (dispatch) => {
-    return await fetch(`${getPostsUrl}`, {
+    return await fetch(createPostUrl, {
       method: 'POST',
       body: JSON.stringify(payload),
       headers: {
@@ -223,7 +223,7 @@ export function getUsers(token) {
 export function getUserById(id) {
   return (dispatch) => {
     return fetch(User + id, {
-      method: "GET",     
+      method: "GET",
     })
       .then((response) => response.json())
       .then((json) => {
@@ -243,7 +243,7 @@ export function getUserGoogle(user){
 
 export function putUser(id, input, type, token) {
   return async () => {
-    return fetch(User + id, {
+    return fetch(putUserURL + id, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
