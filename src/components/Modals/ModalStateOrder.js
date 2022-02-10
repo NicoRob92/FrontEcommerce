@@ -43,7 +43,7 @@ export const ModalStateOrder = ({ id, hidden, show }) => {
     e.preventDefault();
     let prueba = await changeStatus()
     console.log(prueba.data)
-    if(prueba.data.msg === 'Password Restore '){
+    if(prueba.data.msg === "Order updated successfully"){
       setSuccess(true)
       console.log(success)
        setTimeout(()=> setSuccess(false),3000)

@@ -180,7 +180,42 @@ export const PostAdmin = () => {
       <div className={styles.grid}>
         <div className={styles.boxOne}>Lista de Post</div>
         <div className={styles.boxTwo}>
-          <div className={styles.title}>ID Post <button onClick={(e) => filterById(e)}>x</button></div>
+          <div className={styles.title}>ID Post <button onClick={(e) => filterById(e)}>
+          <svg
+                width='24'
+                height='24'
+                viewBox='0 0 24 24'
+                fill='none'
+                xmlns='http://www.w3.org/2000/svg'>
+                <path
+                  d='M15 21V9'
+                  stroke='black'
+                  stroke-width='2'
+                  stroke-linecap='round'
+                  stroke-linejoin='round'
+                />
+                <path
+                  d='M9 15V3'
+                  stroke='black'
+                  stroke-width='2'
+                  stroke-linecap='round'
+                  stroke-linejoin='round'
+                />
+                <path
+                  d='M12 18L14.913 20.913C14.961 20.961 15.039 20.961 15.087 20.913L18 18'
+                  stroke='black'
+                  stroke-width='2'
+                  stroke-linecap='round'
+                  stroke-linejoin='round'
+                />
+                <path
+                  d='M6 5.99998L8.91296 3.08702C8.96103 3.03895 9.03897 3.03895 9.08704 3.08702L12 5.99998'
+                  stroke='black'
+                  stroke-width='2'
+                  stroke-linecap='round'
+                  stroke-linejoin='round'
+                />
+              </svg></button></div>
           {toShow ? (
             toShow.map((e) => (
               <div className={styles.item} key={e.id}>
@@ -232,7 +267,43 @@ export const PostAdmin = () => {
         </div>
         <div className={styles.boxSix}>
           <div className={styles.title}>
-            Status <button onClick={(e) => filterByStatus(e)}>x</button>
+            Status <button onClick={(e) => filterByStatus(e)}>
+            <svg
+                width='24'
+                height='24'
+                viewBox='0 0 24 24'
+                fill='none'
+                xmlns='http://www.w3.org/2000/svg'>
+                <path
+                  d='M15 21V9'
+                  stroke='black'
+                  stroke-width='2'
+                  stroke-linecap='round'
+                  stroke-linejoin='round'
+                />
+                <path
+                  d='M9 15V3'
+                  stroke='black'
+                  stroke-width='2'
+                  stroke-linecap='round'
+                  stroke-linejoin='round'
+                />
+                <path
+                  d='M12 18L14.913 20.913C14.961 20.961 15.039 20.961 15.087 20.913L18 18'
+                  stroke='black'
+                  stroke-width='2'
+                  stroke-linecap='round'
+                  stroke-linejoin='round'
+                />
+                <path
+                  d='M6 5.99998L8.91296 3.08702C8.96103 3.03895 9.03897 3.03895 9.08704 3.08702L12 5.99998'
+                  stroke='black'
+                  stroke-width='2'
+                  stroke-linecap='round'
+                  stroke-linejoin='round'
+                />
+              </svg>
+            </button>
           </div>
           {toShow ? (
             toShow.map((e) => (
