@@ -12,12 +12,12 @@ import Order from "./Views/Order/Order";
 import Checkout from "./Views/Checkout/Checkout";
 import ProfileView from "./Views/ProfileView/ProfileView";
 import FormUpdatePost from "./components/EditPost/FormUpdatePost";
-import Compras from "./Views/Compras/Compras.js";
-import {LoginView} from './Views/Login/LoginView'
+import { LoginView } from './Views/Login/LoginView'
 
 import * as actionCreators from "./ducks/actions/actionCreators";
 
 import "./App.css";
+import Footer from "./components/Footer/Footer";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -37,7 +37,7 @@ const App = () => {
           <Home />
         </Route>
         <Route exact path="/login">
-          <LoginView/>
+          <LoginView />
         </Route>
         <Route exact path="/market">
           <Market />
@@ -54,9 +54,6 @@ const App = () => {
         <Route exact path="/search/:name">
           <Search />
         </Route>
-        <Route exact path="/order">
-          <Order />
-        </Route>
         <Route path="/checkout">
           <Checkout />
         </Route>
@@ -64,12 +61,14 @@ const App = () => {
           <FormUpdatePost />
         </Route>
         <Route exact path="/compras">
-          <Compras />
+          <Order />
         </Route>
         <Route exact path="/user/profile/:id">
-          <ProfileView/>
+          <ProfileView />
         </Route>
       </Switch>
+      <Footer />
+
     </>
   );
 };

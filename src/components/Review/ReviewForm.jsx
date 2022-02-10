@@ -18,6 +18,7 @@ import TextField from "@mui/material/TextField";
 import Rating from "@mui/material/Rating";
 
 const ReviewForm = ({ ProductId, token }) => {
+  const logged = localStorage.getItem('logged')
   const dispatch = useDispatch()
   // rate stars state
   const [value, setValue] = useState(2)
@@ -44,7 +45,9 @@ const ReviewForm = ({ ProductId, token }) => {
         <AccordionSummary expandIcon={<ExpandMoreIcon />}>
           <h6>Dejar una reseña</h6>
         </AccordionSummary>
-        <AccordionDetails>
+        {
+          logged ?
+          <AccordionDetails>
           <form onSubmit={handleSubmit}>
             {/* <div> */}
             <h6>Califica el producto</h6>
@@ -80,6 +83,9 @@ const ReviewForm = ({ ProductId, token }) => {
             {/* </div> */}
           </form>
         </AccordionDetails>
+        :
+        <h5>You will be able to do it after your purchase.</h5>
+        }
       </Accordion>
     </div>
   );
