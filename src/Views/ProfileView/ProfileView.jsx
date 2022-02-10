@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useState,useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getUserById } from "../../ducks/actions/actionCreators";
 import styles from "./_ProfileView.module.scss";
@@ -16,9 +16,10 @@ import ImageProfile from "./ImageProfile";
 import ListItemCountry from "./ListItemCountry";
 const ProfileView = () => {
     const dispatch = useDispatch();
-    const user = useSelector((state) => state.user.user);
+    const user = useSelector((state) =>state.user.user);
+
     // const user1 = useSelector((state) => state.user.user);
-    console.log(user);
+
     // const user = []
     const token = localStorage.getItem("token");
     const userId = localStorage.getItem("userId");
@@ -27,7 +28,10 @@ const ProfileView = () => {
         dispatch(getUserById(userId, token));
     }, []);
 
+    function onSubmit() {
+      dispatch(getUserById(userId, token));
 
+    }
 
     return (
         <div className={styles.container}>
@@ -45,13 +49,13 @@ const ProfileView = () => {
                     {/* List */}
                     <nav aria-label="secondary mailbox folders">
                         <List>
-                            <ListItems label={`NAME`} text={user.first_name} />
+                            <ListItems label={`NAME`} text={user.first_name} submit={onSubmit}/>
                             <Divider />
-                            <ListItems label={`LASTNAME`} text={user.last_name} />
+                            <ListItems label={`LASTNAME`} text={user.last_name} submit={onSubmit}/>
                             <Divider />
-                            <ListItems label={`USERNAME`} text={user.username} />
+                            <ListItems label={`USERNAME`} text={user.username} submit={onSubmit}/>
                             <Divider />
-                            <ListItems label={`DNI`} text={user.dni} />
+                            <ListItems label={`DNI`} text={user.dni} submit={onSubmit}/>
                         </List>
                     </nav>
                 </Card>
@@ -67,11 +71,11 @@ const ProfileView = () => {
                     {/* List */}
                     <nav aria-label="secondary mailbox folders">
                         <List>
-                            <ListItems label={`EMAIL`} text={user.email} />
+                            <ListItems label={`EMAIL`} text={user.email} submit={onSubmit}/>
                             <Divider />
-                            <ListItems label={`PHONE`} text={user.phone} />
+                            <ListItems label={`PHONE`} text={user.phone} submit={onSubmit}/>
                             <Divider />
-                            <ListItemCountry label={`COUNTRY`} text={user.Country ? user.Country.name : null} />
+                            <ListItemCountry label={`COUNTRY`} text={user.Country ? user.Country.name : null} submit={onSubmit}/>
                         </List>
                     </nav>
                 </Card>
@@ -87,7 +91,7 @@ const ProfileView = () => {
                     {/* List */}
                     <nav aria-label="secondary mailbox folders">
                         <List>
-                            <ListItemPassword value={user.password} />
+                            <ListItemPassword value={user.password} submit={onSubmit} />
                         </List>
                     </nav>
                 </Card>
