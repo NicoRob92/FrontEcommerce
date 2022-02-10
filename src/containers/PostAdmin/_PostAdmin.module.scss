@@ -131,10 +131,14 @@
     box-shadow: 0px 10px 15px 0px rgba(0, 0, 0, 0.2);
     display: flex;
     align-items: center;
+    a{
+      width: 90%;
+      text-align: center;
+    }
   }
   
   .actions {
-    height: 25px;
+    height: 24px;
     width: 90%;
     display: flex;
     justify-content: space-around;

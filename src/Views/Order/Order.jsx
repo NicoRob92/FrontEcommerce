@@ -45,8 +45,8 @@ const Order = () => {
         {/* sections */}
 
         <div className={`card-body ${styles.card_body}`}>
-          {orderUser ? (
-            orderUser.map((e) =>
+          {orderUser.length > 0 ? (
+            orderUser?.map((e) =>
               <OrderDetail
               key={e.id} 
               id={e.id}

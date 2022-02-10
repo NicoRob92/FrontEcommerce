@@ -330,8 +330,8 @@ export const OrderHistoryAdmin = () => {
                 <div key={e.id} className={styles.actions}>
                   <button>
                     <svg
-                      width='25'
-                      height='25'
+                      width='23'
+                      height='23'
                       viewBox='0 0 32 32'
                       fill='green'
                       xmlns='http://www.w3.org/2000/svg'>
@@ -349,8 +349,8 @@ export const OrderHistoryAdmin = () => {
                 <div key={e.id} className={styles.actions}>
                   <button>
                     <svg
-                      width='25'
-                      height='25'
+                      width='23'
+                      height='23'
                       viewBox='0 0 32 32'
                       fill='red'
                       xmlns='http://www.w3.org/2000/svg'>

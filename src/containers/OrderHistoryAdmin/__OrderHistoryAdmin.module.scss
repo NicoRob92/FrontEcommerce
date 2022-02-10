@@ -13,11 +13,11 @@
 .grid {
   display: grid;
   grid-template-columns: repeat(8, 1fr);
-  background-color: rgba(0,0,0,0.5);
   grid-gap: 1%;
   grid-template-rows: 5%;
   height: 80%;
   width: 80%;
+  background-color: rgba(0,0,0,0.5);
   box-shadow: 0px 10px 15px 0px rgba(0, 0, 0, 0.2);
 
 }
@@ -131,7 +131,7 @@
 }
 
 .actions {
-  height: 25px;
+  height: 24px;
   width: 90%;
   display: flex;
   justify-content: space-around;
