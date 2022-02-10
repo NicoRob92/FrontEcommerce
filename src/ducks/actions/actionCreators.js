@@ -11,6 +11,7 @@ const getCountriesUrl = api + 'countries';
 const Review = api + 'admin/review/';
 const publicReview = api + 'review/';
 const Orders = api + 'admin/orders';
+const OrderUser = api + 'customer/order-user/'
 const questions = api + 'customer/question'
 
 
@@ -297,4 +298,21 @@ export function changeName(input){
     payload:input
 
   }
+}
+
+export function getOrdersUsers(userId, token) {
+  return function (dispatch) {
+    return fetch(OrderUser + userId, {
+      method: "GET",
+      headers: {
+        'Content-Type': 'application/json',
+        'token' : token
+      },
+    })
+      .then((response) => response.json())
+      .then((json) => {
+        dispatch({ type: actionTypes.GET_ORDER_USERS, payload: json });
+      })
+      .catch((e) => console.error(e));
+  };
 }

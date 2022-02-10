@@ -54,9 +54,6 @@ const App = () => {
         <Route exact path="/search/:name">
           <Search />
         </Route>
-        <Route exact path="/order">
-          <Order />
-        </Route>
         <Route path="/checkout">
           <Checkout />
         </Route>
@@ -64,7 +61,7 @@ const App = () => {
           <FormUpdatePost />
         </Route>
         <Route exact path="/compras">
-          <Compras />
+          <Order />
         </Route>
         <Route exact path="/user/profile/:id">
           <ProfileView/>
