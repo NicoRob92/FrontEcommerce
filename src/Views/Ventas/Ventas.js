@@ -22,20 +22,20 @@ const Ventas = () => {
   const pages = filter ? filter?.length / 27 : orders?.length / 272;
   const lastIndex = current * 27;
   const first = lastIndex - 27;
-  const orden = orderUser.filter((e) => {
+  const orden = orderUser.length > 0 && orderUser?.filter((e) => {
     for (let i = 0; i < e.OrderDetail.length; i++) {
       if (e.OrderDetail[i].UserId === Number(userId)) return e;
     }
   });
   let idTochange = 0;
-  const elementos = orden.map((e) =>
+  const elementos = orden.length > 0 && orden?.map((e) =>
     e.OrderDetail.filter((e) => e.UserId === Number(userId))
   );
-  const suma = elementos.map((e) =>
+  const suma = elementos.lenght > 0 && elementos.map((e) =>
     e.map((x) => x.amount * Number(x.posts.price))
   );
-  console.log(suma);
-  const total = suma.map((e) => e.reduce((a, b) => a + b));
+  
+  const total = suma.length > 0 && suma.map((e) => e.reduce((a, b) => a + b));
 
   console.log('suma', total);
   
@@ -86,14 +86,14 @@ const Ventas = () => {
         </div>
         <div className={style.div2}>
           <div className={style.title}>Id</div>
-          {orden?.map((e) => (
+          {orden.length > 0 && orden?.map((e) => (
             <div className={style.item}>{e.id}</div>
           ))}
         </div>
         <div className={style.div3}>
           {' '}
           <div className={style.title}>Detalle</div>
-          {orden?.map((e) => (
+          {orden.length > 0 && orden?.map((e) => (
             <div className={style.item}>
               {e.OrderDetail.map((x) => {
                 if (x.UserId === Number(userId)) return x.posts.name + ' ,';
@@ -104,28 +104,28 @@ const Ventas = () => {
         <div className={style.div4}>
           {' '}
           <div className={style.title}>Total</div>{' '}
-          {total?.map((e) => (
+          {total.lenght > 0 && total?.map((e) => (
             <div className={style.item}> $ {e}</div>
           ))}
         </div>
         <div className={style.div5}>
           {' '}
           <div className={style.title}>Fecha</div>{' '}
-          {orden?.map((e) => (
+          {orden.length > 0 && orden?.map((e) => (
             <div className={style.item}>{e.created.substring(0,10)}</div>
           ))}
         </div>
         <div className={style.div6}>
           {' '}
           <div className={style.title}>Status</div>{' '}
-          {orden?.map((e) => (
+          {orden.length > 0 && orden?.map((e) => (
             <div className={style.item}>{e.status}</div>
           ))}
         </div>
         <div className={style.div7}>
           {' '}
           <div className={style.title}>Acciones</div>{' '}
-          {orden ? orden.map((e) =>
+          {orden.length > 0 ? orden.map((e) =>
               e.status !== 'completada' && e.status !== 'cancelada' ? (
                 <div key={e.id} className={style.actions}>
                   <button onClick={(x) => Hstatus(e)}>

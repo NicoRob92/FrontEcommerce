@@ -17,10 +17,37 @@ export const ModalPass = ({ id, hidden, show }) => {
   });
 
   const onChange = (e) => {
-    setPassword({
-      ...password,
-      [e.target.name]: e.target.value,
-    });
+    if(e.target.name === 'password'){
+      if(/^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}$/.test(e.target.value)){
+        setPassword({
+          ...password,
+          [e.target.name]: e.target.value,
+        })
+        setErrors(null)
+      
+      }
+        else{
+        setErrors({
+          ...errors,
+          password:'El password debe tener al menos 6 caracteres, 1 numero y 1 caracter especial'
+        })}
+      }
+    
+    else{
+      if(password.password !== password.confirmPassword){
+        setErrors({
+          ...errors,
+          confirmPassword:'El password no coincide'
+        })        
+      }
+      else{
+        setPassword({
+          ...password,
+          [e.target.name]: e.target.value,
+        });
+        setErrors(null)
+      }
+    }
   };
 
   const body = {
@@ -39,35 +66,18 @@ export const ModalPass = ({ id, hidden, show }) => {
 
   const onSubmit = async (e) => {
     e.preventDefault();
+    if(!errors){
     let prueba = await resetPassword()
+    console.log(prueba.data)
     if(prueba.data.msg === 'Password Restore '){
       setSuccess(true)
       console.log(success)
        setTimeout(()=> setSuccess(false),3000)
-    }
+    } }
+    
   }
 
-  const validate = (input) => {
-    let errors = {}
-    if (!input.password) {
-      errors.password = "a password is required";
-    } else if (
-      !/^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}$/.test(input)
-    ) {
-      errors.password =
-        "A valid password is required, at least one number, at least one special character, 6-16 characters";
-    }
-
-    if (input.password !== input.confirmPassword) {
-      errors.confirmPassword = "Password is different"
-    }
-    return errors
-  }
-
-
-  const handleBlur = () => {
-    setErrors(validate(password))
-  }
+ 
    
   return (
     <div className={styles.modal} hidden={hidden}>
@@ -108,23 +118,19 @@ export const ModalPass = ({ id, hidden, show }) => {
             <input
               type='password'
               name='password'
-              value={password.password}
               onChange={(e) => onChange(e)}
-              onBlur={handleBlur}
             />
           </div>
-          {errors.password ? <p>{errors.password}</p> : null}
+          {errors?.password ? <p>{errors.password}</p> : null}
           <div className={styles.item}>
             <label>Confirm Password</label>
             <input
               type='password'
               name='confirmPassword'
-              value={password.confirmPassword}
               onChange={(e) => onChange(e)}
-              onBlur={handleBlur}
             />
           </div>
-            {errors.confirmPassword ? <p>{errors.confirmPassword}</p> : null}
+            {errors?.confirmPassword ? <p>{errors.confirmPassword}</p> : null}
           <button disabled={errors ? true : false} type='submit'>Change Password</button>
         </form>
         {success === true ? <h1 className={styles.success}>Succesfully changed password</h1> : null}
