@@ -12,6 +12,10 @@ export default function ordersUserReducer(state = initialState, action) {
         ...state,
         orderUsers: action.payload
       } 
+      case 'ORDER_ID': return{
+        ...state,
+        orderUserDetail: action.payload
+      }
     default:
       return state;
   }

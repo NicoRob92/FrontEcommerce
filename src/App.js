@@ -13,7 +13,7 @@ import Checkout from "./Views/Checkout/Checkout";
 import ProfileView from "./Views/ProfileView/ProfileView";
 import FormUpdatePost from "./components/EditPost/FormUpdatePost";
 import { LoginView } from './Views/Login/LoginView'
-
+import {OrderDetail} from './containers/orderDetail/orderDetail'
 import * as actionCreators from "./ducks/actions/actionCreators";
 
 import "./App.css";
@@ -65,6 +65,9 @@ const App = () => {
         </Route>
         <Route exact path="/user/profile/:id">
           <ProfileView />
+        </Route>
+        <Route exact path="/user/orderDetail/:id">
+          <OrderDetail />
         </Route>
       </Switch>
       <Footer />
