@@ -45,12 +45,13 @@ const FormProductDetail = ({
   }
 
   return (
-    <div className="container">
+    <div className="p-5 m-3">
       <div className="mb-3">
         <label className="form-label"><h2>Titulo</h2></label>
         <input
           type="text"
           className="form-control"
+          accept="image/x-png,image/gif,image/jpeg"
           name="title"
           value={input.title}
           onChange={handleChange}
@@ -66,7 +67,7 @@ const FormProductDetail = ({
 
       </div>
       <progress value={uploadValue} max="100"></progress>
-      <div className="col mb-3">
+      <div className="col  mb-3">
         <label className="form-label">Añade o quita imagenes</label>
         <button className="upload-button d-flex flex-row align-items-center">
           <div className="d-flex justify-content-center align-items-center upload-icon">

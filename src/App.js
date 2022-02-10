@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { Switch, Route } from "react-router-dom";
+import { Switch, Route, Redirect } from "react-router-dom";
 import Navbar from "./containers/Navbar/Navbar";
 import Home from "./Views/Home/Home";
 import Market from "./Views/Market/Market";
@@ -34,8 +34,10 @@ const App = () => {
 
   return (
     <>
-      <Navbar />
+    <Navbar />
+
       <Switch>
+
         <Route exact path="/">
           <Home />
         </Route>
@@ -78,7 +80,9 @@ const App = () => {
         <Route exact path="/user/orderDetail/:id">
           <OrderDetail />
         </Route>
-        <Route render={() => <NotFound />} />
+
+         <Redirect to="/"/>
+
       </Switch>
       <Footer />
 
