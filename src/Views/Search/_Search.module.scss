@@ -1,20 +1,19 @@
-.container{
-    width: 100%;
-    height: 100vh;
-    display:flex;
-    justify-content: center;
-    align-items: center;
-    background-image: url('https://wallpaperaccess.com/full/1216525.jpg');
+.container {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-image: url('https://wallpaperaccess.com/full/1216525.jpg');
   background-repeat: no-repeat;
   background-size: 100% 100%;
 }
 
-.category{
-    position: inherit;
-    
+.category {
+  position: inherit;
 }
 
-.categories{
-    left:1%;
-    top:10%;
+.categories {
+  left: 1%;
+  top: 10%;
 }

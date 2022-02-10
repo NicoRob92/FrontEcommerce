@@ -29,7 +29,7 @@ function Register(props) {
         'Content-Type': 'application/json',
       },
 
-      body: JSON.stringify({ ...data, image: imageLink }),
+      body: JSON.stringify(data),
     }).then(() => {
       setData({});
       setIsSend(true);
@@ -64,7 +64,14 @@ function Register(props) {
         setUploadValue(100);
 
         storageRef.getDownloadURL().then((url) => {
-          setimageLink(url);
+
+          setData({...data,
+            image:url
+          })
+
+        setimageLink(url)
+
+
         });
       }
     );
@@ -84,7 +91,7 @@ function Register(props) {
           ) : null}
         </div>
           <div className={style.uploadPhoto}>
-            <input type='file' name='images' onChange={handleUpload} />
+            <input type='file' name='image' onChange={handleUpload} />
           </div>
         </div>
         <hr />

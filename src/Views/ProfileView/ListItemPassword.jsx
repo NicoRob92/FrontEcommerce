@@ -9,7 +9,7 @@ import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 import styles from './_ProfileView.module.scss'
 import { putUser } from "../../ducks/actions/actionCreators";
 
-const ListItemPassword = ({ value }) => {
+const ListItemPassword = ({ value , submit }) => {
     const dispatch = useDispatch()
     const userId = localStorage.getItem("userId")
     const token = localStorage.getItem("token")
@@ -30,6 +30,7 @@ const ListItemPassword = ({ value }) => {
         e.preventDefault()
         dispatch(putUser(userId, input, type, token))
         setInput('')
+        submit()
         setVisible(false)
     }
 
@@ -62,11 +63,11 @@ const ListItemPassword = ({ value }) => {
                     <ListItem disablePadding>
                         <form onSubmit={handleSubmit}>
                             <div className={styles.button_container}>
-                                <TextField 
-                                size="small" 
-                                id="outlined-basic" 
-                                label="Password" variant="outlined" 
-                                value={input} 
+                                <TextField
+                                size="small"
+                                id="outlined-basic"
+                                label="Password" variant="outlined"
+                                value={input}
                                 onChange={handleChangeInput}
                                 onBlur={handleBlur}
                                 type="password"

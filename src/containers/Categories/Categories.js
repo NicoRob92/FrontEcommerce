@@ -9,8 +9,8 @@ import styles from './_Categories.module.scss';
 const Categories = ({ categories, setCategories, chosenCategories }) => {
   const location = useLocation();
   return (
-    <div className={styles.categoriesContainer} id="categories">
-      <form>
+      <form className={styles.categoriesContainer} id='categories'> 
+        <div className={styles.categories}>
         {categories?.map((e) => (
           <Categorie
             key={e.id}
@@ -20,12 +20,12 @@ const Categories = ({ categories, setCategories, chosenCategories }) => {
             chosenCategories={chosenCategories}
           />
         ))}
-       
-          <FilterReset setCategories={setCategories} />      
+        </div>
+        <div className={styles.button}>
+          <FilterReset setCategories={setCategories} />
           <FilterSubmit setCategories={setCategories} />
-     
+        </div>
       </form>
-    </div>
   );
 };
 
