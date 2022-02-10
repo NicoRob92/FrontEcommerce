@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Avatar from '@mui/material/Avatar';
 import IconButton from "@mui/material/IconButton";
 import EditIcon from '@mui/icons-material/Edit';
@@ -19,8 +19,10 @@ const ImageProfile = ({ image }) => {
     const type = "IMAGE"
     // Show different icon when image is selected
     const [show, setShow] = useState(false)
+    const imgUrl = image
+
     // State for image
-    const [PImage, setPImage] = useState(image)
+    const [PImage, setPImage] = useState("")
     // state to track when file is upload to firebase
     const [uploadValue, setUploadValue] = useState()
 
@@ -114,7 +116,7 @@ const ImageProfile = ({ image }) => {
                     <Avatar
                         sx={{ width: 250, height: 250 }}
                         alt="Profile Picture"
-                        src={PImage}
+                        src={PImage||imgUrl}
                     />
                 }
             </Badge>
