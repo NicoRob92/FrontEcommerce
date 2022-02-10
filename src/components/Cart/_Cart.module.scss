@@ -1,49 +1,78 @@
-@import "../../sass/variables.scss";
+@import '../../sass/variables.scss';
 
 .cart {
-  transition: all ease 0.3s;
+  transition: all ease 0.8s;
   position: fixed;
   right: 0;
-  top: 66px;
-  width: 18vw;
+  top: 7%;
+  width: 12%;
   height: 100vh;
-  background: linear-gradient(0deg, rgba(34,193,195,1) 0%, rgba(253,187,45,1) 100%);
-  border-radius: 10px;
+  background: linear-gradient(
+    0deg,
+    rgba(34, 193, 195, 1) 0%,
+    rgba(253, 187, 45, 1) 100%
+  );
   text-align: center;
   z-index: 1;
 }
 .closed {
   right: -100%;
+  transition: all ease 0.8s;
+
   position: fixed;
   transform: translateX(100%);
   top: 66;
   width: 18vw;
   height: 100vh;
-  background-color: linear-gradient(0deg, rgba(34,193,195,1) 0%, rgba(253,187,45,1) 100%);
+  background-color: linear-gradient(
+    0deg,
+    rgba(34, 193, 195, 1) 0%,
+    rgba(253, 187, 45, 1) 100%
+  );
   text-align: center;
 }
 .close {
   position: absolute;
-  right: 10px;
-  top: 10px;
-  font-size: 20px;
-  background-color: red;
-  width: 30px ;
-  height: auto;
-  color: white;
-  border-radius: 5px;
-  border: 1px solid black;
+  right: 5%;
+  top: .2%;
+  border-radius: 50%;
+  background-color: transparent;
+  border: none;
 }
 
 .title {
   display: flex;
   flex-flow: column wrap;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
+
+  h1 {
+    font-size: 1.6rem;
+    text-align: start;
+    width: 100%;
+    font-weight: bold;
+    font-family: 'Kaushan Script', cursive;
+  }
+  h5{
+    font-weight:bold;
+    width: 100%;
+    text-align: start;
+
+
+  }
 }
 
 .cartList {
-  height: 90vh;
+  height: 90%;
   display: flex;
   flex-flow: column;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.items{
+  width: 97%;
+  min-height: 60vh;
+  overflow-y:scroll auto; 
+  overflow-x:hidden;
 }

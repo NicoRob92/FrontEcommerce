@@ -13,7 +13,7 @@ import EditIcon from '@mui/icons-material/Edit';
 const MyPostsCard = ({ id, name, Images, postStatus, price, ratingProm, stock, createdAt }) => {
     return (
         <Paper elevation={3}>
-            <Card sx={{ display: 'flex', width: 700 }}>
+            <Card sx={{ display: 'flex',justifyContent: 'space-between',width: 700 ,marginTop:'2%'}}>
                 <Box sx={{ display: 'flex', flexDirection: 'column' }}>
                     <CardContent sx={{ flex: '1 0 auto' }}>
                         <h4>{name}</h4>
@@ -23,7 +23,7 @@ const MyPostsCard = ({ id, name, Images, postStatus, price, ratingProm, stock, c
                         <p>Stado <span>{postStatus}</span></p>
                     </CardContent>
                     <Box sx={{ display: 'flex', alignItems: 'center', pl: 1, pb: 1 }}>
-                        <p>Creado: <span>{createdAt}</span></p>
+                        <p>Creado: <span>{createdAt.substring(0,10)}</span></p>
                     </Box>
                     <CardActions>
                         <Link to={`user/editpost/${id}`} style={{ textDecoration: 'none' }}>
@@ -35,7 +35,7 @@ const MyPostsCard = ({ id, name, Images, postStatus, price, ratingProm, stock, c
                 </Box>
                 <CardMedia
                     component="img"
-                    sx={{ width: 300 }}
+                    sx={{ width: '40%' , maxHeight:'313px', backgroundSize:'cover'}}
                     image={Images[0].link}
                 />
 
