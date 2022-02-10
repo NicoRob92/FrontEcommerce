@@ -1,5 +1,33 @@
-.container{
-    width: 80%;
-    outline:1px solid;
-    margin:10%;
+.container {
+    margin: 0 auto;
+    width: 80vw;
+    height: 65vh;
+    display: flex;
+}
+.imagen {
+    padding: 10px;
+    width: 50%;
+    justify-content: center;
+    align-items: center;
+}
+.imagen img {
+    width: 600px;
+    object-fit: contain;
+}
+.parrafo {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 50%;
+    //asd
+}
+.parrafo h1 {
+    font-size: 10rem;
+}
+.parrafo p {
+    font-size: 3rem;
+    text-align: center;
 }
