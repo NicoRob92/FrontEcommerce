@@ -13,7 +13,7 @@ const Search = () => {
   const { name } = useParams();
   const categories = useSelector((state) => state.reducer.categories);
   const chosenCategories = useSelector((state) => state.reducer.chosenCategories);
-  const postsByName = useSelector((state) => state.reducer.postsByName);
+  const postsByName = useSelector((state) => state.reducer.postsByName.filter(e => e.postStatus === 'Activo'));
   const filteredPostsByCategory = useSelector((state) => state.reducer.filteredPostsByCategory);
 
   const toShow = filteredPostsByCategory.length ? filteredPostsByCategory : postsByName;

@@ -6,9 +6,9 @@ import CardContent from '@mui/material/CardContent';
 const OrderCard = ({ ids, name, price }) => {
 
     return (
-        <Card sx={{ width: '100%', margin: '5px' }}>
+        <Card sx={{ width: '100%', height: '100%', margin: '5px' }}>
             <CardContent>
-                <h5>{name}</h5>
+                <h6>{name}</h6>
                 <h5 className={styles.card_title}>${price}</h5>
             </CardContent>
         </Card>
