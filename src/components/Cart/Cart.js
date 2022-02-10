@@ -71,8 +71,7 @@ const Cart = ({
  
 
   return (
-    <>
-    {console.log("me renderizo")}
+    
       <div className={styles.cartContainer}>
         <section className={styles.cart} ref={cart}>
           <div>
@@ -85,13 +84,7 @@ const Cart = ({
           </div>
           <div className={styles.title}>
             <h1>Tu carrito</h1>
-            
-          </div>
-          <div className={styles.amount}>
             <h5>Tu total: ${amount}</h5>
-          </div>
-          <div className={styles.title}>
-            
           </div>
           <div className={styles.cartList}>
             {cartState?.item?.map((post) => (
@@ -116,7 +109,7 @@ const Cart = ({
           </div>
         </section>
       </div>
-    </>
+    
   );
 };
 
