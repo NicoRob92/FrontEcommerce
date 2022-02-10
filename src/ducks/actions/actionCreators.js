@@ -45,6 +45,20 @@ export function resetPostByName() {
   }
 }
 
+export function setTotalAmount(value) {
+  return {
+    type: actionTypes.SET_TOTAL_AMOUNT,
+    payload: value
+  }
+}
+
+export function setTotalByProduct(value) {
+  return {
+    type: actionTypes.SET_TOTAL_AMOUNT_BY_PRODUCT,
+    payload: value
+  }
+}
+
 export function getPostById(id) {
   return function (dispatch) {
     fetch(`${getPostByIdUrl}/${id}`)
@@ -226,7 +240,6 @@ export function getUserById(id) {
     })
       .then((response) => response.json())
       .then((json) => {
-        console.log(json)
         dispatch({ type: actionTypes.GET_USER_BY_ID, payload: json });
       })
       .catch((e) => console.error(e));

@@ -1,0 +1,22 @@
+.Container {
+  background-image: url('https://wallpaperaccess.com/full/1216525.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100vh;
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: center;
+  align-items: center;
+
+}
+
+.message {
+  display: block;
+  font-family: 'Roboto', sans-serif;
+  font-weight: bold;
+  font-size: 30px;
+  background-color: white;
+  background-color: transparent;
+  text-shadow: 1px 2px 3px red;
+  padding: 10px 30px;
+}

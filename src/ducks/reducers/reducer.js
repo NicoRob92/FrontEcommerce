@@ -14,11 +14,24 @@ const initialState = {
   orders: [],
   reviews: [],
   name:'',
-  google:''
+  google:'',
+  amount: 0,
+  amountByPost: 0
 };
 
 export default function Product(state = initialState, action) {
   switch (action.type) {
+
+    case actionTypes.SET_TOTAL_AMOUNT:
+      return {
+        ...state,
+        amount: action.payload
+      }
+      case actionTypes.SET_TOTAL_AMOUNT_BY_PRODUCT:
+        return {
+          ...state,
+          amountByPost: action.payload
+        }
     case actionTypes.GET_POSTS:
       return {
         ...state,
@@ -88,7 +101,6 @@ export default function Product(state = initialState, action) {
               categories = post.Categories?.map((category) => category.id);
             } else if (!post.Categories.length) categories = [];
             categories = categories.sort((a, b) => a - b).toString();
-            console.log("categorias de los posts en orden ", categories);
             if (categories.includes(categoriesInOrder)) {
               return true;
             } else {
@@ -152,7 +164,6 @@ export default function Product(state = initialState, action) {
       name: action.payload
     }
     case 'GOOGLE':
-    console.log("GOOGLE", action.payload)  
     return{
       ...state,
       google:action.payload
