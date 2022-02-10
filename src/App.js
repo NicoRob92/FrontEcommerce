@@ -15,7 +15,7 @@ import FormUpdatePost from "./components/EditPost/FormUpdatePost";
 import { LoginView } from './Views/Login/LoginView'
 import {OrderDetail} from './containers/orderDetail/orderDetail'
 import MyPosts from "./Views/MyPosts/MyPosts";
-
+import Ventas from "./Views/Ventas/Ventas";
 import * as actionCreators from "./ducks/actions/actionCreators";
 
 import "./App.css";
@@ -64,6 +64,9 @@ const App = () => {
         </Route>
         <Route exact path="/compras">
           <Order />
+        </Route>
+        <Route exact path="/ventas">
+          <Ventas />
         </Route>
         <Route exact path="/my-posts">
           <MyPosts />

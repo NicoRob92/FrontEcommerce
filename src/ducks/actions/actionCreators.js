@@ -15,12 +15,9 @@ const OrderUser = api + 'customer/order-user/'
 const questions = api + 'customer/question'
 const createPostUrl = api+"admin/post"
 const putUserURL = api+"admin/user/"
-<<<<<<< HEAD
 const orderDetail = api+"customer/order-detail/"
-=======
 const UserPosts = api + "postbyuser/"
 
->>>>>>> ac35d2efb4b6308dad8c3dc775b1377e6d6fe72a
 export function getPosts() {
   return function (dispatch) {
     fetch(getPostsUrl)
@@ -163,6 +160,7 @@ export function getCategoryPost(categoryId) {
 }
 
 export function getOrders(token) {
+  console.log('hola')
   return function (dispatch) {
     return fetch(Orders, {
       method: "GET",
@@ -170,6 +168,7 @@ export function getOrders(token) {
     })
       .then((response) => response.json())
       .then((json) => {
+        console.log(json);
         dispatch({ type: actionTypes.GET_ORDERS, payload: json });
       })
       .catch((e) => console.error(e));
