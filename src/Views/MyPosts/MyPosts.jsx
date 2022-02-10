@@ -17,8 +17,8 @@ const MyPosts = () => {
     }, [])
     return (
         <div className={styles.container}>
-            <h1>Your Posts</h1>
             <Paper elevation={3}>
+            <h3 className={styles.container_title}>Your Posts</h3>
                 <Card sx={{ width: '100%' }}>
                     <CardContent>
                         {userPosts.map((e) => {

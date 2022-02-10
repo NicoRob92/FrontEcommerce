@@ -15,9 +15,10 @@ import SendIcon from '@mui/icons-material/Send';
 import styles from './_Questions.module.scss'
 import { replyQuestion, getPostById } from "../../ducks/actions/actionCreators";
 
-const QuestionCard = ({ postId,id, description, reply }) => {
-    const role = "Admin"
+const QuestionCard = ({ postId,id, description, reply,owner }) => {
+    const role = localStorage.getItem('rol')
     const token = localStorage.getItem('token')
+    let ownerInStg = localStorage.getItem('username')
     const dispatch = useDispatch()
     const [input, setInput] = useState('')
 
@@ -43,10 +44,17 @@ const QuestionCard = ({ postId,id, description, reply }) => {
             <Card>
                 <CardContent>
                     <h6>{description}</h6>
+                    <AccordionDetails>
+                        {reply ?
+                            reply
+                            :
+                            <p>No hay respuestas aún</p>
+                        }
+                    </AccordionDetails>
                 </CardContent>
                 <CardActions>
                     {
-                        role === "Admin" ?
+                        role === "admin"||ownerInStg==owner?
                             <Button size="small" startIcon={<ReplyIcon />} onClick={() => handleExpandClick()}>Responder</Button>
                             : null
                     }
@@ -78,21 +86,7 @@ const QuestionCard = ({ postId,id, description, reply }) => {
                     </CardContent>
                 </Collapse>
             </Card>
-            <Accordion>
-                <AccordionSummary
-                    expandIcon={<ExpandMoreIcon />}
-                >
-                    <p>Ver respuestas</p>
-                </AccordionSummary>
 
-                <AccordionDetails>
-                    {reply ?
-                        reply
-                        :
-                        <p>This product does not hay any reply from vendor</p>
-                    }
-                </AccordionDetails>
-            </Accordion>
         </div>
     )
 };
