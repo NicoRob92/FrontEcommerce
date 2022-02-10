@@ -48,12 +48,13 @@ const FormProductDetail = ({
   }
 
   return (
-    <div className="container">
+    <div className="p-5 m-3">
       <div className="mb-3">
         <label className="form-label"><h2>Titulo</h2></label>
         <input
           type="text"
           className="form-control"
+          accept="image/x-png,image/gif,image/jpeg"
           name="title"
           value={input.title}
           onChange={handleChange}

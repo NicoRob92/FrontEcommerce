@@ -160,7 +160,6 @@ export function getCategoryPost(categoryId) {
 }
 
 export function getOrders(token) {
-  console.log('hola')
   return function (dispatch) {
     return fetch(Orders, {
       method: "GET",

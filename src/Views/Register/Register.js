@@ -91,8 +91,9 @@ function Register(props) {
           ) : null}
         </div>
           <div className={style.uploadPhoto}>
-            <input type='file' name='image' onChange={handleUpload} />
-          </div>
+            <input accept="image/x-png,image/gif,image/jpeg" type='file' name='image' onChange={handleUpload} />
+
+           </div>
         </div>
         <hr />
         <div className={style.items}>

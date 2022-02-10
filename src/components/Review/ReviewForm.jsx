@@ -21,7 +21,6 @@ const ReviewForm = ({ ProductId, token , reviews}) => {
   const dispatch = useDispatch()
   const logged = localStorage.getItem('logged')
   const orderUser = useSelector((state) => state.orderUser.orderUsers);
-
   const userId = localStorage.getItem("userId");
   // rate stars state
   const [value, setValue] = useState(2)
@@ -49,21 +48,28 @@ const ReviewForm = ({ ProductId, token , reviews}) => {
 
      return  !reviewMade
   }
+  const handleLogged = () =>{
+    if (logged) {
+      dispatch(getOrdersUsers(userId, token))
+    }
+  }
   useEffect(() =>{
-    dispatch(getOrdersUsers(userId, token));
+    handleLogged()
   },[])
 
-  const validatePurchase = (id) => {
-    const checkData = orderUser.map((e) => {
-      const details = e.OrderDetail.map((e) =>{
-         return e.posts.id
+  const validatePurchase = (id, orders) => {
+    if (orders.length) {
+      const checkData = orders.map((e) => {
+        const details = e.OrderDetail.map((e) =>{
+           return e.posts.id
+        })
+         return details[0]
       })
-       return details[0]
-    })
-
-    return checkData.includes(parseInt(id))
+      return checkData.includes(parseInt(id))
+    } else {
+      return false
+    }
   }
-  // console.log(validatePurchase(ProductId));
 
   return (
     <div>
@@ -72,7 +78,7 @@ const ReviewForm = ({ ProductId, token , reviews}) => {
           <h6>Dejar una reseña</h6>
         </AccordionSummary>
         {
-          logged&&validatePermits() && validatePurchase(ProductId)?
+          logged&&validatePermits() && validatePurchase(ProductId, orderUser)?
 
           <AccordionDetails>
           <form onSubmit={handleSubmit}>
@@ -111,7 +117,7 @@ const ReviewForm = ({ ProductId, token , reviews}) => {
           </form>
         </AccordionDetails>
         :<>
-        <h5>No puedes hacer {validatePermits()||"más"} reseñas</h5>
+        <h5 className={st.no_purchase_Message}>No puedes hacer {validatePermits()||"más"} reseñas</h5>
          <h5 className={st.no_purchase_Message}>Recuerda que para hacer reseñas, debes comprar</h5>
          </>
       }
