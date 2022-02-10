@@ -65,7 +65,6 @@ const ReviewForm = ({ ProductId, token , reviews}) => {
         })
          return details[0]
       })
-  
       return checkData.includes(parseInt(id))
     } else {
       return false
