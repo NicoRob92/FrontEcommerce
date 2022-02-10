@@ -21,12 +21,18 @@ export default function Product(state = initialState, action) {
   switch (action.type) {
     case actionTypes.GET_POSTS:
       return {
-        ...state,posts: action.payload,
+        ...state,
+        posts: action.payload,
       };
     case actionTypes.GET_POSTS_BY_NAME:
       return {
         ...state,
         postsByName: action.payload,
+      };
+    case actionTypes.RESET_POST_BY_NAME:
+      return {
+        ...state,
+        postsByName: [],
       };
     case actionTypes.GET_CATEGORIES:
       return { ...state, categories: action.payload };
@@ -49,64 +55,73 @@ export default function Product(state = initialState, action) {
         postById: action.payload,
       };
 
-      case actionTypes.CHOOSE_CATEGORIES:
-        if (action.info === "add") {
-          return {
-            ...state,
-            chosenCategories: [...state.chosenCategories, action.payload],
-          };
-        } else if (action.info === "remove") {
-          return {
-            ...state,
-            chosenCategories: state.chosenCategories.filter((e, i) => i !== action.index),
-          };
-        }
-        break;
-  
-      case actionTypes.RESET_CATEGORIES:
+    case actionTypes.CHOOSE_CATEGORIES:
+      if (action.info === "add") {
         return {
           ...state,
-          chosenCategories: [],
+          chosenCategories: [...state.chosenCategories, action.payload],
+        };
+      } else if (action.info === "remove") {
+        return {
+          ...state,
+          chosenCategories: state.chosenCategories.filter(
+            (e, i) => i !== action.index
+          ),
+        };
+      }
+      break;
+
+    case actionTypes.RESET_CHOSEN_CATEGORIES:
+      return {
+        ...state,
+        chosenCategories: [],
+      };
+
+    case actionTypes.FILTER_POSTS_BY_CATEGORY:
+      if (action.info === "market") {
+        const categoriesInOrder = state.chosenCategories.sort((a, b) => a - b).toString();
+        return {
+          ...state,
+          filteredPostsByCategory: state.posts.filter((post) => {
+            let categories;
+            if (post.Categories.length) {
+              categories = post.Categories?.map((category) => category.id);
+            } else if (!post.Categories.length) categories = [];
+            categories = categories.sort((a, b) => a - b).toString();
+            console.log("categorias de los posts en orden ", categories);
+            if (categories.includes(categoriesInOrder)) {
+              return true;
+            } else {
+              return false;
+            }
+          }),
+        };
+      }
+      if (action.info === "search") {
+        const categoriesInOrder = state.chosenCategories.sort((a, b) => a - b).toString();
+        return {
+          ...state,
+          filteredPostsByCategory: state.postsByName.filter((post) => {
+            let categories;
+            if (post.Categories.length) {
+              categories = post.Categories?.map((category) => category.id);
+            } else if (!post.Categories.length) categories = [];
+            categories = categories.sort((a, b) => a - b).toString();
+            if (categories.includes(categoriesInOrder)) {
+              return true;
+            } else {
+              return false;
+            }
+          }),
+        };
+      }
+      if (action.info === "reset") {
+        return {
+          ...state,
           filteredPostsByCategory: [],
         };
-  
-      case actionTypes.FILTER_POSTS_BY_CATEGORY:
-        if (action.info === "market") {
-          const categoriesInOrder = state.chosenCategories.sort();
-          return {
-            ...state,
-            filteredPostsByCategory: state.posts.filter((post) => {
-              if (
-                categoriesInOrder
-                  .toString()
-                  .includes(String(post.Categories[0].id))
-              )
-                return true;
-              else return false;
-            }),
-          };
-        }
-        if (action.info === "search") {
-          console.log("antes", state.chosenCategories)
-          const categoriesInOrder = state.chosenCategories.sort((a,b) => a-b).toString();
-          
-          return {
-            ...state,
-            filteredPostsByCategory: state.postsByName.filter((post) => {
-              let categories = post.Categories.map((category) => category.id);
-              categories = categories.sort((a, b) => a - b).toString();
-              console.log("categorias elegidas en orden",categoriesInOrder)
-              console.log("categorias de cada post en orden",categories)
-              console.log("coinciden?", categories === categoriesInOrder)
-              if (categoriesInOrder.includes(categories)) {
-                return true
-              } else {
-                return false
-              }
-            })
-          };
-        }
-      break
+      }
+      break;
     case actionTypes.SET_CART:
       return {
         ...state,

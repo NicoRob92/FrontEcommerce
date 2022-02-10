@@ -11,6 +11,7 @@ const getCountriesUrl = api + 'countries';
 const Review = api + 'admin/review/';
 const publicReview = api + 'review/';
 const Orders = api + 'admin/orders';
+const OrderUser = api + 'customer/order-user/'
 const questions = api + 'customer/question'
 
 
@@ -37,6 +38,12 @@ export function getPostsByName(name) {
       .catch((err) => console.error(err));
   };
 }
+export function resetPostByName() {
+  return {
+    type: actionTypes.RESET_POST_BY_NAME
+  }
+}
+
 export function getPostById(id) {
   return function (dispatch) {
     fetch(`${getPostByIdUrl}/${id}`)
@@ -109,6 +116,12 @@ export function chooseCategories(category, info, index) {
   };
 }
 
+export function resetChosenCategories() {
+  return {
+    type: actionTypes.RESET_CHOSEN_CATEGORIES,
+  };
+}
+
 export function filterPostsByCategory(info) {
   return {
     type: actionTypes.FILTER_POSTS_BY_CATEGORY,
@@ -116,11 +129,7 @@ export function filterPostsByCategory(info) {
   };
 }
 
-export function resetCategories() {
-  return {
-    type: actionTypes.RESET_CATEGORIES,
-  };
-}
+
 
 export function setCart(post) {
   return {
@@ -298,4 +307,21 @@ export function changeName(input){
     payload:input
 
   }
+}
+
+export function getOrdersUsers(userId, token) {
+  return function (dispatch) {
+    return fetch(OrderUser + userId, {
+      method: "GET",
+      headers: {
+        'Content-Type': 'application/json',
+        'token' : token
+      },
+    })
+      .then((response) => response.json())
+      .then((json) => {
+        dispatch({ type: actionTypes.GET_ORDER_USERS, payload: json });
+      })
+      .catch((e) => console.error(e));
+  };
 }

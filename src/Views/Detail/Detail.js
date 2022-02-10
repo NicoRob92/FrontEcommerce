@@ -31,7 +31,7 @@ const CardDetail = () => {
   }
   return (
     <div className={styles.container}>
-      <Card className={styles.detail_container}>
+      <div className={styles.detail_container}>
         <div className={styles.left}>
         {postById.Images?.length > 0 ? (
           <DetailLeftCard postById={postById} />
@@ -43,7 +43,7 @@ const CardDetail = () => {
         </div>
         {/* Review section */}
 
-      </Card>
+      </div>
       <div>
           <h4>Reseñas y preguntas</h4>
           <hr/>
