@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import OrderCard from "../../components/OrderCard/OrderCard";
 import styles from './_Order.module.scss'
 
@@ -19,7 +20,7 @@ const OrderDetail = ({ id, OrderDetail, created, status, total }) => {
                 <h5 className={`h4 ${styles.title_product}`}>Products ({OrderDetail.length})</h5>
                 <div className={styles.detail_container}>
                     {OrderDetail.map((e) => {
-                        return <OrderCard id={e.posts.id} name={e.posts.name} price={e.posts.price} />
+                        return <Link to={`/detail/${id}`} style={{textDecoration: 'none'}}><OrderCard id={e.posts.id} name={e.posts.name} price={e.posts.price}/></Link>
                     })}
                 </div>
             </div>

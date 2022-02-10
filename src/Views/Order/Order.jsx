@@ -11,7 +11,6 @@ const Order = () => {
   const orderUser = useSelector((state) => state.orderUser.orderUsers);
   const userId = localStorage.getItem("userId");
   const token = localStorage.getItem("token");
-  console.log(orderUser);
   const [order, setOrder] = useState('')
 
   useEffect(() => {

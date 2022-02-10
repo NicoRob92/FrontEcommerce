@@ -15,7 +15,7 @@ import InputLabel from '@mui/material/InputLabel';
 import ListSubheader from '@mui/material/ListSubheader';
 
 
-const ListItemCountry = ({ label, text }) => {
+const ListItemCountry = ({ label, text ,submit}) => {
     const dispatch = useDispatch()
     const countries = useSelector((state) => state.reducer.countries)
     const userId = localStorage.getItem("userId")
@@ -37,7 +37,8 @@ const ListItemCountry = ({ label, text }) => {
     const handleSubmit = (e) => {
         e.preventDefault()
         dispatch(putUser(userId, input, type, token));
-        setInput('')
+        //setInput('')
+        submit()
         setVisible(false)
     }
 
@@ -75,10 +76,10 @@ const ListItemCountry = ({ label, text }) => {
                                     )
                                 })}
                             </Select>
-                            {input 
-                            ? 
+                            {input
+                            ?
                             <Button type="submit" size="small" sx={{ marginLeft: '5px' }} variant="outlined">Save</Button>
-                            : 
+                            :
                             <Button disabled type="submit" size="small" sx={{ marginLeft: '5px' }} variant="outlined">Save</Button>
                         }
                         </div>
@@ -86,7 +87,7 @@ const ListItemCountry = ({ label, text }) => {
                 </ListItem>
                 :
                 <ListItem disablePadding>
-                    <ListItemText primary={text} />
+                    <ListItemText primary={input||text} />
                 </ListItem>
             }
             {
