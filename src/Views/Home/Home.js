@@ -11,7 +11,6 @@ const Home = () => {
     state.reducer.posts.filter((post) => post.postStatus === 'Activo')
   );
   const userId = localStorage.getItem('userId');
-  console.log(posts);
   const user = useSelector((state) => state.user.user);
   const images = ['1', '2', '3', '4', '5'];
   const dispatch = useDispatch();

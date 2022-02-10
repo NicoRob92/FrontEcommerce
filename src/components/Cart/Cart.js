@@ -1,10 +1,11 @@
 import { useRef, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import EmailAddress from "../EmailAddress/EmailAddress";
-import {api} from '../../credentials'
-import { setAmount } from "../../helpers/setAmoun";
 
+import EmailAddress from "../EmailAddress/EmailAddress";
 import CartItem from "./CartItem";
+
+import { api } from '../../credentials'
+import { setAmount } from "../../helpers/setAmoun";
 
 import styles from "./_Cart.module.scss";
 import * as actionCreators from "../../ducks/actions/actionCreators"
@@ -21,12 +22,12 @@ const Cart = ({
   const [payLink, setPayLink] = useState(null);
   const [postsLength, setPostsLength] = useState(false);
   const amount = useSelector(state => state.reducer.amount)
-
   const dispatch = useDispatch()
 
   useEffect(()=>{
     setAmount(dispatch,actionCreators)
   },[])
+  console.log(cartState)
 
 
   const cart = useRef(null);
@@ -67,6 +68,7 @@ const Cart = ({
       })
       .catch((error) => console.error(error));
   };
+ 
 
   return (
     <>
@@ -98,6 +100,7 @@ const Cart = ({
                 name={post.title}
                 id={post.id}
                 quantity={post.quantity}
+                price={post.unit_price}
                 decrementQuantity={decrementQuantity}
                 incrementQuantity={incrementQuantity}
                 removePost={removePost}

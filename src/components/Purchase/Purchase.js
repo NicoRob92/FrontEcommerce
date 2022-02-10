@@ -51,7 +51,6 @@ const Purchase = ({ postById }) => {
         .then((res) => {
           if (res.status === 200 && res.statusText === 'OK') return res;
         })
-
         .then((res) => res.json())
         .then((res) => {
           setPayLink((prevState) => (prevState = res.res));
