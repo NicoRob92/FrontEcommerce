@@ -16,6 +16,7 @@ function Questions ({ PostId }){
     const token = localStorage.getItem('token')
     const [input, setInput] = useState('')
     const lQuestions = useSelector((state) => state.reducer.postById.Questions)
+    const owner = useSelector((state) => state.reducer.postById.User.username)
     const handleInputChange = (e) => {
         setInput(e.target.value)
     }
@@ -34,7 +35,7 @@ function Questions ({ PostId }){
             <div>
                 {lQuestions.length>0 ?
                     lQuestions.map((q) => (
-                        <QuestionCard postId={PostId}key={q.id} id={q.id} description={q.description} reply={q.reply} />
+                        <QuestionCard postId={PostId}key={q.id} id={q.id} description={q.description} reply={q.reply} owner={owner}/>
                     ))
                     : <h6>Este producto no tiene preguntas aun.</h6>
                 }
