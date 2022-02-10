@@ -16,7 +16,7 @@ const DetailRightCard = ({ postById }) => {
         <h3>Descripción</h3>
         <p>{postById?.description}</p>
       </div>
-      {postById.User?.username==localStorage.getItem("username")?
+      {postById.User?.username==localStorage.getItem("username")||localStorage.getItem("rol")=="admin"?
        <Link to={"/user/editpost/"+postById.id}><button className="btn btn-primary">Editar</button></Link>
        : null
       }

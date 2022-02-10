@@ -17,7 +17,7 @@ import SendIcon from '@mui/icons-material/Send';
 import TextField from "@mui/material/TextField";
 import Rating from "@mui/material/Rating";
 
-const ReviewForm = ({ ProductId, token }) => {
+const ReviewForm = ({ ProductId, token , reviews}) => {
   const logged = localStorage.getItem('logged')
   const dispatch = useDispatch()
   // rate stars state
@@ -26,7 +26,7 @@ const ReviewForm = ({ ProductId, token }) => {
   const userName = localStorage.getItem("username")
   // input state
   const [input, setInput] = useState('')
-
+  const message = <h1>Inicia sesión</h1>
   // handle input change
     const handleInput = (e) => {
       setInput(e.target.value)
@@ -39,6 +39,13 @@ const ReviewForm = ({ ProductId, token }) => {
     setValue(1)
   };
 
+  function validatePermits() {
+    let reviewMade= reviews.reduce((p,c)=>{
+      return p||c.author==userName
+    },false)
+
+     return  !reviewMade
+  }
   return (
     <div>
       <Accordion>
@@ -46,7 +53,7 @@ const ReviewForm = ({ ProductId, token }) => {
           <h6>Dejar una reseña</h6>
         </AccordionSummary>
         {
-          logged ?
+          logged&&validatePermits()?
           <AccordionDetails>
           <form onSubmit={handleSubmit}>
             {/* <div> */}
@@ -84,7 +91,7 @@ const ReviewForm = ({ ProductId, token }) => {
           </form>
         </AccordionDetails>
         :
-        <h5>You will be able to do it after your purchase.</h5>
+        <h5>No puedes hacer {validatePermits()||"más"} reseñas</h5>
         }
       </Accordion>
     </div>
