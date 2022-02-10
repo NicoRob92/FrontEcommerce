@@ -39,7 +39,7 @@ const Market = () => {
   const totalPages = getPages(postsToShow.length, postPerPage);
   let toSlice = getPostsToShow(currentPage, postPerPage);
   let finalPostsToShow = postsToShow?.slice(toSlice.first, toSlice.last);
-  
+
   const setPage = (e) => setCurrentPage((prevState) => (prevState = e.target.value));
 
   const setCategories = (e) => {
