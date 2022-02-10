@@ -44,7 +44,7 @@ const Search = () => {
   useEffect(() => {
     return () => {
       dispatch(actionCreators.resetChosenCategories());
-      dispatch(actionCreators.resetPostByName())
+      // dispatch(actionCreators.resetPostByName())
       dispatch(actionCreators.filterPostsByCategory('reset'))
     };
   }, []);
