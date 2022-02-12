@@ -31,11 +31,11 @@ const Ventas = () => {
   const elementos = orden.length > 0 && orden?.map((e) =>
     e.OrderDetail.filter((e) => e.UserId === Number(userId))
   );
-  const suma = elementos.lenght > 0 && elementos.map((e) =>
+  const suma = elementos.length > 0 && elementos.map((e) =>
     e.map((x) => x.amount * Number(x.posts.price))
   );
   
-  const total = suma.length > 0 && suma.map((e) => e.reduce((a, b) => a + b));
+  const total = suma?.map((e) => e.reduce((a, b) => a + b));
 
   console.log('suma', total);
   
@@ -104,7 +104,7 @@ const Ventas = () => {
         <div className={style.div4}>
           {' '}
           <div className={style.title}>Total</div>{' '}
-          {total.lenght > 0 && total?.map((e) => (
+          {total.length > 0 && total?.map((e) => (
             <div className={style.item}> $ {e}</div>
           ))}
         </div>

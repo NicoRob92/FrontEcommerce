@@ -24,10 +24,13 @@ const Home = () => {
     let element = document.getElementById('categories');
     element
       ? element?.classList.add(`${styles.categories}`)
-      : element?.classList.remove(`${styles.categories}`);
+      : element?.classList.remove(`${styles.categories}`);   
+  }, []);
+
+  useEffect(() =>{
     dispatch(getOrders(token));
     dispatch(getUserById(userId, token));
-  }, []);
+  },[dispatch])
   return (
     <div className={styles.container}>
       {/* Navbar */}

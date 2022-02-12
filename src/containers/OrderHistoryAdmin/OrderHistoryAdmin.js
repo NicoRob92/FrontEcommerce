@@ -11,6 +11,7 @@ export const OrderHistoryAdmin = () => {
   const token = localStorage.getItem('token');
   const orders = useSelector((state) => state.reducer.orders);
   const dispatch = useDispatch();
+  console.log(orders)
   const [filter, setFilter] = useState(null);
   const [current, setCurrent] = useState(1);
   const [currentStatus, setCurrentStatus] = useState(0);
