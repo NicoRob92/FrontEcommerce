@@ -45,7 +45,9 @@ const Home = () => {
             Ver todos
           </Link>
         </div>
+        <div className={styles.containerCar}>
         <Carrousel cards='5' arr={destacados} />
+        </div>
       </div>
 
       <span className={styles.separadorH} />
@@ -58,7 +60,9 @@ const Home = () => {
             Ver todos
           </Link>
         </div>
+        <div className={styles.containerCar}>
         <Carrousel cards='5' arr={recientes} />
+        </div>
       </div>
 
       {/* Footer */}
