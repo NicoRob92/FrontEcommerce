@@ -1,7 +1,6 @@
 import { Link, NavLink } from "react-router-dom";
 import OrderCard from "../../components/OrderCard/OrderCard";
 import styles from './_Order.module.scss'
-
 const OrderDetail = ({ id, OrderDetail, created, status, total }) => {
 
     return (

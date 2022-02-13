@@ -2,7 +2,16 @@
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  gap: 10px;
-  margin: 8px;
+  gap: 4%;
+  margin: 2%;
   font-size: 1.01rem;
+}
+
+@media screen and (max-width:1440px) {
+  .categorieContainer{
+    font-size: .7rem;
+    margin:4px;
+  }
+
+
 }
