@@ -1,30 +1,23 @@
-.container {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  overflow: hidden;
-  transition: all 0.5s;
-}
+
 
 .profile {
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
   align-content: center;
-  height: 60%;
-  width: 60%;
+  height: 80%;
+  width: 70%;
   font-family: 'Mitr', sans-serif;
   color: white;
+  
 }
 .button {
   height: 100%;
-  border: none;
-  width: 30%;
+  width: 50%;
   font-weight: 600;
   background-color: transparent;
   margin-left: 5%;
+  border:none;
 }
 
 .logout {
@@ -34,19 +27,20 @@
   background-color: #ed1e45;
 }
 .pic {
+  /* Ellipse 3 */
+  border: solid 1px black;
   width: 25%;
-  height: 95%;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
+  height: 100%;
   border-radius: 50%;
-  border: none;
-  outline: none;
-  margin: 0;
+  mix-blend-mode: normal;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  box-shadow: 0px 0px 22px -3px rgba(0, 0, 0, 1);
 }
 
 .menu {
-  position:absolute;
+  position: absolute;
   width: 12%;
   height: 100%;
   right: 0;

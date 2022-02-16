@@ -1,13 +1,13 @@
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import OrderCard from "../../components/OrderCard/OrderCard";
 import styles from './_Order.module.scss'
-
 const OrderDetail = ({ id, OrderDetail, created, status, total }) => {
 
     return (
         <div className={`card w-100 ${styles.order_detail_container}`}>
-            <div className="card-header">
-            Order ID:<span> {id}</span> 
+            <div className='card-header'>
+            Order ID:<span> {id}</span>  
+            <NavLink to={`/user/orderdetail/${id}`}>Detalle</NavLink>
             </div>
             <ul className="list-group list-group-flush">
                 <li className="list-group-item"><p className="h6">Status: </p>{status}</li>
