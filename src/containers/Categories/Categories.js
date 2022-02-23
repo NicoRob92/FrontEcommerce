@@ -1,16 +1,17 @@
-import { useLocation } from 'react-router-dom';
+import { useLocation } from "react-router-dom";
 
-import Categorie from '../../components/Categorie/Categorie';
-import FilterReset from '../../components/Filters/FilterReset';
-import FilterSubmit from '../../components/Filters/FilterSubmit';
+import Categorie from "../../components/Categorie/Categorie";
+import FilterReset from "../../components/Filters/FilterReset";
+import FilterSubmit from "../../components/Filters/FilterSubmit";
 
-import styles from './_Categories.module.scss';
+import styles from "./_Categories.module.scss";
 
 const Categories = ({ categories, setCategories, chosenCategories }) => {
   const location = useLocation();
   return (
-      <form className={styles.categoriesContainer} id='categories'> 
-        <div className={styles.categories}>
+    <form className={styles.categoriesContainer} id="categories">
+      <div className={styles.categories}>
+        <br></br>
         {categories?.map((e) => (
           <Categorie
             key={e.id}
@@ -20,12 +21,12 @@ const Categories = ({ categories, setCategories, chosenCategories }) => {
             chosenCategories={chosenCategories}
           />
         ))}
-        </div>
         <div className={styles.button}>
           <FilterReset setCategories={setCategories} />
           <FilterSubmit setCategories={setCategories} />
         </div>
-      </form>
+      </div>
+    </form>
   );
 };
 
