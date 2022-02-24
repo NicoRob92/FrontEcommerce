@@ -1,5 +1,3 @@
-
-
 .profile {
   display: flex;
   justify-content: space-around;
@@ -7,9 +5,8 @@
   align-content: center;
   height: 80%;
   width: 70%;
-  font-family: 'Mitr', sans-serif;
+  font-family: "Mitr", sans-serif;
   color: white;
-  
 }
 .button {
   height: 100%;
@@ -17,7 +14,7 @@
   font-weight: 600;
   background-color: transparent;
   margin-left: 5%;
-  border:none;
+  border: none;
 }
 
 .logout {
@@ -40,7 +37,7 @@
 }
 
 .menu {
-  position: absolute;
+  position: fixed;
   width: 12%;
   height: 100%;
   right: 0;
